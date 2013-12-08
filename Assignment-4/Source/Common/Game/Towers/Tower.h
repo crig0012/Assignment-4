@@ -15,6 +15,7 @@
 #include "../../Constants/Constants.h"
 #include "Projectiles.h"
 #include <vector>
+#include <time.h>
 
 class Enemy;
 class Player;
@@ -32,6 +33,9 @@ public:
 	virtual const char* getType() = 0;
 
 	virtual TowerType getTowerType();
+    
+    virtual void upgradeTower();
+    virtual int getUpgradeLevel();
 
 protected:
     void handlePlayerCollision(Projectile* projectile);
@@ -40,7 +44,12 @@ protected:
     
 private:
     std::vector<Enemy*> m_EnemyArray;
+    int m_UpgradeLevel;
     
+    time_t m_Then;
+    time_t m_Now;
+    
+    void setTime();
 };
 
 #endif /* defined(__GAM_1514_OSX_Game__Tower__) */

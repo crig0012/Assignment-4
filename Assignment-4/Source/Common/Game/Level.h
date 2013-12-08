@@ -41,6 +41,7 @@ public:
 	void mouseMovementEvent(float deltaX, float deltaY, float positionX, float positionY);
     void mouseLeftClickUpEvent(float positionX, float positionY);
     void keyUpEvent(int keyCode);
+    void keyDownEvent(int keyCode);
 	
 	//
     TileType getTileTypeForIndex(int index);

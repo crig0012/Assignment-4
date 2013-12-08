@@ -14,9 +14,12 @@
 #include "../../Utils/Utils.h"
 #include "Enemy.h"
 #include "Projectiles.h"
+#include "Constants.h"
+#include "../../Math/GDRandomSearch.h"
 
 Tower::Tower(Level* aLevel, TowerType towerType) : Player(aLevel),
-    m_TowerType(towerType)
+    m_TowerType(towerType),
+    m_Then(time(0))
 {
 
 }
@@ -26,8 +29,24 @@ Tower::~Tower()
     
 }
 
+void Tower::upgradeTower()
+{
+    if(m_UpgradeLevel != MAX_UPGRADE_LEVEL)
+    {
+        m_UpgradeLevel++;
+    }
+}
+
+int Tower::getUpgradeLevel()
+{
+    return m_UpgradeLevel;
+}
+
 void Tower::update(double delta)
 {
+    time(&m_Now);
+    float elapsedTime = m_Now - m_Then;
+    
     MathUtils mathUtils;
     m_EnemyArray = m_Level->getEnemies();
     
@@ -59,25 +78,56 @@ void Tower::update(double delta)
         }
     }
     
-    for(int i = 0; i < m_EnemyArray.size(); i++)
-    {
-        if(m_EnemyArray.at(i)->getIsActive() == false)
-        {
-            continue;
+    //for(int i = 0; i < m_EnemyArray.size(); i++)
+    //{
+        GDRandom random;
+        random.randomizeSeed();
+    
+        std::vector<int> usedEnemies;
+
+        int temp = -1;
+        
+        while (temp == - 1)
+		{
+			temp = random.random(m_EnemyArray.size());
+			
+            //Cycle through and ensure the index hasnt already been used
+            for(int j = 0; j < usedEnemies.size(); j++)
+            {
+                if(usedEnemies.at(j) == temp)
+                {
+                    temp = - 1;
+                    break;
+                }
+            }
         }
         
-        if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForPlayer(m_EnemyArray.at(i)), 600))
+        if(elapsedTime < 1)
         {
-            Tile* targetTile = m_Level->getTileForPlayer(m_EnemyArray.at(i));
+            return;
+        }
+        
+        if(m_EnemyArray.at(temp)->getIsActive() == false)
+        {
+            return;
+        }
+        
+        if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForPlayer(m_EnemyArray.at(temp)), 600))
+        {
+            Tile* targetTile = m_Level->getTileForPlayer(m_EnemyArray.at(temp));
             float centerX = targetTile->getX() + (targetTile->getWidth() / 2.0f);
             float centerY = targetTile->getY() + (targetTile->getHeight() / 2.0f);
             
             //Fire the projectiles
             fireProjectile(centerX, centerY);
 
-            usleep(1000000);
+            
+            time(&m_Then);
+            
+            //break;
+            //usleep(1000000);
         }
-    }
+    //}
 }
 
 void Tower::paint()
@@ -95,7 +145,7 @@ void Tower::reset()
 
 TowerType Tower::getTowerType()
 {
-    return  m_TowerType;
+    return m_TowerType;
 }
 
 void Tower::handlePlayerCollision(Projectile *projectile)

@@ -34,3 +34,4 @@ const char* AMMO_PICKUP_TYPE = "AmmoPickup";
 
 //Tower constants
 const char* BASIC_TOWER_TYPE = "BasicTower";
+const int MAX_UPGRADE_LEVEL = 4;

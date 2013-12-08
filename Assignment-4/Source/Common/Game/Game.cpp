@@ -114,6 +114,14 @@ void Game::mouseLeftClickUpEvent(float positionX, float positionY)
     }
 }
 
+void Game::keyDownEvent(int keyCode)
+{
+    if(m_Level != NULL)
+    {
+        m_Level->keyDownEvent(keyCode);
+    }
+}
+
 void Game::keyUpEvent(int keyCode)
 {
     if(m_Level != NULL)

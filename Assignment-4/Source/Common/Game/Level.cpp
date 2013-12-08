@@ -473,6 +473,50 @@ void Level::setTowerType(TowerType towerType)
     m_TowerType = towerType;
 }
 
+void Level::keyDownEvent(int keyCode)
+{
+    if(keyCode == KEYCODE_W)
+    {
+        int coordinateX = getTileCoordinateForPosition(getTileForPlayer(m_Hero)->getX());
+        int coordinateY = getTileCoordinateForPosition(getTileForPlayer(m_Hero)->getY() - 1);
+        
+        
+        Tile* newTile = getTileForCoordinates(coordinateX, coordinateY);
+        
+        m_Hero->setDestinationTile(newTile);
+    }
+    else if(keyCode == KEYCODE_S)
+    {
+        int coordinateX = getTileCoordinateForPosition(getTileForPlayer(m_Hero)->getX());
+        int coordinateY = getTileCoordinateForPosition(getTileForPlayer(m_Hero)->getY()) + 1;
+        
+        
+        Tile* newTile = getTileForCoordinates(coordinateX, coordinateY);
+        
+        m_Hero->setDestinationTile(newTile);
+    }
+    else if(keyCode == KEYCODE_A)
+    {
+        int coordinateX = getTileCoordinateForPosition(getTileForPlayer(m_Hero)->getX() - 1);
+        int coordinateY = getTileCoordinateForPosition(getTileForPlayer(m_Hero)->getY());
+        
+        
+        Tile* newTile = getTileForCoordinates(coordinateX, coordinateY);
+        
+        m_Hero->setDestinationTile(newTile);
+    }
+    else if(keyCode == KEYCODE_D)
+    {
+        int coordinateX = getTileCoordinateForPosition(getTileForPlayer(m_Hero)->getX()) + 1;
+        int coordinateY = getTileCoordinateForPosition(getTileForPlayer(m_Hero)->getY());
+        
+        
+        Tile* newTile = getTileForCoordinates(coordinateX, coordinateY);
+        
+        m_Hero->setDestinationTile(newTile);
+    }
+}
+
 void Level::keyUpEvent(int keyCode)
 {
     if(keyCode == KEYCODE_R)
@@ -483,11 +527,11 @@ void Level::keyUpEvent(int keyCode)
     {
         togglePaintTileIndexes();
     }
-	else if(keyCode == KEYCODE_S)
+	else if(keyCode == KEYCODE_Q)
 	{
 		togglePaintTileScoring();
 	}
-	else if(keyCode == KEYCODE_D)
+	else if(keyCode == KEYCODE_E)
 	{
 		m_Hero->getPathFinder()->togglePathFindingDelay();
 	}
@@ -563,7 +607,7 @@ void Level::load(const char* levelName)
 		//Delete the buffer, it was allocated on the heap after all
 		delete[] buffer;
 		buffer = NULL;
-	}
+    }
 	}
     else
     {
