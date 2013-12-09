@@ -17,6 +17,7 @@ public:
 	const char * getType();
 
 	void paint();
+    void update(double delta);
 
 	void mouseMovementEvent(float deltaX, float deltaY, float positionX, float positionY);
 	void keyUpEvent(int keyCode);

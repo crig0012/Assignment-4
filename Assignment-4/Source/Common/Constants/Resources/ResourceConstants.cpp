@@ -12,12 +12,8 @@ const int RES_TILE_SCORE_NUMBERS_COUNT = 10;
 
 //Tiles
 const char* RES_TILE_GROUND = "TileGround";
-const char* RES_TILE_GRASS = "TileGrass";
-const char* RES_TILE_WATER = "TileWater";
-const char* RES_TILE_ROCK = "TileRock";
-const char* RES_TILE_HOLE = "TileHole";
+const char* RES_TILE_WALL = "TileWall";
 const char* RES_TILE_TREE = "TileTree";
-const char* RES_TILE_CORE = "TileCore";
-
-//Towers
-const char* BASIC_TOWER = "TileTower";
+const char* RES_TILE_WATER = "TileWater";
+const char* RES_TILE_TOWER = "TileTower";
+const char* RES_TILE_CHEST = "TileChest";

@@ -83,6 +83,17 @@
 		69BB4163169B657A00B970A9 /* InputConstants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69BB4161169B657900B970A9 /* InputConstants.cpp */; };
 		69CB42FF17D7A8AD0005FEA6 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 69CB42FE17D7A8AD0005FEA6 /* Resources */; };
 		69CB430217D7A8C30005FEA6 /* OpenGLAnimatedTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69CB430017D7A8C30005FEA6 /* OpenGLAnimatedTexture.cpp */; };
+		6B665E891855518800B82003 /* ChestTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B665E731855518800B82003 /* ChestTile.cpp */; };
+		6B665E8A1855518800B82003 /* ClearOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B665E751855518800B82003 /* ClearOptions.cpp */; };
+		6B665E8B1855518800B82003 /* ExitOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B665E771855518800B82003 /* ExitOptions.cpp */; };
+		6B665E8C1855518800B82003 /* GroundTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B665E791855518800B82003 /* GroundTile.cpp */; };
+		6B665E8D1855518800B82003 /* SpawnPointEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B665E7B1855518800B82003 /* SpawnPointEnemy.cpp */; };
+		6B665E8E1855518800B82003 /* SpawnPointHero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B665E7D1855518800B82003 /* SpawnPointHero.cpp */; };
+		6B665E8F1855518800B82003 /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B665E7F1855518800B82003 /* Tile.cpp */; };
+		6B665E901855518800B82003 /* TowerTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B665E811855518800B82003 /* TowerTile.cpp */; };
+		6B665E911855518800B82003 /* TreeTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B665E831855518800B82003 /* TreeTile.cpp */; };
+		6B665E921855518800B82003 /* WallTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B665E851855518800B82003 /* WallTile.cpp */; };
+		6B665E931855518800B82003 /* WaterTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B665E871855518800B82003 /* WaterTile.cpp */; };
 		6BCA90D818523C8500123A0F /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BCA90D218523C8500123A0F /* Enemy.cpp */; };
 		6BCA90D918523C8500123A0F /* Hero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BCA90D418523C8500123A0F /* Hero.cpp */; };
 		6BCA90DA18523C8500123A0F /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BCA90D618523C8500123A0F /* Player.cpp */; };
@@ -99,13 +110,6 @@
 		B59D8D47184A65B70018FE28 /* LevelSelectMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B59D8D41184A65B70018FE28 /* LevelSelectMenu.cpp */; };
 		B59D8D48184A65B70018FE28 /* SettingsMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B59D8D43184A65B70018FE28 /* SettingsMenu.cpp */; };
 		B59D8D49184A65B70018FE28 /* Splash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B59D8D45184A65B70018FE28 /* Splash.cpp */; };
-		B59D8D5C184A668F0018FE28 /* GrassTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B59D8D4D184A668F0018FE28 /* GrassTile.cpp */; };
-		B59D8D5D184A668F0018FE28 /* GroundTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B59D8D4F184A668F0018FE28 /* GroundTile.cpp */; };
-		B59D8D5E184A668F0018FE28 /* HoleTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B59D8D51184A668F0018FE28 /* HoleTile.cpp */; };
-		B59D8D5F184A668F0018FE28 /* RockTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B59D8D53184A668F0018FE28 /* RockTile.cpp */; };
-		B59D8D60184A668F0018FE28 /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B59D8D55184A668F0018FE28 /* Tile.cpp */; };
-		B59D8D61184A668F0018FE28 /* TreeTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B59D8D57184A668F0018FE28 /* TreeTile.cpp */; };
-		B59D8D62184A668F0018FE28 /* WaterTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B59D8D59184A668F0018FE28 /* WaterTile.cpp */; };
 		B5E2F442184F89D900B731BC /* PauseMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5E2F440184F89D900B731BC /* PauseMenu.cpp */; };
 		B5E2F448184F92FE00B731BC /* BasicTower.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5E2F444184F92FE00B731BC /* BasicTower.cpp */; };
 		B5E2F449184F92FE00B731BC /* Tower.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5E2F446184F92FE00B731BC /* Tower.cpp */; };
@@ -263,6 +267,28 @@
 		69CB42FE17D7A8AD0005FEA6 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Resources; path = ../../Resources; sourceTree = "<group>"; };
 		69CB430017D7A8C30005FEA6 /* OpenGLAnimatedTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLAnimatedTexture.cpp; sourceTree = "<group>"; };
 		69CB430117D7A8C30005FEA6 /* OpenGLAnimatedTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLAnimatedTexture.h; sourceTree = "<group>"; };
+		6B665E731855518800B82003 /* ChestTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChestTile.cpp; sourceTree = "<group>"; };
+		6B665E741855518800B82003 /* ChestTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChestTile.h; sourceTree = "<group>"; };
+		6B665E751855518800B82003 /* ClearOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ClearOptions.cpp; sourceTree = "<group>"; };
+		6B665E761855518800B82003 /* ClearOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearOptions.h; sourceTree = "<group>"; };
+		6B665E771855518800B82003 /* ExitOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExitOptions.cpp; sourceTree = "<group>"; };
+		6B665E781855518800B82003 /* ExitOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExitOptions.h; sourceTree = "<group>"; };
+		6B665E791855518800B82003 /* GroundTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroundTile.cpp; sourceTree = "<group>"; };
+		6B665E7A1855518800B82003 /* GroundTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroundTile.h; sourceTree = "<group>"; };
+		6B665E7B1855518800B82003 /* SpawnPointEnemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpawnPointEnemy.cpp; sourceTree = "<group>"; };
+		6B665E7C1855518800B82003 /* SpawnPointEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpawnPointEnemy.h; sourceTree = "<group>"; };
+		6B665E7D1855518800B82003 /* SpawnPointHero.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpawnPointHero.cpp; sourceTree = "<group>"; };
+		6B665E7E1855518800B82003 /* SpawnPointHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpawnPointHero.h; sourceTree = "<group>"; };
+		6B665E7F1855518800B82003 /* Tile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tile.cpp; sourceTree = "<group>"; };
+		6B665E801855518800B82003 /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
+		6B665E811855518800B82003 /* TowerTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TowerTile.cpp; sourceTree = "<group>"; };
+		6B665E821855518800B82003 /* TowerTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TowerTile.h; sourceTree = "<group>"; };
+		6B665E831855518800B82003 /* TreeTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TreeTile.cpp; sourceTree = "<group>"; };
+		6B665E841855518800B82003 /* TreeTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TreeTile.h; sourceTree = "<group>"; };
+		6B665E851855518800B82003 /* WallTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WallTile.cpp; sourceTree = "<group>"; };
+		6B665E861855518800B82003 /* WallTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WallTile.h; sourceTree = "<group>"; };
+		6B665E871855518800B82003 /* WaterTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WaterTile.cpp; sourceTree = "<group>"; };
+		6B665E881855518800B82003 /* WaterTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterTile.h; sourceTree = "<group>"; };
 		6BCA90D218523C8500123A0F /* Enemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Enemy.cpp; sourceTree = "<group>"; };
 		6BCA90D318523C8500123A0F /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
 		6BCA90D418523C8500123A0F /* Hero.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Hero.cpp; sourceTree = "<group>"; };
@@ -275,8 +301,8 @@
 		B5722CBD182AAE1C00D8D306 /* GDRandomSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDRandomSearch.h; sourceTree = "<group>"; };
 		B57518DC1833DE6A00927C01 /* UIFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIFont.cpp; sourceTree = "<group>"; };
 		B57518DD1833DE6A00927C01 /* UIFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIFont.h; sourceTree = "<group>"; };
-		B57518EE1833DEA000927C01 /* GDRandom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GDRandom.cpp; sourceTree = "<group>"; };
-		B57518EF1833DEA000927C01 /* GDRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDRandom.h; sourceTree = "<group>"; };
+		B57518EE1833DEA000927C01 /* GDRandom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GDRandom.cpp; path = ../../Menus/GDRandom.cpp; sourceTree = "<group>"; };
+		B57518EF1833DEA000927C01 /* GDRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDRandom.h; path = ../../Menus/GDRandom.h; sourceTree = "<group>"; };
 		B57518F01833DEA000927C01 /* LoadedMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadedMenu.cpp; sourceTree = "<group>"; };
 		B57518F11833DEA000927C01 /* LoadedMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadedMenu.h; sourceTree = "<group>"; };
 		B57518F21833DEA000927C01 /* SaveMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SaveMenu.cpp; sourceTree = "<group>"; };
@@ -297,20 +323,6 @@
 		B59D8D44184A65B70018FE28 /* SettingsMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMenu.h; sourceTree = "<group>"; };
 		B59D8D45184A65B70018FE28 /* Splash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Splash.cpp; sourceTree = "<group>"; };
 		B59D8D46184A65B70018FE28 /* Splash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Splash.h; sourceTree = "<group>"; };
-		B59D8D4D184A668F0018FE28 /* GrassTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GrassTile.cpp; sourceTree = "<group>"; };
-		B59D8D4E184A668F0018FE28 /* GrassTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrassTile.h; sourceTree = "<group>"; };
-		B59D8D4F184A668F0018FE28 /* GroundTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroundTile.cpp; sourceTree = "<group>"; };
-		B59D8D50184A668F0018FE28 /* GroundTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroundTile.h; sourceTree = "<group>"; };
-		B59D8D51184A668F0018FE28 /* HoleTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HoleTile.cpp; sourceTree = "<group>"; };
-		B59D8D52184A668F0018FE28 /* HoleTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HoleTile.h; sourceTree = "<group>"; };
-		B59D8D53184A668F0018FE28 /* RockTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RockTile.cpp; sourceTree = "<group>"; };
-		B59D8D54184A668F0018FE28 /* RockTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RockTile.h; sourceTree = "<group>"; };
-		B59D8D55184A668F0018FE28 /* Tile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tile.cpp; sourceTree = "<group>"; };
-		B59D8D56184A668F0018FE28 /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
-		B59D8D57184A668F0018FE28 /* TreeTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TreeTile.cpp; sourceTree = "<group>"; };
-		B59D8D58184A668F0018FE28 /* TreeTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TreeTile.h; sourceTree = "<group>"; };
-		B59D8D59184A668F0018FE28 /* WaterTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WaterTile.cpp; sourceTree = "<group>"; };
-		B59D8D5A184A668F0018FE28 /* WaterTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterTile.h; sourceTree = "<group>"; };
 		B5E2F440184F89D900B731BC /* PauseMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PauseMenu.cpp; sourceTree = "<group>"; };
 		B5E2F441184F89D900B731BC /* PauseMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseMenu.h; sourceTree = "<group>"; };
 		B5E2F444184F92FE00B731BC /* BasicTower.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicTower.cpp; sourceTree = "<group>"; };
@@ -404,8 +416,6 @@
 				B59D8D44184A65B70018FE28 /* SettingsMenu.h */,
 				B59D8D45184A65B70018FE28 /* Splash.cpp */,
 				B59D8D46184A65B70018FE28 /* Splash.h */,
-				B57518EE1833DEA000927C01 /* GDRandom.cpp */,
-				B57518EF1833DEA000927C01 /* GDRandom.h */,
 				B57518F01833DEA000927C01 /* LoadedMenu.cpp */,
 				B57518F11833DEA000927C01 /* LoadedMenu.h */,
 				B57518F21833DEA000927C01 /* SaveMenu.cpp */,
@@ -570,6 +580,8 @@
 		698D703D169DF1040098C7D5 /* Math */ = {
 			isa = PBXGroup;
 			children = (
+				B57518EE1833DEA000927C01 /* GDRandom.cpp */,
+				B57518EF1833DEA000927C01 /* GDRandom.h */,
 				698D703E169DF1100098C7D5 /* MathUtils.cpp */,
 				698D703F169DF1100098C7D5 /* MathUtils.h */,
 			);
@@ -602,9 +614,9 @@
 		69BB408E1699BAA500B970A9 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				6B665E721855518800B82003 /* Tiles */,
 				6BCA90D118523C8500123A0F /* Players */,
 				B5E2F443184F92FE00B731BC /* Towers */,
-				B59D8D4A184A668F0018FE28 /* Tiles */,
 				B59D8D1C184A65A10018FE28 /* Pickups */,
 				B59D8D21184A65A10018FE28 /* Projectiles.cpp */,
 				B59D8D22184A65A10018FE28 /* Projectiles.h */,
@@ -736,6 +748,35 @@
 			name = App;
 			sourceTree = "<group>";
 		};
+		6B665E721855518800B82003 /* Tiles */ = {
+			isa = PBXGroup;
+			children = (
+				6B665E731855518800B82003 /* ChestTile.cpp */,
+				6B665E741855518800B82003 /* ChestTile.h */,
+				6B665E751855518800B82003 /* ClearOptions.cpp */,
+				6B665E761855518800B82003 /* ClearOptions.h */,
+				6B665E771855518800B82003 /* ExitOptions.cpp */,
+				6B665E781855518800B82003 /* ExitOptions.h */,
+				6B665E791855518800B82003 /* GroundTile.cpp */,
+				6B665E7A1855518800B82003 /* GroundTile.h */,
+				6B665E7B1855518800B82003 /* SpawnPointEnemy.cpp */,
+				6B665E7C1855518800B82003 /* SpawnPointEnemy.h */,
+				6B665E7D1855518800B82003 /* SpawnPointHero.cpp */,
+				6B665E7E1855518800B82003 /* SpawnPointHero.h */,
+				6B665E7F1855518800B82003 /* Tile.cpp */,
+				6B665E801855518800B82003 /* Tile.h */,
+				6B665E811855518800B82003 /* TowerTile.cpp */,
+				6B665E821855518800B82003 /* TowerTile.h */,
+				6B665E831855518800B82003 /* TreeTile.cpp */,
+				6B665E841855518800B82003 /* TreeTile.h */,
+				6B665E851855518800B82003 /* WallTile.cpp */,
+				6B665E861855518800B82003 /* WallTile.h */,
+				6B665E871855518800B82003 /* WaterTile.cpp */,
+				6B665E881855518800B82003 /* WaterTile.h */,
+			);
+			path = Tiles;
+			sourceTree = "<group>";
+		};
 		6BCA90D118523C8500123A0F /* Players */ = {
 			isa = PBXGroup;
 			children = (
@@ -770,27 +811,6 @@
 				B59D8D20184A65A10018FE28 /* Pickups.h */,
 			);
 			path = Pickups;
-			sourceTree = "<group>";
-		};
-		B59D8D4A184A668F0018FE28 /* Tiles */ = {
-			isa = PBXGroup;
-			children = (
-				B59D8D4D184A668F0018FE28 /* GrassTile.cpp */,
-				B59D8D4E184A668F0018FE28 /* GrassTile.h */,
-				B59D8D4F184A668F0018FE28 /* GroundTile.cpp */,
-				B59D8D50184A668F0018FE28 /* GroundTile.h */,
-				B59D8D51184A668F0018FE28 /* HoleTile.cpp */,
-				B59D8D52184A668F0018FE28 /* HoleTile.h */,
-				B59D8D53184A668F0018FE28 /* RockTile.cpp */,
-				B59D8D54184A668F0018FE28 /* RockTile.h */,
-				B59D8D55184A668F0018FE28 /* Tile.cpp */,
-				B59D8D56184A668F0018FE28 /* Tile.h */,
-				B59D8D57184A668F0018FE28 /* TreeTile.cpp */,
-				B59D8D58184A668F0018FE28 /* TreeTile.h */,
-				B59D8D59184A668F0018FE28 /* WaterTile.cpp */,
-				B59D8D5A184A668F0018FE28 /* WaterTile.h */,
-			);
-			path = Tiles;
 			sourceTree = "<group>";
 		};
 		B5E2F443184F92FE00B731BC /* Towers */ = {
@@ -872,6 +892,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69BB40D81699BAA500B970A9 /* GameConstants.cpp in Sources */,
+				6B665E911855518800B82003 /* TreeTile.cpp in Sources */,
 				69BB40D91699BAA500B970A9 /* Game.cpp in Sources */,
 				69BB40DA1699BAA500B970A9 /* InputManager.cpp in Sources */,
 				69BB40EB1699BAA500B970A9 /* Screen.cpp in Sources */,
@@ -885,6 +906,8 @@
 				69BB41561699C20500B970A9 /* OpenGLTextureManager.cpp in Sources */,
 				6BCA90D818523C8500123A0F /* Enemy.cpp in Sources */,
 				69BB415C1699C23E00B970A9 /* OpenGLView.mm in Sources */,
+				6B665E8E1855518800B82003 /* SpawnPointHero.cpp in Sources */,
+				6B665E8B1855518800B82003 /* ExitOptions.cpp in Sources */,
 				69BB415E1699C4BC00B970A9 /* main.m in Sources */,
 				69BB4160169B5FEA00B970A9 /* InputListener.cpp in Sources */,
 				69BB4163169B657A00B970A9 /* InputConstants.cpp in Sources */,
@@ -893,6 +916,7 @@
 				698BE6EA17D7ACCD00D2831E /* json_reader.cpp in Sources */,
 				698BE6EB17D7ACCD00D2831E /* json_value.cpp in Sources */,
 				698BE6ED17D7ACCD00D2831E /* json_writer.cpp in Sources */,
+				6B665E921855518800B82003 /* WallTile.cpp in Sources */,
 				698BE6EF17D7ACCD00D2831E /* pngerror.c in Sources */,
 				698BE6F017D7ACCD00D2831E /* pngget.c in Sources */,
 				698BE6F117D7ACCD00D2831E /* pngmem.c in Sources */,
@@ -900,7 +924,9 @@
 				698BE6F317D7ACCD00D2831E /* pngread.c in Sources */,
 				698BE6F417D7ACCD00D2831E /* pngrio.c in Sources */,
 				698BE6F517D7ACCD00D2831E /* pngrtran.c in Sources */,
+				6B665E901855518800B82003 /* TowerTile.cpp in Sources */,
 				698BE6F617D7ACCD00D2831E /* pngrutil.c in Sources */,
+				6B665E8D1855518800B82003 /* SpawnPointEnemy.cpp in Sources */,
 				698BE6F717D7ACCD00D2831E /* pngset.c in Sources */,
 				698BE6F917D7ACCD00D2831E /* pngtrans.c in Sources */,
 				698BE6FA17D7ACCD00D2831E /* pngwio.c in Sources */,
@@ -909,11 +935,14 @@
 				698BE6FD17D7ACCD00D2831E /* pngwutil.c in Sources */,
 				698BE6FE17D7ACCD00D2831E /* adler32.c in Sources */,
 				698BE6FF17D7ACCD00D2831E /* compress.c in Sources */,
+				6B665E8A1855518800B82003 /* ClearOptions.cpp in Sources */,
 				698BE70017D7ACCD00D2831E /* crc32.c in Sources */,
+				6B665E8F1855518800B82003 /* Tile.cpp in Sources */,
 				698BE70117D7ACCD00D2831E /* deflate.c in Sources */,
 				698BE70217D7ACCD00D2831E /* gzclose.c in Sources */,
 				698BE70317D7ACCD00D2831E /* gzlib.c in Sources */,
 				698BE70417D7ACCD00D2831E /* gzread.c in Sources */,
+				6B665E891855518800B82003 /* ChestTile.cpp in Sources */,
 				698BE70517D7ACCD00D2831E /* gzwrite.c in Sources */,
 				698BE70617D7ACCD00D2831E /* infback.c in Sources */,
 				698BE70717D7ACCD00D2831E /* inffast.c in Sources */,
@@ -936,10 +965,12 @@
 				69449625181AC14700E030C8 /* LevelEditor.cpp in Sources */,
 				69449628181ACC3F00E030C8 /* UISideMenu.cpp in Sources */,
 				6944962E181AD5A300E030C8 /* UIToggle.cpp in Sources */,
+				6B665E8C1855518800B82003 /* GroundTile.cpp in Sources */,
 				69177286181CB8AE0019F70B /* OpenGLTextureCache.cpp in Sources */,
 				6BCA90D918523C8500123A0F /* Hero.cpp in Sources */,
 				6917728C181DA4920019F70B /* Level.cpp in Sources */,
 				B5722CBB182AA41900D8D306 /* GDRandom.cpp in Sources */,
+				6B665E931855518800B82003 /* WaterTile.cpp in Sources */,
 				B5722CBE182AAE1C00D8D306 /* GDRandomSearch.cpp in Sources */,
 				B57518DE1833DE6A00927C01 /* UIFont.cpp in Sources */,
 				B57518F51833DEA000927C01 /* LoadedMenu.cpp in Sources */,
@@ -953,13 +984,6 @@
 				B59D8D47184A65B70018FE28 /* LevelSelectMenu.cpp in Sources */,
 				B59D8D48184A65B70018FE28 /* SettingsMenu.cpp in Sources */,
 				B59D8D49184A65B70018FE28 /* Splash.cpp in Sources */,
-				B59D8D5C184A668F0018FE28 /* GrassTile.cpp in Sources */,
-				B59D8D5D184A668F0018FE28 /* GroundTile.cpp in Sources */,
-				B59D8D5E184A668F0018FE28 /* HoleTile.cpp in Sources */,
-				B59D8D5F184A668F0018FE28 /* RockTile.cpp in Sources */,
-				B59D8D60184A668F0018FE28 /* Tile.cpp in Sources */,
-				B59D8D61184A668F0018FE28 /* TreeTile.cpp in Sources */,
-				B59D8D62184A668F0018FE28 /* WaterTile.cpp in Sources */,
 				B5E2F442184F89D900B731BC /* PauseMenu.cpp in Sources */,
 				B5E2F448184F92FE00B731BC /* BasicTower.cpp in Sources */,
 				B5E2F449184F92FE00B731BC /* Tower.cpp in Sources */,

@@ -14,16 +14,18 @@
 enum TileType
 {
   TileTypeGround = 1, //  (0000 0001)
-  TileTypeGrass = 2, //   (0000 0010)
-  TileTypeWater = 4, //   (0000 0100)
-  TileTypeRock = 8, //    (0000 1000)
-  TileTypeHole = 16, //   (0001 0000)
-  TileTypeTree = 32, //   (0010 0000)
+  TileTypeWater = 2, //   (0000 0010)
+  TileTypeTree = 4, //   (0000 0100)
+  TileTypeWall = 8, //    (0000 1000)
+  TileTypeTower = 16, //   (0001 0000)
+  TileTypeChest = 32, //   (0010 0000)
 
   //This count value must now be manually
   //updated when a new tile type is added
-  TileTypeUnknown = 6, 
-  TileTypeCount = -1 
+    TileTypeUnknown = -1,
+    TileTypeSpawnHero = 3,
+    TileTypeSpawnEnemy = 5,
+    TileTypeCount = 6
 };
 
 enum PickupType
@@ -38,11 +40,14 @@ enum PickupType
 
 enum TowerType
 {
-	TowerTypeBasic = 1
+	TowerTypeBasic = 128
 };
 
 //Level editor screen name
 extern const char* LEVEL_EDITOR_SCREEN_NAME;
+extern const char* SETTINGS_SCREEN_NAME;
+extern const char* SAVE_SCREEN_NAME;
+extern const char* LOAD_SCREEN_NAME;
 
 //Empty Level Constants
 extern const int EMPTY_LEVEL_TILE_SIZE;

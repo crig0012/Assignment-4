@@ -7,13 +7,14 @@
 extern const char* GAME_SCREEN_NAME;
 
 //Tile Constants
-extern const char* TILE_GROUND_TYPE;
-extern const char* TILE_GRASS_TYPE;
 extern const char* TILE_WATER_TYPE;
-extern const char* TILE_ROCK_TYPE;
-extern const char* TILE_HOLE_TYPE;
+extern const char* TILE_SPAWN_HERO_TYPE;
+extern const char* TILE_SPAWN_ENEMY_TYPE;
 extern const char* TILE_TREE_TYPE;
-extern const char* TILE_CORE_TYPE;
+extern const char* TILE_CHEST_TYPE;
+extern const char* TILE_WALL_TYPE;
+extern const char* TILE_GROUND_TYPE;
+extern const char* TILE_TOWER_TYPE;
 
 extern const int TILE_PADDING;
 

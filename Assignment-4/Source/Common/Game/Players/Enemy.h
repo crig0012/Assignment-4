@@ -2,7 +2,6 @@
 #define ENEMY_H
 
 
-
 #include "Player.h"
 
 
@@ -13,11 +12,12 @@ class Enemy : public Player
 {
 public:
 	Enemy(Level* level, float speed);
-	virtual ~Enemy();
+	~Enemy();
 
 	const char * getType();
+    
+    void update(double delta);
 
-	void update(double delta);
 	void paint();
 	void reset();
 
@@ -25,9 +25,8 @@ protected:
 	void handlePlayerCollision(Projectile* projectile);
 
 private:
-	Tile* m_Tile;
-	Hero* m_Hero;
 	OpenGLTexture* m_Bush;
+	Hero* m_Hero;
 };
 
 #endif

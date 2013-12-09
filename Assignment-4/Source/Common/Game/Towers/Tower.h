@@ -45,9 +45,12 @@ protected:
 private:
     std::vector<Enemy*> m_EnemyArray;
     int m_UpgradeLevel;
+    int m_FireRate;
     
     time_t m_Then;
     time_t m_Now;
+    
+    //bool m_IsActive;
     
     void setTime();
 };

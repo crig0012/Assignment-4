@@ -11,6 +11,7 @@
 
 SettingsMenu::SettingsMenu() : Menu(NULL, NULL)
 {
+    //TODO: Make toggles
     addButton(new UIButton("ButtonDifficulty"));
     addButton(new UIButton("ButtonScoreLimit"));
 	addButton(new UIButton("ButtonTimeLimit"));

@@ -22,7 +22,7 @@ class Tile : public GameObject
 public:
     //Tile takes on parameter, whether it can be walked on or not
 	Tile(TileType tileType, const char* tileTexture, bool isWalkableTile);
-	virtual ~Tile();
+	~Tile();
     
     //Update, Paint and reset methods
 	virtual void update(double delta);
@@ -40,10 +40,8 @@ public:
     
     //
     virtual TileType getTileType();
-	virtual float getTileSpeed();
-	virtual float getMovementCost();
-	int getCore();
-
+    virtual float getTileSpeed();
+    virtual float getMovementCost();
     
     //Is this a walkable tile, can the user walk on the tile
     virtual bool isWalkableTile();
@@ -56,9 +54,9 @@ public:
 	virtual void setIsPath(bool isPath);
 	virtual bool isPath();
     
-	virtual void setPickup(Pickup* pickup);
-	virtual Pickup* getPickup();
-
+    virtual void setPickup(Pickup* pickup);
+    virtual Pickup* getPickup();
+    
 protected:
     enum ScoreNumberPosition
     {
@@ -79,7 +77,7 @@ protected:
     OpenGLTexture* m_SelectedTile;
     OpenGLTexture** m_TileIndexNumbers;
     OpenGLTexture** m_TileScoreNumbers;
-	Pickup* m_Pickup;
+    Pickup* m_Pickup;
 };
 
 #endif

@@ -11,9 +11,11 @@
 
 #include "../Screen Manager/Screen.h"
 #include "../UI/UISideMenu.h"
+#include "../UI/UIFont.h"
 
 class UISideMenu;
 class Level;
+class Save;
 
 class LevelEditor : public Screen, public UISideMenuListener
 {
@@ -22,7 +24,7 @@ public:
     ~LevelEditor();
     
     const char* getName();
-
+    
     void update(double delta);
     void paint();
     void reset();
@@ -30,22 +32,30 @@ public:
     void mouseMovementEvent(float deltaX, float deltaY, float positionX, float positionY);
     void mouseLeftClickDownEvent(float positionX, float positionY);
     void mouseLeftClickUpEvent(float positionX, float positionY);
+    void setMouseCoordinates(float positionX, float positionY);
     void keyUpEvent(int keyCode);
-
     
-	void saveLevel(const char* levelName);
     void loadLevel(const char* levelName);
+    void saveLevel(const char* levelName);
     
 private:
     void sideMenuButtonAction(UISideMenu* sideMenu, UIButton* button, int buttonIndex);
     void sideMenuToggleAction(UISideMenu* sideMenu, UIToggle* toggle, int toggleIndex);
     
     UISideMenu* m_TilesMenu;
-	UISideMenu* m_TilesMenu2;
+	UISideMenu* m_OptionsMenu;
+    UISideMenu* m_PickupsMenu;
+	UISideMenu* m_SaveMenu;
+	UISideMenu* m_LoadMenu;
     Level* m_Level;
     
     bool m_IsMouseDown;
     int m_SelectedTileIndex;
+    unsigned int m_TileSize;
+    UIFont* m_Font;
+    
+    float m_MouseX;
+    float m_MouseY;
 };
 
 #endif /* defined(__GAM_1514_OSX_Game__LevelEditor__) */

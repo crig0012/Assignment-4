@@ -19,14 +19,15 @@
 
 Tower::Tower(Level* aLevel, TowerType towerType) : Player(aLevel),
     m_TowerType(towerType),
-    m_Then(time(0))
+    m_Then(time(0)),
+    m_UpgradeLevel(1)
 {
 
 }
 
 Tower::~Tower()
 {
-    
+    m_UpgradeLevel = 1;
 }
 
 void Tower::upgradeTower()
@@ -78,8 +79,6 @@ void Tower::update(double delta)
         }
     }
     
-    //for(int i = 0; i < m_EnemyArray.size(); i++)
-    //{
         GDRandom random;
         random.randomizeSeed();
     
@@ -102,7 +101,7 @@ void Tower::update(double delta)
             }
         }
         
-        if(elapsedTime < 1)
+        if(elapsedTime < (1/getUpgradeLevel()))
         {
             return;
         }
@@ -123,11 +122,7 @@ void Tower::update(double delta)
 
             
             time(&m_Then);
-            
-            //break;
-            //usleep(1000000);
         }
-    //}
 }
 
 void Tower::paint()
@@ -140,7 +135,7 @@ void Tower::paint()
 
 void Tower::reset()
 {
-    
+    setIsActive(false);
 }
 
 TowerType Tower::getTowerType()

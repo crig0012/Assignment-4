@@ -19,6 +19,7 @@
 Hero::Hero(Level* level) : Player(level)
 {
 	m_Player = new OpenGLTexture("Player");
+    m_Health = 3;
 }
 
 Hero::~Hero()
@@ -60,6 +61,13 @@ void Hero::mouseMovementEvent(float deltaX, float deltaY, float positionX, float
 	
 }
 
+void Hero::update(double delta)
+{
+    if(m_IsActive == false)
+        return;
+    Player::update(delta);
+}
+
 void Hero::mouseLeftClickUpEvent(float positionX, float positionY)
 {
 	Tile* tile = m_Level->getTileForPosition(positionX, positionY);
@@ -72,6 +80,9 @@ void Hero::mouseLeftClickUpEvent(float positionX, float positionY)
 
 void Hero::keyUpEvent(int keyCode)
 {
+    if(m_IsActive == false)
+        return;
+    
 	if(keyCode == KEYCODE_SPACE)
 	{
 		Tile* targetTile = m_Level->getTileForIndex(m_Level->getSelectedTileIndex());

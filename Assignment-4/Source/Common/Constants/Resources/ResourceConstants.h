@@ -12,14 +12,10 @@ extern const int RES_TILE_SCORE_NUMBERS_COUNT;
 
 //Tiles
 extern const char* RES_TILE_GROUND;
-extern const char* RES_TILE_GRASS;
-extern const char* RES_TILE_WATER;
-extern const char* RES_TILE_ROCK;
-extern const char* RES_TILE_HOLE;
+extern const char* RES_TILE_WALL;
 extern const char* RES_TILE_TREE;
-extern const char* RES_TILE_CORE;
+extern const char* RES_TILE_WATER;
+extern const char* RES_TILE_TOWER;
+extern const char* RES_TILE_CHEST;
 
-//Towers
-extern const char* BASIC_TOWER;
-
-#endif 
+#endif

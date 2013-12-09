@@ -11,6 +11,7 @@
 
 #include "../Constants/Constants.h"
 #include <vector>
+#include "PathFinder.h"
 
 
 class Tile;
@@ -21,6 +22,7 @@ class Enemy;
 class Pickup;
 class Projectile;
 class Tower;
+class PathFinderListener;
 
 class Level
 {
@@ -40,6 +42,7 @@ public:
     //Input methods
 	void mouseMovementEvent(float deltaX, float deltaY, float positionX, float positionY);
     void mouseLeftClickUpEvent(float positionX, float positionY);
+    void setMouseCoordinates(float positionX, float positionY);
     void keyUpEvent(int keyCode);
     void keyDownEvent(int keyCode);
 	
@@ -88,6 +91,7 @@ public:
     //Coveniance methods to toggle debug paint methods
     void togglePaintTileScoring();
     void togglePaintTileIndexes();
+	void randomizeLevel();
 
 	void getTileType();
 
@@ -104,9 +108,10 @@ protected:
    
 	//Protected Member variables
 	Hero* m_Hero;
+    PathFinder* m_PathFinder;
 	std::vector<Enemy*> m_Enemies;
 	Tile** m_Tiles;
-	Tower** m_Tower;
+	Tower** m_Towers;
     std::vector<Projectile*> m_Projectile;
 	Pickup* m_Pickup;
 	unsigned int m_HorizontalTiles;
@@ -117,6 +122,9 @@ protected:
 	int m_SelectedTileIndex;
     bool m_PaintTileScoring;
     bool m_PaintTileIndexes;
+    float m_MouseX;
+    float m_MouseY;
+    //PathFinderListener* m_Listener;
 };
 
 #endif

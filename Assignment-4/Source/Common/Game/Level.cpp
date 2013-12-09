@@ -15,12 +15,12 @@
 #include "Pickups/Pickups.h"
 #include "Pickups/AmmoPickup.h"
 #include "Tiles/Tile.h"
-#include "Tiles/GroundTile.h"
-#include "Tiles/GrassTile.h"
-#include "Tiles/WaterTile.h"
-#include "Tiles/RockTile.h"
-#include "Tiles/HoleTile.h"
 #include "Tiles/TreeTile.h"
+#include "Tiles/GroundTile.h"
+#include "Tiles/WaterTile.h"
+#include "Tiles/WallTile.h"
+#include "Tiles/TowerTile.h"
+#include "Tiles/ChestTile.h"
 #include "../Constants/Constants.h"
 #include "../Input/Input.h"
 #include "../Screen Manager/ScreenManager.h"
@@ -81,14 +81,16 @@ Level::Level(bool isEditingLevel) :
         m_Tiles[i] = NULL;
     }
     
-    //Allocate the tiles array, the inheriting class will populate this array with Tile objects
-	m_Tower = new Tower*[m_HorizontalTiles * m_VerticalTiles];
+    //Allocate the tower array, the inheriting class will populate this array with Tile objects
+	m_Towers = new Tower*[m_HorizontalTiles * m_VerticalTiles];
     
-    //Initialize all the tiles to NULL
+    //Initialize all the towers to NULL
     for(int i = 0; i < m_HorizontalTiles * m_VerticalTiles; i++)
     {
-        m_Tower[i] = NULL;
+        m_Towers[i] = NULL;
     }
+    
+    //m_PathFinder = new PathFinder(this, *m_Towers);
     
     //Load an empty level
     load(NULL);
@@ -133,26 +135,46 @@ Level::~Level()
 
 //Delete the tower array, the inheriting class
 //must delete the object in this array itself
-if(m_Tower != NULL)
+if(m_Towers != NULL)
 {
     //Cycle through and delete all the tower objects in the array
     for(int i = 0; i < getNumberOfTiles(); i++)  // MAKE A getNumberOfTowers() function
     {
-        if(m_Tower[i] != NULL)
+        if(m_Towers[i] != NULL)
         {
-            delete m_Tower[i];
-            m_Tower[i] = NULL;
+            delete m_Towers[i];
+            m_Towers[i] = NULL;
         }
     }
     
-    delete[] m_Tower;
-    m_Tower = NULL;
+    delete[] m_Towers;
+    m_Towers = NULL;
 }
 }
 
+void Level::randomizeLevel()
+{
+	GDRandom random;
+	random.randomizeSeed();
+    
+    TileType types[] = {TileTypeGround, TileTypeWater, TileTypeTree, TileTypeWall, TileTypeTower, TileTypeChest};
+    
+	for( int i = 0; i < getNumberOfTiles(); i++)
+	{
+        int index = random.random(TileTypeCount);
+		setTileTypeAtIndex(types[index], i);
+	}
+}
 
 void Level::update(double aDelta)
 {
+    if(m_Hero->getIsActive() == false)
+    {
+        //TODO: Make this GAME_OVER_SCREEN_NAME
+        ScreenManager::getInstance()->switchScreen(MAIN_MENU_SCREEN_NAME);
+    }
+    
+    
 	//Update all the game tiles
 	for(int i = 0; i < getNumberOfTiles(); i++)
 	{
@@ -165,9 +187,12 @@ void Level::update(double aDelta)
     //Update all the game towers
 	for(int i = 0; i < getNumberOfTiles(); i++) // MAKE A getNumberOfTowers() function
 	{
-		if(m_Tower[i] != NULL)
+		if(m_Towers[i] != NULL)
 		{
-			m_Tower[i]->update(aDelta);
+            if(m_Towers[i]->getIsActive() == true)
+            {
+                m_Towers[i]->update(aDelta);
+            }
 		}
 	}
     
@@ -227,16 +252,19 @@ void Level::paint()
 	for(int i = 0; i < getNumberOfTiles(); i++)
 	{
         //Safety check the tower
-		if(m_Tower[i] != NULL)
+		if(m_Towers[i] != NULL)
 		{
+            if(m_Towers[i]->getIsActive() == true)
+            {
             //Paint the tile
-            m_Tower[i]->paint();
+            m_Towers[i]->paint();
             
             //If the paint tile indexes flag is set to true,
             //draw the index number on the towers
             if(m_PaintTileIndexes == true)
             {
-                m_Tower[i]->paint();
+                m_Towers[i]->paint();
+            }
             }
 		}
 	}
@@ -331,9 +359,9 @@ void Level::reset()
     //Cycle through and reset all the towers
 	for(int i = 0; i < getNumberOfTiles(); i++)
 	{
-		if(m_Tower[i] != NULL)
+		if(m_Towers[i] != NULL)
 		{
-			m_Tower[i]->reset();
+			m_Towers[i]->reset();
 		}
 	}
     
@@ -348,74 +376,24 @@ void Level::reset()
 	//Set the enemy spawn at the top left corner(first tile)
 	for(int i = 0; i < enemies.size(); i++)
 	{
-
 		enemies.at(i)->setCurrentTile(getTileForIndex(0));
 		m_Hero->setCurrentTile(getTileForIndex(tileIndex));
 		enemies.at(i)->reset();
 		m_Hero->reset();
 	}
-
-
-	////Random number generator for the spawn indexes
-	//GDRandom random;
-	//random.randomizeSeed();
-	//int tileIndex = -1;
-	//std::vector<int> usedTileIndexes;
-
-	////Cycle through the Player objects
-	//for(int i = 0; i < players.size(); i++)
-	//{
-	//	// set tileIndex to - 1
-	//	tileIndex = - 1;
-
-	//	while (tileIndex == - 1)
-	//	{
-	//		tileIndex = random.random(getNumberOfTiles());
-
-	//		//Safety check that it is a walkable tile
-	//		if(getTileForIndex(tileIndex)->isWalkableTile() == false)
-	//		{
-	//			tileIndex = - 1;
-	//		}
-	//		else
-	//		{
-	//			//Cycle through and ensure the index hasnt already been used
-	//			for(int j = 0; j < usedTileIndexes.size(); j++)
-	//			{
-	//				if(usedTileIndexes.at(j) == tileIndex)
-	//				{
-	//					tileIndex = - 1;
-	//					break;
-	//				}
-	//			}
-
-	//			//Safety check that tileIndex isn't - 1
-	//			if(tileIndex != -1)
-	//			{
-	//				players.at(i)->setCurrentTile(getTileForIndex(tileIndex));
-	//				players.at(i)->reset();
-	//				usedTileIndexes.push_back(tileIndex);
-	//			}
-	//		}
-	//	}
-	//}
 }
 
 void Level::mouseMovementEvent(float deltaX, float deltaY, float positionX, float positionY)
 {
+    setMouseCoordinates(positionX, positionY);
+    
 	if(m_Hero != NULL)
 	{
 		m_Hero->mouseMovementEvent(deltaX, deltaY, positionX, positionY);
 	}
 
-
-
-
 	//Convert the mouse click position, into a tile index
 	int index = getTileIndexForPosition(positionX, positionY);
-    
-	//
-
         //Set the selected tile index
         setSelectedTileIndex(index);
         
@@ -428,24 +406,19 @@ void Level::mouseMovementEvent(float deltaX, float deltaY, float positionX, floa
                 m_Hero->mouseMovementEvent(deltaX, deltaY, positionX, positionY);
             }
         }
-      
+}
+
+void Level::setMouseCoordinates(float positionX, float positionY)
+{
+    m_MouseX = positionX / m_TileSize;
+    m_MouseY = positionY / m_TileSize;
 }
 
 void Level::mouseLeftClickUpEvent(float aPositionX, float aPositionY)
 {
-	////Convert the mouse click position, into a tile index
-	//int index = getTileIndexForPosition(aPositionX, aPositionY);
-
-	////Safety check that the tile isn't NULL
-	//if(m_Tiles[index] != NULL)
-	//{
-	//	TowerType types[] = {TowerTypeBasic};
-	//	TowerType type = types[m_SelectedTileIndex];
- //       setTowerTypeAtPosition(type, aPositionX, aPositionY);
-	//}
-
-
-
+    if(m_Hero->getIsActive() == false)
+        return;
+    
 	//Convert the mouse click position, into a tile index
 	int index = getTileIndexForPosition(aPositionX, aPositionY);
     
@@ -458,12 +431,10 @@ void Level::mouseLeftClickUpEvent(float aPositionX, float aPositionY)
         //If the tile is walkable, set the player's destination tile
         if(m_Tiles[index]->isWalkableTile() == true)    //Change this to false later, I only want towers on non walkable areas
         {
-            /*if(m_Hero != NULL)
-            {
-                m_Hero->mouseLeftClickUpEvent(aPositionX, aPositionY);
-            }*/
-
-            setTowerTypeAtPosition(m_TowerType, aPositionX, aPositionY);
+            //if(m_PathFinder->getPathNodeAtIndex(index) != NULL)
+            //{
+                setTowerTypeAtPosition(m_TowerType, aPositionX, aPositionY);
+            //}
         }
 	}
 }
@@ -519,7 +490,15 @@ void Level::keyDownEvent(int keyCode)
 
 void Level::keyUpEvent(int keyCode)
 {
-    if(keyCode == KEYCODE_R)
+    if(keyCode == KEYCODE_1)
+    {
+        setTowerType(TowerTypeBasic);
+    }
+    else if(keyCode == KEYCODE_2)
+    {
+        setTowerType(TowerTypeBasic);
+    }
+    else if(keyCode == KEYCODE_R)
     {
         reset();
     }
@@ -531,7 +510,7 @@ void Level::keyUpEvent(int keyCode)
 	{
 		togglePaintTileScoring();
 	}
-	else if(keyCode == KEYCODE_E)
+	else if(keyCode == KEYCODE_F)
 	{
 		m_Hero->getPathFinder()->togglePathFindingDelay();
 	}
@@ -539,6 +518,16 @@ void Level::keyUpEvent(int keyCode)
 	{
 		ScreenManager::getInstance()->switchScreen(PAUSE_MENU_SCREEN_NAME);
 	}
+    else if(keyCode == KEYCODE_U)
+    {
+        int index = getTileIndexForCoordinates(m_MouseX, m_MouseY);
+
+        if(getTileForPlayer(m_Towers[index]) != NULL)
+        {
+            m_Towers[index]->upgradeTower();
+        }
+       
+    }
     else if(keyCode == KEYCODE_0)
     {
         setTowerType(TowerTypeBasic);
@@ -556,7 +545,6 @@ void Level::load(const char* levelName)
 {
 	if(levelName != NULL)
 	{
-	
     std::ifstream inputStream;
 
 	// open the file
@@ -648,17 +636,17 @@ void Level::save(const char* levelName)
     //TODO: save the level
 
     int bufferSize = getNumberOfTiles();
-	char* Buuffer = new char[bufferSize];
+	char* Buffer = new char[bufferSize];
 
 	//Create the buffer
 	for( int i = 0; i < bufferSize; i++)
 	{
-		 Buuffer[i] = (char)getTileTypeForIndex(i);
+		 Buffer[i] = (char)getTileTypeForIndex(i);
 
 		 //Save the tile's pickup if there is one
 		 if(m_Tiles[i]->getPickup() != NULL && m_Tiles[i]->getPickup()->getPickupType() != PickupTypeUnknown)
 		 {
-			 Buuffer[i] |= m_Tiles[i]->getPickup()->getPickupType();
+			 Buffer[i] |= m_Tiles[i]->getPickup()->getPickupType();
 		 }
 	}
 
@@ -672,7 +660,7 @@ void Level::save(const char* levelName)
     if(outputStream.is_open() == true)
     {
         //Write the buffer
-        outputStream.write(Buuffer, bufferSize);
+        outputStream.write(Buffer, bufferSize);
         
         //Make sure to close the file stream
         outputStream.close();
@@ -684,8 +672,8 @@ void Level::save(const char* levelName)
     }
     
 	//Delete the buffer, it was allocated on the heap after all
-	delete[] Buuffer;
-	Buuffer = NULL;
+	delete[] Buffer;
+	Buffer = NULL;
 
 }
 
@@ -791,7 +779,8 @@ Tile* Level::getTileForIndex(int aIndex)
 
 Tile* Level::getTileForPlayer(Player* player)
 {
-	return getTileForPosition(player->getX(), player->getY());
+    if(player != NULL)
+        return getTileForPosition(player->getX(), player->getY());
 }
 
 void Level::setTileTypeAtPosition(TileType tileType, int positionX, int positionY)
@@ -828,25 +817,25 @@ void Level::setTileTypeAtIndex(TileType tileType, int index)
             case TileTypeGround:
                 m_Tiles[index] = new GroundTile();
                 break;
-
-			case TileTypeGrass:
-				m_Tiles[index] = new GrassTile();
+                
+            case TileTypeWater:
+                m_Tiles[index] = new WaterTile();
                 break;
-
-			case TileTypeWater:
-				m_Tiles[index] = new WaterTile();
+                
+            case TileTypeTree:
+                m_Tiles[index] = new TreeTile();
                 break;
-
-			case TileTypeRock:
-				m_Tiles[index] = new RockTile();
+                
+            case TileTypeWall:
+                m_Tiles[index] = new WallTile();
                 break;
-
-			case TileTypeHole:
-				m_Tiles[index] = new HoleTile();
+                
+            case TileTypeTower:
+                m_Tiles[index] = new TowerTile();
                 break;
-
-			case TileTypeTree:
-				m_Tiles[index] = new TreeTile();
+                
+            case TileTypeChest:
+                m_Tiles[index] = new ChestTile();
                 break;
 
             case TileTypeUnknown:
@@ -874,7 +863,7 @@ void Level::setTowerTypeAtIndex(TowerType towerType, int index)
     if(index >= 0 && index < getNumberOfTiles())
 	{
         //Don't replace the tile if its the same type of tile that already exists
-        if(m_Tower[index] != NULL && m_Tower[index]->getTowerType() == towerType)
+        if(m_Towers[index] != NULL && m_Towers[index]->getTowerType() == towerType)
         {
             return;
         }
@@ -883,21 +872,18 @@ void Level::setTowerTypeAtIndex(TowerType towerType, int index)
         switch (towerType)
         {
             case TowerTypeBasic:
-                m_Tower[index] = new BasicTower(this, 3);
+                m_Towers[index] = new BasicTower(this, 3);
                 break;
         }
         
         //Calculate the coordinates and set the tile position and size
         int coordinateX = (index % getNumberOfHorizontalTiles());
         int coordinateY = ((index - coordinateX) / getNumberOfHorizontalTiles());
-        m_Tower[index]->setPosition(coordinateX  * m_TileSize, coordinateY * m_TileSize);
-        m_Tower[index]->setSize(m_TileSize, m_TileSize);
-	}
+        m_Towers[index]->setPosition(coordinateX  * m_TileSize, coordinateY * m_TileSize);
+        m_Towers[index]->setSize(m_TileSize, m_TileSize);
+        
+        setTileTypeAtIndex(TileTypeTower, index);}
 }
-
-
-
-
 
 void Level::setPickupTypeAtPosition(PickupType pickupType, int positionX, int positionY)
 {

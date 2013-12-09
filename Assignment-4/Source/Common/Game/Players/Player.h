@@ -13,10 +13,12 @@
 #include "PathFinder.h"
 #include "Projectiles.h"
 #include <vector>
+#include <time.h>
 
 class Level;
 class Tile;
 class Pickup;
+class Hero;
 
 class Player : public GameObject, public PathFinderListener, public ProjectileListener
 {
@@ -65,7 +67,7 @@ protected:
 	void stopAnimating();
   bool isAnimating();
 
-  //Friend class Leel so that it can access the protected members
+  //Friend class Level so that it can access the protected members
   friend class Level;
 
 	//Now the member variables are protected and can be accessed by inheriting classes
@@ -79,7 +81,8 @@ protected:
 	int m_AnimationPathNodeIndex;
 	float m_Speed;
 	int m_Ammo;
-
+    time_t m_Now;
+    time_t m_Then;
 	int m_Health;
 	std::vector<Projectile*> m_Projectiles;
 };
