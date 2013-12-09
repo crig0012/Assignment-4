@@ -12,13 +12,14 @@
 #include "../Screen Manager/Screen.h"
 #include "../Constants/Constants.h"
 #include "../UI/UIButton.h"
+#include "../UI/UIToggle.h"
 #include <stdlib.h>
 #include <vector>
 
 
 class OpenGLTexture;
 
-class Menu : public Screen, public UIButtonListener
+class Menu : public Screen, public UIButtonListener, public UIToggleListener 
 {
 public:
     Menu(const char* background, const char* title, bool showBack = false);
@@ -41,7 +42,7 @@ protected:
     
     virtual void buttonIsSelected(UIButton* button);
     virtual void buttonAction(UIButton* button);
-    
+    virtual void buttonWasToggled(UIToggle* button);
 
     OpenGLTexture* m_Background;
     OpenGLTexture* m_Title;

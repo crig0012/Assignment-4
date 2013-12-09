@@ -9,9 +9,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "GameObject.h"
-#include "PathFinder.h"
-#include "Projectiles.h"
+#include "../GameObject.h"
+#include "../PathFinder.h"
+#include "../Projectiles.h"
 #include <vector>
 #include <time.h>
 

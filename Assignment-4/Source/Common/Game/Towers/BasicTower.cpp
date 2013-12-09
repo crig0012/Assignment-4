@@ -9,7 +9,7 @@
 
 #include "BasicTower.h"
 #include "../../OpenGL/OpenGL.h"
-#include "Tile.h"
+#include "../Tiles/Tile.h"
 
 
 

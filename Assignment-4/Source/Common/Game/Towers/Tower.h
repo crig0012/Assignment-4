@@ -11,9 +11,9 @@
 
 
 #include "../GameObject.h"
-#include "Player.h"
+#include "../Players/Player.h"
 #include "../../Constants/Constants.h"
-#include "Projectiles.h"
+#include "../Projectiles.h"
 #include <vector>
 #include <time.h>
 

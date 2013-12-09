@@ -1,13 +1,5 @@
-
-
-
-
-
-
-
-
 #include "Hero.h"
-#include "Level.h"
+#include "../Level.h"
 #include "../Tiles/Tile.h"
 #include "../../Constants/Constants.h"
 #include "../../Input/Input.h"
@@ -15,11 +7,10 @@
 #include "Enemy.h"
 #include "../../OpenGL/OpenGL.h"
 
-
 Hero::Hero(Level* level) : Player(level)
 {
 	m_Player = new OpenGLTexture("Player");
-    m_Health = 3;
+	m_Health = 3;
 }
 
 Hero::~Hero()
@@ -38,14 +29,14 @@ const char* Hero::getType()
 
 void Hero::paint()
 {
-    for(int i = 0; i < m_Projectiles.size(); i++)
+	for(int i = 0; i < m_Projectiles.size(); i++)
 	{
 		if(m_Projectiles.at(i)->getIsActive() == true)
 		{
 			m_Projectiles.at(i)->paint();
 		}
 	}
-    
+
 	OpenGLRenderer::getInstance()->drawTexture(m_Player, getX() - 2.5, getY() - 2.5, getWidth() + 5, getHeight() + 5);
 }
 
@@ -58,14 +49,15 @@ void Hero::mouseMovementEvent(float deltaX, float deltaY, float positionX, float
 		//in if you don't want the red retical to show up
 		m_Level->setSelectedTileIndex(m_Level->getTileIndexForTile(tile));
 	}
-	
+
 }
 
 void Hero::update(double delta)
 {
-    if(m_IsActive == false)
-        return;
-    Player::update(delta);
+	if(m_IsActive == false)
+		return;
+	//TODO: Switch to game over screen
+	Player::update(delta);
 }
 
 void Hero::mouseLeftClickUpEvent(float positionX, float positionY)
@@ -80,9 +72,9 @@ void Hero::mouseLeftClickUpEvent(float positionX, float positionY)
 
 void Hero::keyUpEvent(int keyCode)
 {
-    if(m_IsActive == false)
-        return;
-    
+	if(m_IsActive == false)
+		return;
+
 	if(keyCode == KEYCODE_SPACE)
 	{
 		Tile* targetTile = m_Level->getTileForIndex(m_Level->getSelectedTileIndex());

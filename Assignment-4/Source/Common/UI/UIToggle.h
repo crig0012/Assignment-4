@@ -10,13 +10,14 @@
 #define __GAM_1514_OSX_Game__UIToggle__
 
 #include "UIButton.h"
+#include <vector>
 
 class UIToggleListener;
 
 class UIToggle : public UIButton
 {
 public:
-    UIToggle(const char* textureFile);
+    UIToggle(const char* textureFile, int howManyToggles = -1);
     virtual ~UIToggle();
     
     void paint();
@@ -30,6 +31,9 @@ public:
     
 private:
     OpenGLTexture* m_ToggledState;
+	std::vector<OpenGLTexture*> m_ToggleVector;
+	int m_WhichToggle;
+	bool m_MultiToggle;
     bool m_IsToggled;
 };
 

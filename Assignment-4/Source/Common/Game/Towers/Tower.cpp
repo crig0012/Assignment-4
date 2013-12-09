@@ -7,14 +7,14 @@
 //
 
 #include "Tower.h"
-#include "Hero.h"
-#include "Level.h"
+#include "../Players/Hero.h"
+#include "../Level.h"
 #include "../../Game/Tiles/Tile.h"
 #include "../../Input/Input.h"
 #include "../../Utils/Utils.h"
-#include "Enemy.h"
-#include "Projectiles.h"
-#include "Constants.h"
+#include "../Players/Enemy.h"
+#include "../Projectiles.h"
+#include "../../Constants/Constants.h"
 #include "../../Math/GDRandomSearch.h"
 
 Tower::Tower(Level* aLevel, TowerType towerType) : Player(aLevel),

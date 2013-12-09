@@ -16,7 +16,6 @@
 MainMenu::MainMenu() : Menu(NULL, NULL)
 {
 	addButton(new UIButton("ButtonStart"));
-	//addButton(new UIButton("ButtonLevelSelect"));
     addButton(new UIButton("ButtonLevelEditor"));
 	addButton(new UIButton("ButtonSettings"));
     addButton(new UIButton("ButtonExit"));

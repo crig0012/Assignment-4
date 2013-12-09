@@ -7,7 +7,7 @@
 //
 
 #include "Tile.h"
-#include "Pickups.h"
+#include "../Pickups/Pickups.h"
 #include "../../OpenGL/OpenGL.h"
 #include "../../Utils/Utils.h"
 #include <stdlib.h>

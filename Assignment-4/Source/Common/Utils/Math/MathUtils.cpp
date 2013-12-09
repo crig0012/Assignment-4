@@ -9,9 +9,8 @@
 #include "MathUtils.h"
 #include <math.h>
 #include <stdlib.h>
-#include "Tile.h"
-#include "Level.h"
-
+#include "../../Game/Level.h"
+#include "../../Game/Tiles/Tile.h"
 
 unsigned int MathUtils::nextPowerOf2(unsigned int aValue)
 {

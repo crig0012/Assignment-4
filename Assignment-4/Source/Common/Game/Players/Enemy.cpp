@@ -4,13 +4,13 @@
 
 
 #include "Enemy.h"
-#include "Level.h"
+#include "../Level.h"
 #include "../Tiles/Tile.h"
 #include "Hero.h"
 #include "../../Utils/Utils.h"
 #include "../../Constants/Constants.h"
 #include "../../OpenGL/OpenGL.h"
-#include "GDRandom.h"
+#include "../../Math/GDRandom.h"
 
 
 Enemy::Enemy(Level* level, float speed) : Player(level),

@@ -7,14 +7,14 @@
 //
 
 #include "Player.h"
-#include "Level.h"
-#include "PathNode.h"
+#include "../Level.h"
+#include "../PathNode.h"
 #include "../Tiles/Tile.h"
 #include "../Pickups/AmmoPickup.h"
 #include "../../OpenGL/OpenGL.h"
 #include "../../Constants/Constants.h"
 #include "../../Utils/Utils.h"
-#include "Projectiles.h"
+#include "../Projectiles.h"
 #include <stdlib.h>
 #include <algorithm>
 #include <math.h>

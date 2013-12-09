@@ -244,3 +244,8 @@ void Menu::buttonAction(UIButton* button)
 {
     //
 }
+
+void Menu::buttonWasToggled(UIToggle* button)
+{
+	//
+}
