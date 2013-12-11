@@ -1,10 +1,4 @@
-
-
-
-
 #include "AmmoPickup.h"
-
-
 
 AmmoPickup::AmmoPickup(int ammoCount) : Pickup(PickupTypeAmmo),
 	m_AmmoCount(ammoCount)
@@ -12,6 +6,8 @@ AmmoPickup::AmmoPickup(int ammoCount) : Pickup(PickupTypeAmmo),
 	//TODO: The size should be that of the texture
 	//you use for the ammo pick (or any pick)
 	setSize(24.0f, 24.0f);
+	m_PickupTexture = new OpenGLTexture("AmmoV2");
+	
 }
 
 AmmoPickup::~AmmoPickup()

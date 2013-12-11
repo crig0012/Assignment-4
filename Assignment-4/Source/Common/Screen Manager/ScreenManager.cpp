@@ -2,7 +2,6 @@
 #include "Screen.h"
 #include "../Game/Game.h"
 #include "../Menus/Splash.h"
-#include "../Menus/LoadedMenu.h"
 #include "../Menus/SaveMenu.h"
 #include "../Menus/MainMenu.h"
 #include "../Menus/LevelSelectMenu.h"
@@ -64,7 +63,6 @@ void ScreenManager::loadScreens()
 	addScreen(new PauseMenu());
 	addScreen(new LevelSelectMenu());
 	addScreen(new SaveMenu());
-	addScreen(new LoadedMenu());
 	addScreen(new Game());
     addScreen(new LevelEditor());
 }

@@ -11,7 +11,7 @@
 
 #include "../Constants/Constants.h"
 #include <vector>
-#include "PathFinder.h"
+#include "Pathfinder/PathFinder.h"
 
 
 class Tile;

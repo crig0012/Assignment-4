@@ -232,8 +232,23 @@ void Player::fireProjectile(float x, float y)
 
 int Player::getLives()
 {
-    return m_Lives;
+	if(m_Lives != NULL)
+		return m_Lives;
 }
+
+int Player::getAmmo()
+{
+	if(m_Ammo != NULL)
+		return m_Ammo;
+}
+
+//TODO: Make this work
+/*
+time_t Player::getTime()
+{
+	return (getTimeNow - timeBegin);
+}
+*/
 
 void Player::applyDamage(int damage, int index)
 {

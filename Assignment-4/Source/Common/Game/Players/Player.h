@@ -30,7 +30,7 @@ public:
   //Update, paint and reset methods
 	void update(double delta);
 	void paint();
-  void reset();
+	void reset();
   
   //keep GameObject's pure virtual method, we dont need to reclare it pure, but
   //it makes it easier for inheriting classes to know that Player is abstract.
@@ -45,6 +45,7 @@ public:
 	void applyDamage(int damage, int index);
     
     int getLives();
+	int getAmmo();
 
 protected:
 	//Projectile listener methods

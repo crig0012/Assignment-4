@@ -89,6 +89,9 @@
     <Filter Include="Source Files\Game\Players">
       <UniqueIdentifier>{63718f81-143c-44c5-9387-03ab1567fad8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Pathfinder">
+      <UniqueIdentifier>{dd0c864a-f9b7-4489-89f2-24befed9dee3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -292,9 +295,6 @@
     <ClCompile Include="..\..\Common\Menus\SaveMenu.cpp">
       <Filter>Source Files\Menus</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Common\Menus\LoadedMenu.cpp">
-      <Filter>Source Files\Menus</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\UI\UIFont.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
@@ -373,14 +373,14 @@
     <ClCompile Include="..\..\Common\Game\Level.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Common\Game\PathFinder.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Common\Game\PathNode.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\Game\Projectiles.cpp">
       <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Game\Pathfinder\PathFinder.cpp">
+      <Filter>Source Files\Game\Pathfinder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Game\Pathfinder\PathNode.cpp">
+      <Filter>Source Files\Game\Pathfinder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -585,9 +585,6 @@
     <ClInclude Include="..\..\Common\Menus\SaveMenu.h">
       <Filter>Source Files\Menus</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\Menus\LoadedMenu.h">
-      <Filter>Source Files\Menus</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Common\UI\UIFont.h">
       <Filter>Source Files\UI</Filter>
     </ClInclude>
@@ -666,14 +663,14 @@
     <ClInclude Include="..\..\Common\Game\Level.h">
       <Filter>Source Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\Game\PathFinder.h">
-      <Filter>Source Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Common\Game\PathNode.h">
-      <Filter>Source Files\Game</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Common\Game\Projectiles.h">
       <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Game\Pathfinder\PathFinder.h">
+      <Filter>Source Files\Game\Pathfinder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Game\Pathfinder\PathNode.h">
+      <Filter>Source Files\Game\Pathfinder</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

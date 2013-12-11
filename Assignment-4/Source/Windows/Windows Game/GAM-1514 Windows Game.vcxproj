@@ -100,8 +100,8 @@
     <ClCompile Include="..\..\Common\Game\Game.cpp" />
     <ClCompile Include="..\..\Common\Game\GameObject.cpp" />
     <ClCompile Include="..\..\Common\Game\Level.cpp" />
-    <ClCompile Include="..\..\Common\Game\PathFinder.cpp" />
-    <ClCompile Include="..\..\Common\Game\PathNode.cpp" />
+    <ClCompile Include="..\..\Common\Game\Pathfinder\PathFinder.cpp" />
+    <ClCompile Include="..\..\Common\Game\Pathfinder\PathNode.cpp" />
     <ClCompile Include="..\..\Common\Game\Pickups\AmmoPickup.cpp" />
     <ClCompile Include="..\..\Common\Game\Pickups\Pickups.cpp" />
     <ClCompile Include="..\..\Common\Game\Players\Enemy.cpp" />
@@ -164,7 +164,6 @@
     <ClCompile Include="..\..\Common\Math\GDRandom.cpp" />
     <ClCompile Include="..\..\Common\Math\GDRandomSearch.cpp" />
     <ClCompile Include="..\..\Common\Menus\LevelSelectMenu.cpp" />
-    <ClCompile Include="..\..\Common\Menus\LoadedMenu.cpp" />
     <ClCompile Include="..\..\Common\Menus\MainMenu.cpp" />
     <ClCompile Include="..\..\Common\Menus\Menu.cpp" />
     <ClCompile Include="..\..\Common\Menus\PauseMenu.cpp" />
@@ -200,8 +199,8 @@
     <ClInclude Include="..\..\Common\Game\Game.h" />
     <ClInclude Include="..\..\Common\Game\GameObject.h" />
     <ClInclude Include="..\..\Common\Game\Level.h" />
-    <ClInclude Include="..\..\Common\Game\PathFinder.h" />
-    <ClInclude Include="..\..\Common\Game\PathNode.h" />
+    <ClInclude Include="..\..\Common\Game\Pathfinder\PathFinder.h" />
+    <ClInclude Include="..\..\Common\Game\Pathfinder\PathNode.h" />
     <ClInclude Include="..\..\Common\Game\Pickups\AmmoPickup.h" />
     <ClInclude Include="..\..\Common\Game\Pickups\Pickups.h" />
     <ClInclude Include="..\..\Common\Game\Players\Enemy.h" />
@@ -259,7 +258,6 @@
     <ClInclude Include="..\..\Common\Math\GDRandom.h" />
     <ClInclude Include="..\..\Common\Math\GDRandomSearch.h" />
     <ClInclude Include="..\..\Common\Menus\LevelSelectMenu.h" />
-    <ClInclude Include="..\..\Common\Menus\LoadedMenu.h" />
     <ClInclude Include="..\..\Common\Menus\MainMenu.h" />
     <ClInclude Include="..\..\Common\Menus\Menu.h" />
     <ClInclude Include="..\..\Common\Menus\PauseMenu.h" />

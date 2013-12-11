@@ -1,11 +1,9 @@
 #ifndef PICKUPS_H
 #define PICKUPS_H
 
-
-
 #include "../GameObject.h"
 #include "../../Constants/Constants.h"
-
+#include "../../OpenGL/OpenGLTexture.h"
 
 class Pickup : public GameObject
 {
@@ -23,6 +21,7 @@ public:
 
 protected:
 	PickupType m_PickupType;
+	OpenGLTexture* m_PickupTexture;
 };
 
 #endif

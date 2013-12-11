@@ -1,7 +1,6 @@
 #ifndef AMMOPICKUP_H
 #define AMMOPICKUP_H
 
-
 #include "Pickups.h"
 
 class AmmoPickup : public Pickup

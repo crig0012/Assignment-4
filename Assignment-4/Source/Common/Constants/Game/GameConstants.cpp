@@ -27,7 +27,7 @@ const char* HERO_TYPE = "Hero";
 
 //Enemy Constants
 const char* ENEMY_TYPE = "Enemy";
-const int ENEMY_COUNT = 1;
+const int ENEMY_COUNT = 4;
 
 //Ammo Pickup constants
 

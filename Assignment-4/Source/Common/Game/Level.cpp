@@ -10,7 +10,7 @@
 #include "Players/Player.h"
 #include "Players/Hero.h"
 #include "Players/Enemy.h"
-#include "PathFinder.h"
+#include "Pathfinder/PathFinder.h"
 #include "Game.h"
 #include "Pickups/Pickups.h"
 #include "Pickups/AmmoPickup.h"
@@ -30,7 +30,7 @@
 #include "../Math/GDRandomSearch.h"
 #include "../Game/Towers/Tower.h"
 #include "Towers/BasicTower.h"
-#include "UIFont.h"
+#include "../UI/UIFont.h"
 #include <algorithm>
 #include <sstream>
 
@@ -331,9 +331,18 @@ void Level::paint()
 	}
     
     //HUD
-        
+    //TODO: Make a member variable for isEditing    
     m_Font->setText(toConst("Lives: ", m_Hero->getLives()));
     m_Font->draw(50, 600);
+
+	m_Font->setText(toConst("Ammo: ", m_Hero->getAmmo()));
+    m_Font->draw(150, 600);
+
+	m_Font->setText(toConst("Score: ", m_Hero->getScore()));
+    m_Font->draw(200, 600);
+	//TODO: Make this work
+	//m_Font->setText(toConst("Time: ", m_Hero->getTime()));
+    //m_Font->draw(50, 600);
 }
 
 const char* Level::toConst(std::string stringToChange, int intToChange)
