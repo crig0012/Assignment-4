@@ -1,8 +1,3 @@
-
-
-
-
-
 #include "PauseMenu.h"
 #include "../UI/UIButton.h"
 #include "../Game/Game.h"
@@ -13,8 +8,8 @@
 
 PauseMenu::PauseMenu() : Menu(NULL, NULL)
 {
-	addButton(new UIButton("ButtonResume"));
-    addButton(new UIButton("ButtonQuit"));
+	addButton(new UIButton("Back"));
+    addButton(new UIButton("ButtonExit"));
 }
 
 PauseMenu::~PauseMenu()

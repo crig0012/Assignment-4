@@ -25,7 +25,7 @@ protected:
 	void handlePlayerCollision(Projectile* projectile);
 
 private:
-	OpenGLTexture* m_Bush;
+	OpenGLTexture* m_Enemy;
 	Hero* m_Hero;
 };
 

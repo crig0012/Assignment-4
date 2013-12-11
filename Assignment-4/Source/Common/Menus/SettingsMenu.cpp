@@ -11,14 +11,14 @@ SettingsMenu::SettingsMenu() : Menu(NULL, NULL),
 {
     //TODO: Make toggles
 	m_ButtonMenu = new UISideMenu(this, SideMenuLeft);
-    m_ButtonMenu->addButton(new UIToggle("ButtonDifficulty"));
+    m_ButtonMenu->addButton(new UIToggle("ButtonDifficulty"));	  //TODO: Make these
 	m_ButtonMenu->addButton(new UIToggle("ButtonScoreLimit"));
 	m_ButtonMenu->addButton(new UIToggle("ButtonTimeLimit"));
     
 	m_ToggleMenu = new UISideMenu(this, SideMenuRight);
 	m_ToggleMenu->addButton(new UIToggle("Tile", 9));
 
-	addButton(new UIButton("ButtonBack"));
+	addButton(new UIButton("Back"));
 
 	m_ButtonMenu->show();
 	m_ToggleMenu->show();

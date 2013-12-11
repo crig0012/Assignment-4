@@ -7,33 +7,13 @@
 #include "../Screen Manager/ScreenManager.h"
 #include "../Math/GDRandom.h"
 #include "../Math/GDRandomSearch.h"
-#include "../UI/UIFont.h"
 
 Game::Game()
 {
     //Create the level object
     m_Level = new Level();
 	
-    
-//    GDRandom random;
-//    random.randomizeSeed();
-//
-//    for(int i = 0; i < 10; i++)
-//    {
-//        Log::trace("%i", random.random(10));
-//
-//    }
-    
-    GDRandomSearch search(10);
-    for(int i = 0; i < 10; i++)
-    {
-        //Log::trace("%i", search.getNext());
-    }
-    
-    m_Font = new UIFont("NiksFont2");
-    m_Font->setText("Hello Monkey Man.,()!%?:");
-    
-    //Log::trace("%f, %f", m_Font->getWidth(), m_Font->getHeight());
+	//Log::trace("%f, %f", m_Font->getWidth(), m_Font->getHeight());
     
     //Reset everything
     reset();
@@ -46,12 +26,6 @@ Game::~Game()
     {
         delete m_Level;
         m_Level = NULL;
-    }
-    
-    if(m_Font != NULL)
-    {
-        delete m_Font;
-        m_Font = NULL;
     }
 }
 
@@ -70,11 +44,6 @@ void Game::paint()
     if(m_Level != NULL)
     {
         m_Level->paint();
-    }
-    
-    if(m_Font != NULL)
-    {
-        m_Font->draw(100.0f, 100.0f);
     }
 }
 

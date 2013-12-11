@@ -1,8 +1,3 @@
-
-
-
-
-
 #include "SaveMenu.h"
 #include "../UI/UIButton.h"
 #include "../Game/Game.h"
@@ -12,12 +7,13 @@
 
 SaveMenu::SaveMenu() : Menu(NULL, NULL)
 {
-    addButton(new UIButton("ButtonSaveFile1"));
-    addButton(new UIButton("ButtonSaveFile2"));
-    addButton(new UIButton("ButtonSaveFile3"));
-	addButton(new UIButton("ButtonSaveFile4"));
-    addButton(new UIButton("ButtonSaveFile5"));
-    addButton(new UIButton("ButtonSaveFile6"));
+    addButton(new UIButton("Slot1"));
+	addButton(new UIButton("SaveSlots"));
+	addButton(new UIButton("Slot3"));
+	addButton(new UIButton("Slot4"));
+	addButton(new UIButton("Slot5"));
+	addButton(new UIButton("Slot6"));
+	addButton(new UIButton("Back"));
 }
 
 SaveMenu::~SaveMenu()

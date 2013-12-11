@@ -124,7 +124,6 @@ protected:
     bool m_PaintTileIndexes;
     float m_MouseX;
     float m_MouseY;
-    //PathFinderListener* m_Listener;
 };
 
 #endif

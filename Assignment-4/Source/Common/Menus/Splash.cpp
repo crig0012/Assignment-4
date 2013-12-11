@@ -1,8 +1,3 @@
-
-
-
-
-
 #include "Splash.h"
 #include "../UI/UIButton.h"
 #include "../Screen Manager/ScreenManager.h"
@@ -10,7 +5,7 @@
 
 Splash::Splash() : Menu(NULL, NULL)
 {
-	addButton(new UIButton("PressSpace"));
+	addButton(new UIButton("ButtonLoadLevel"));	   //TODO: Make this an actual press space button
 }
 
 Splash::~Splash()

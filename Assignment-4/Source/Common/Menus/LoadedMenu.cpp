@@ -1,7 +1,3 @@
-
-
-
-
 #include "LoadedMenu.h"
 #include "../UI/UIButton.h"
 #include "../Game/Game.h"
@@ -12,12 +8,13 @@
 
 LoadedMenu::LoadedMenu() : Menu(NULL, NULL)
 {
-    addButton(new UIButton("ButtonLoadFile1"));
-    addButton(new UIButton("ButtonLoadFile2"));
-    addButton(new UIButton("ButtonLoadFile3"));
-	addButton(new UIButton("ButtonLoadFile4"));
-    addButton(new UIButton("ButtonLoadFile5"));
-    addButton(new UIButton("ButtonLoadFile6"));
+    addButton(new UIButton("Slot1"));
+	addButton(new UIButton("SaveSlots"));
+	addButton(new UIButton("Slot3"));
+	addButton(new UIButton("Slot4"));
+	addButton(new UIButton("Slot5"));
+	addButton(new UIButton("Slot6"));
+	addButton(new UIButton("Back"));
 }
 
 LoadedMenu::~LoadedMenu()

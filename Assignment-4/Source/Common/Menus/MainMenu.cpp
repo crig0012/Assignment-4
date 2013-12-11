@@ -15,9 +15,9 @@
 
 MainMenu::MainMenu() : Menu(NULL, NULL)
 {
-	addButton(new UIButton("ButtonStart"));
+	addButton(new UIButton("ButtonLoadLevel"));
     addButton(new UIButton("ButtonLevelEditor"));
-	addButton(new UIButton("ButtonSettings"));
+	addButton(new UIButton("ButtonLoadLevel"));	 //TODO: Replace with settings button
     addButton(new UIButton("ButtonExit"));
 }
 

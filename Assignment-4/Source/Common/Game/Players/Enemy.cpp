@@ -1,8 +1,3 @@
-
-
-
-
-
 #include "Enemy.h"
 #include "../Level.h"
 #include "../Tiles/Tile.h"
@@ -18,15 +13,15 @@ Enemy::Enemy(Level* level, float speed) : Player(level),
 {
 	m_Speed = speed;
 
-	m_Bush = new OpenGLTexture("BushFace");
+	m_Enemy = new OpenGLTexture("Enemy"); //TODO: Make one for the enemy and player
 }
 
 Enemy::~Enemy()
 {
-	if(m_Bush != NULL)
+	if(m_Enemy != NULL)
 	{
-		delete m_Bush;
-		m_Bush = NULL;
+		delete m_Enemy;
+		m_Enemy = NULL;
 	}
 }
 
@@ -72,19 +67,15 @@ void Enemy::update(double delta)
 
 void Enemy::paint()
 {
-	OpenGLRenderer::getInstance()->drawTexture(m_Bush, getX(), getY(), getWidth(), getHeight());
+	OpenGLRenderer::getInstance()->drawTexture(m_Enemy, getX(), getY(), getWidth(), getHeight());
     
     for(int i = 0; i < m_Projectiles.size(); i++)
 	{
 		if(m_Projectiles.at(i)->getIsActive() == true)
 		{
 			m_Projectiles.at(i)->paint();
-		}
+		}																														
 	}
-	/*OpenGLRenderer::getInstance()->setForegroundColor(OpenGLColorRed());
-	OpenGLRenderer::getInstance()->drawCircle(getX() + (getWidth() / 2), getY() + (getHeight() / 2), getWidth() / 2 );
-	OpenGLRenderer::getInstance()->setForegroundColor(PLAYER_OUTLINE_COLOR);
-	OpenGLRenderer::getInstance()->drawCircle(getX() + (getWidth() / 2), getY() + (getHeight() / 2), getWidth() / 2 , false);*/
 }
 
 void Enemy::reset()
@@ -109,7 +100,7 @@ void Enemy::handlePlayerCollision(Projectile* projectile)
 
 			if(hero == enemyPosition)
 			{
-				Log::debug("Enemy damaged the OIL reserve");
+				Log::debug("Enemy damaged the player");
 
 				enemy->setIsActive(false);
 			}
@@ -124,7 +115,7 @@ void Enemy::handlePlayerCollision(Projectile* projectile)
 			//Is the projectile on the same tile as the enemy?
 			if(tileProjectile == hero)
 			{
-				Log::debug("Enemy projecttile hit an enemy");
+				Log::debug("Enemy projectile hit the hero");
                 
 				//Apply damage to the enemy and set the projectile to inactive
 				m_Hero->applyDamage(projectile->getDamage());

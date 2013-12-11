@@ -1,8 +1,3 @@
-
-
-
-
-
 #include "Menu.h"
 
 class Splash : public Menu

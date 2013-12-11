@@ -1,7 +1,3 @@
-
-
-
-
 #include "LevelSelectMenu.h"
 #include "../UI/UIButton.h"
 #include "../Game/Game.h"

@@ -31,6 +31,7 @@
 #include "../Game/Towers/Tower.h"
 #include "Towers/BasicTower.h"
 
+//Make a getAmmo, getHealth, and getMoney function in hero  
 
 Level::Level(bool isEditingLevel) :
 m_HorizontalTiles(0),
@@ -142,6 +143,7 @@ Level::~Level()
 		{
 			if(m_Towers[i] != NULL)
 			{
+				m_Towers[i]->reset();
 				delete m_Towers[i];
 				m_Towers[i] = NULL;
 			}
@@ -536,62 +538,64 @@ void Level::keyUpEvent(int keyCode)
 
 void Level::load(const char* levelName)
 {
-	if(levelName != NULL)
-	{
-		std::ifstream inputStream;
+	//TODO: Fix the load
+	//TODO: Also, when you quit the game theres an exception, and doesnt stop debuggin
+	//if(levelName != NULL)
+	//{
+	//	std::ifstream inputStream;
 
-		// open the file
-		inputStream.open(levelName, std::ifstream::in | std::ifstream::binary);
+	//	// open the file
+	//	inputStream.open(levelName, std::ifstream::in | std::ifstream::binary);
 
-		//Unlike the output stream, if the input stream doesnt find the file, the input stream
-		//wont create it, and is_open will return false
-		if(inputStream.is_open() == true)
-		{
-			//determine how many bytes are in the file
-			inputStream.seekg(0, inputStream.end);
-			long long bufferSize = inputStream.tellg();
+	//	//Unlike the output stream, if the input stream doesnt find the file, the input stream
+	//	//wont create it, and is_open will return false
+	//	if(inputStream.is_open() == true)
+	//	{
+	//		//determine how many bytes are in the file
+	//		inputStream.seekg(0, inputStream.end);
+	//		long long bufferSize = inputStream.tellg();
 
-			//seek back to the start of the file for reading
-			inputStream.seekg(0, inputStream.beg);
+	//		//seek back to the start of the file for reading
+	//		inputStream.seekg(0, inputStream.beg);
 
-			//create a buffer for our data
-			char* buffer = new char[bufferSize];
+	//		//create a buffer for our data
+	//		char* buffer = new char[bufferSize];
 
-			//Read the data from input stream into our buffer
-			inputStream.read(buffer, (int)bufferSize);
+	//		//Read the data from input stream into our buffer
+	//		inputStream.read(buffer, (int)bufferSize);
 
-			//close the input stream 
-			inputStream.close();
+	//		//close the input stream 
+	//		inputStream.close();
 
-			// let's validate our buffer data
-			for(int i = 0; i < bufferSize; i++)
-			{
-				PickupType pickupType = PickupTypeUnknown;
+	//		// let's validate our buffer data
+	//		for(int i = 0; i < bufferSize; i++)
+	//		{
+	//			PickupType pickupType = PickupTypeUnknown;
 
-				//Check to see if the Buuffer[i] contains the AmmoPickup bit
-				if((buffer[i] & PickupTypeAmmo) > 0)
-				{
-					//It does
-					pickupType = PickupTypeAmmo;
+	//			//Check to see if the Buuffer[i] contains the AmmoPickup bit
+	//			if((buffer[i] & PickupTypeAmmo) > 0)
+	//			{
+	//				//It does
+	//				pickupType = PickupTypeAmmo;
 
-					//Clear the AmmoPickup bit
-					buffer[i] &= ~PickupTypeAmmo;
-				}
+	//				//Clear the AmmoPickup bit
+	//				buffer[i] &= ~PickupTypeAmmo;
+	//			}
 
-				//Set the tile type
-				setTileTypeAtIndex((TileType)buffer[i], i);
+	//			//Set the tile type
+	//			setTileTypeAtIndex((TileType)buffer[i], i);
 
-				//Set the Pickup type
-				setPickupTypeAtIndex(pickupType, i);
-			}
+	//			//Set the Pickup type
+	//			setPickupTypeAtIndex(pickupType, i);
+	//		}
 
-			//Delete the buffer, it was allocated on the heap after all
-			delete[] buffer;
-			buffer = NULL;
-		}
-	}
-	else
-	{
+	//		//Delete the buffer, it was allocated on the heap after all
+	//		delete[] buffer;
+	//		buffer = NULL;
+	//	}
+	//}
+	//else
+	//{
 		//Tile variables
 		int tileIndex = 0;
 		float tileX = 0.0f;
@@ -617,7 +621,7 @@ void Level::load(const char* levelName)
 			//Increment the tile y position and reset the tile x position, since we started a new row
 			tileY += m_TileSize;
 			tileX = 0.0f;
-		}
+		//}
 	}
 
 	//The level is loaded, reset everything

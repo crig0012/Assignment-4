@@ -1,9 +1,4 @@
-
-
-
-
 #include "Menu.h"
-
 
 class LevelSelectMenu : public Menu
 {

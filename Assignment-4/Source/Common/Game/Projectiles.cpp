@@ -1,5 +1,3 @@
-
-
 #include "Projectiles.h"
 #include "../Utils/Utils.h"
 #include <math.h>
