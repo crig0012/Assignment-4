@@ -97,13 +97,14 @@
 		6BCA90D818523C8500123A0F /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BCA90D218523C8500123A0F /* Enemy.cpp */; };
 		6BCA90D918523C8500123A0F /* Hero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BCA90D418523C8500123A0F /* Hero.cpp */; };
 		6BCA90DA18523C8500123A0F /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BCA90D618523C8500123A0F /* Player.cpp */; };
+		B0FC83C31858C52D0029D565 /* PathFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0FC83BF1858C52D0029D565 /* PathFinder.cpp */; };
+		B0FC83C41858C52D0029D565 /* PathNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0FC83C11858C52D0029D565 /* PathNode.cpp */; };
+		B0FC83C71858C6350029D565 /* FasterTower.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0FC83C51858C6350029D565 /* FasterTower.cpp */; };
 		B5722CBB182AA41900D8D306 /* GDRandom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5722CB9182AA41900D8D306 /* GDRandom.cpp */; };
 		B5722CBE182AAE1C00D8D306 /* GDRandomSearch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5722CBC182AAE1C00D8D306 /* GDRandomSearch.cpp */; };
 		B57518DE1833DE6A00927C01 /* UIFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B57518DC1833DE6A00927C01 /* UIFont.cpp */; };
 		B57518F51833DEA000927C01 /* LoadedMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B57518F01833DEA000927C01 /* LoadedMenu.cpp */; };
 		B57518F61833DEA000927C01 /* SaveMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B57518F21833DEA000927C01 /* SaveMenu.cpp */; };
-		B583EB84183556CB009C2FE7 /* PathNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B583EB82183556CB009C2FE7 /* PathNode.cpp */; };
-		B583EB8718355DE1009C2FE7 /* PathFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B583EB8518355DE1009C2FE7 /* PathFinder.cpp */; };
 		B59D8D36184A65A10018FE28 /* AmmoPickup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B59D8D1D184A65A10018FE28 /* AmmoPickup.cpp */; };
 		B59D8D37184A65A10018FE28 /* Pickups.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B59D8D1F184A65A10018FE28 /* Pickups.cpp */; };
 		B59D8D38184A65A10018FE28 /* Projectiles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B59D8D21184A65A10018FE28 /* Projectiles.cpp */; };
@@ -295,6 +296,12 @@
 		6BCA90D518523C8500123A0F /* Hero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hero.h; sourceTree = "<group>"; };
 		6BCA90D618523C8500123A0F /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		6BCA90D718523C8500123A0F /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		B0FC83BF1858C52D0029D565 /* PathFinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PathFinder.cpp; sourceTree = "<group>"; };
+		B0FC83C01858C52D0029D565 /* PathFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathFinder.h; sourceTree = "<group>"; };
+		B0FC83C11858C52D0029D565 /* PathNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PathNode.cpp; sourceTree = "<group>"; };
+		B0FC83C21858C52D0029D565 /* PathNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathNode.h; sourceTree = "<group>"; };
+		B0FC83C51858C6350029D565 /* FasterTower.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FasterTower.cpp; sourceTree = "<group>"; };
+		B0FC83C61858C6350029D565 /* FasterTower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FasterTower.h; sourceTree = "<group>"; };
 		B5722CB9182AA41900D8D306 /* GDRandom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GDRandom.cpp; sourceTree = "<group>"; };
 		B5722CBA182AA41900D8D306 /* GDRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDRandom.h; sourceTree = "<group>"; };
 		B5722CBC182AAE1C00D8D306 /* GDRandomSearch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GDRandomSearch.cpp; sourceTree = "<group>"; };
@@ -307,10 +314,6 @@
 		B57518F11833DEA000927C01 /* LoadedMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadedMenu.h; sourceTree = "<group>"; };
 		B57518F21833DEA000927C01 /* SaveMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SaveMenu.cpp; sourceTree = "<group>"; };
 		B57518F31833DEA000927C01 /* SaveMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveMenu.h; sourceTree = "<group>"; };
-		B583EB82183556CB009C2FE7 /* PathNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PathNode.cpp; sourceTree = "<group>"; };
-		B583EB83183556CB009C2FE7 /* PathNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathNode.h; sourceTree = "<group>"; };
-		B583EB8518355DE1009C2FE7 /* PathFinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PathFinder.cpp; sourceTree = "<group>"; };
-		B583EB8618355DE1009C2FE7 /* PathFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathFinder.h; sourceTree = "<group>"; };
 		B59D8D1D184A65A10018FE28 /* AmmoPickup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AmmoPickup.cpp; sourceTree = "<group>"; };
 		B59D8D1E184A65A10018FE28 /* AmmoPickup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmmoPickup.h; sourceTree = "<group>"; };
 		B59D8D1F184A65A10018FE28 /* Pickups.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pickups.cpp; sourceTree = "<group>"; };
@@ -614,16 +617,13 @@
 		69BB408E1699BAA500B970A9 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				B0FC83BE1858C52D0029D565 /* Pathfinder */,
 				6B665E721855518800B82003 /* Tiles */,
 				6BCA90D118523C8500123A0F /* Players */,
 				B5E2F443184F92FE00B731BC /* Towers */,
 				B59D8D1C184A65A10018FE28 /* Pickups */,
 				B59D8D21184A65A10018FE28 /* Projectiles.cpp */,
 				B59D8D22184A65A10018FE28 /* Projectiles.h */,
-				B583EB8518355DE1009C2FE7 /* PathFinder.cpp */,
-				B583EB8618355DE1009C2FE7 /* PathFinder.h */,
-				B583EB82183556CB009C2FE7 /* PathNode.cpp */,
-				B583EB83183556CB009C2FE7 /* PathNode.h */,
 				69BB408F1699BAA500B970A9 /* Game.cpp */,
 				69BB40901699BAA500B970A9 /* Game.h */,
 				69449601181ABCFA00E030C8 /* GameObject.cpp */,
@@ -790,6 +790,17 @@
 			path = Players;
 			sourceTree = "<group>";
 		};
+		B0FC83BE1858C52D0029D565 /* Pathfinder */ = {
+			isa = PBXGroup;
+			children = (
+				B0FC83BF1858C52D0029D565 /* PathFinder.cpp */,
+				B0FC83C01858C52D0029D565 /* PathFinder.h */,
+				B0FC83C11858C52D0029D565 /* PathNode.cpp */,
+				B0FC83C21858C52D0029D565 /* PathNode.h */,
+			);
+			path = Pathfinder;
+			sourceTree = "<group>";
+		};
 		B5722CB6182AA2FC00D8D306 /* Math */ = {
 			isa = PBXGroup;
 			children = (
@@ -816,6 +827,8 @@
 		B5E2F443184F92FE00B731BC /* Towers */ = {
 			isa = PBXGroup;
 			children = (
+				B0FC83C51858C6350029D565 /* FasterTower.cpp */,
+				B0FC83C61858C6350029D565 /* FasterTower.h */,
 				B5E2F444184F92FE00B731BC /* BasicTower.cpp */,
 				B5E2F445184F92FE00B731BC /* BasicTower.h */,
 				B5E2F446184F92FE00B731BC /* Tower.cpp */,
@@ -975,8 +988,6 @@
 				B57518DE1833DE6A00927C01 /* UIFont.cpp in Sources */,
 				B57518F51833DEA000927C01 /* LoadedMenu.cpp in Sources */,
 				B57518F61833DEA000927C01 /* SaveMenu.cpp in Sources */,
-				B583EB84183556CB009C2FE7 /* PathNode.cpp in Sources */,
-				B583EB8718355DE1009C2FE7 /* PathFinder.cpp in Sources */,
 				B59D8D36184A65A10018FE28 /* AmmoPickup.cpp in Sources */,
 				6BCA90DA18523C8500123A0F /* Player.cpp in Sources */,
 				B59D8D37184A65A10018FE28 /* Pickups.cpp in Sources */,
@@ -987,6 +998,9 @@
 				B5E2F442184F89D900B731BC /* PauseMenu.cpp in Sources */,
 				B5E2F448184F92FE00B731BC /* BasicTower.cpp in Sources */,
 				B5E2F449184F92FE00B731BC /* Tower.cpp in Sources */,
+				B0FC83C31858C52D0029D565 /* PathFinder.cpp in Sources */,
+				B0FC83C41858C52D0029D565 /* PathNode.cpp in Sources */,
+				B0FC83C71858C6350029D565 /* FasterTower.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

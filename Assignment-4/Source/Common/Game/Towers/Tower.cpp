@@ -167,7 +167,7 @@ void Tower::handlePlayerCollision(Projectile *projectile)
                 }
                 
                 //Apply damage to the enemy AND set the projectile to inactive
-                enemy->applyDamage(projectile->getDamage());
+                enemy->applyDamage(projectile->getDamage() * getUpgradeLevel() * .2, m_Level->getTileIndexForTile(enemyTile));
                 projectile->setIsActive(false);
             }
         }

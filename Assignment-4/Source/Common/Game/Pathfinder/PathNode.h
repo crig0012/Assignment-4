@@ -9,7 +9,7 @@
 #ifndef __GAM_1514_OSX_Game__PathNode__
 #define __GAM_1514_OSX_Game__PathNode__
 
-#include "../OpenGL/OpenGL.h"
+#include "../../OpenGL/OpenGL.h"
 
 
 class Tile;

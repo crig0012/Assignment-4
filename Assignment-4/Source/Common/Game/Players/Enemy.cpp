@@ -6,12 +6,14 @@
 #include "../../Constants/Constants.h"
 #include "../../OpenGL/OpenGL.h"
 #include "../../Math/GDRandom.h"
+#include "../Towers/Tower.h"
 
 
 Enemy::Enemy(Level* level, float speed) : Player(level),
     m_Hero(m_Level->getHero())
 {
 	m_Speed = speed;
+    m_Lives = 1;
 
 	m_Enemy = new OpenGLTexture("Enemy"); //TODO: Make one for the enemy and player
 }
@@ -32,27 +34,74 @@ const char* Enemy::getType()
 
 void Enemy::update(double delta)
 {
+    MathUtils mathUtils;
     Player::update(delta);
+    GDRandom random;
+    random.randomizeSeed();
+    
+    m_Towers = m_Level->getTowers();
+    
+    int min = 0;
+    int max = sizeof(m_Towers);
+    int towerToHunt = random.random(max-min);
     
     if(m_Hero == NULL || m_Hero->getIsActive() == false)
     {
         m_Level->getHero();
         return;
     }
+  
+    if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForTower(m_Towers[towerToHunt]), 100))
+    {
+        Player::setDestinationTile(m_Level->getTileForIndex(m_Level->getTileIndexForTower(m_Towers[towerToHunt])));
+    }
     
-    Player::setDestinationTile(m_Level->getTileForPlayer(m_Hero));
+    if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForPlayer(m_Hero), 100))
+    {
+        Player::setDestinationTile(m_Level->getTileForPlayer(m_Hero));
+    }
+    
+    else
+    {
+        random.randomizeSeed();
+        
+        int wayToGo = random.random(4);
+        
+        int coordinateX = m_Level->getTileCoordinateForPosition(m_Level->getTileForPlayer(this)->getX());
+		int coordinateY = m_Level->getTileCoordinateForPosition(m_Level->getTileForPlayer(this)->getY());
+        
+        switch (wayToGo)
+        {
+            case 0:
+                Player::setDestinationTile(m_Level->getTileForCoordinates(coordinateX, coordinateY - 1));
+                break;
+                
+            case 1:
+                Player::setDestinationTile(m_Level->getTileForCoordinates(coordinateX, coordinateY + 1));
+                break;
+                
+            case 2:
+                Player::setDestinationTile(m_Level->getTileForCoordinates(coordinateX - 1, coordinateY));
+                break;
+                
+            case 3:
+                Player::setDestinationTile(m_Level->getTileForCoordinates(coordinateX + 1, coordinateY));
+                break;
+                
+            default:
+                break;
+        }
+    }
     
     time(&m_Now);
-    float elapsedTime = m_Now - m_Then;
-    
-    MathUtils mathUtils;
+    float elapsedTime = m_Now - m_Then;    
     
     if(elapsedTime < 3)
     {
         return;
     }
     
-    if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForPlayer(m_Hero), 600))
+    if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForPlayer(m_Hero), 100))
     {
         Tile* targetTile = m_Level->getTileForPlayer(m_Hero);
         float centerX = targetTile->getX() + (targetTile->getWidth() / 2.0f);
@@ -118,7 +167,7 @@ void Enemy::handlePlayerCollision(Projectile* projectile)
 				Log::debug("Enemy projectile hit the hero");
                 
 				//Apply damage to the enemy and set the projectile to inactive
-				m_Hero->applyDamage(projectile->getDamage());
+				m_Hero->applyDamage(projectile->getDamage(), m_Level->getTileIndexForTile(tileProjectile));
 				projectile->setIsActive(false);
 			}
 		

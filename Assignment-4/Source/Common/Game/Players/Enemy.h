@@ -7,6 +7,7 @@
 
 class OpenGLTexture;
 class Hero;
+class Tower;
 
 class Enemy : public Player
 {
@@ -27,6 +28,7 @@ protected:
 private:
 	OpenGLTexture* m_Enemy;
 	Hero* m_Hero;
+    Tower** m_Towers;
 };
 
 #endif

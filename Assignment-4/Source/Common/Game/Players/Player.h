@@ -10,7 +10,7 @@
 #define PLAYER_H
 
 #include "../GameObject.h"
-#include "../PathFinder.h"
+#include "../Pathfinder/PathFinder.h"
 #include "../Projectiles.h"
 #include <vector>
 #include <time.h>
@@ -19,6 +19,7 @@ class Level;
 class Tile;
 class Pickup;
 class Hero;
+class Enemy;
 
 class Player : public GameObject, public PathFinderListener, public ProjectileListener
 {
@@ -41,7 +42,9 @@ public:
 
 	//Projectile methods
 	void fireProjectile(float x, float y);
-	void applyDamage(int damage);
+	void applyDamage(int damage, int index);
+    
+    int getLives();
 
 protected:
 	//Projectile listener methods
@@ -60,6 +63,9 @@ protected:
 	PathFinder* getPathFinder();
 	void findPath();
 
+    //Speed methods
+    float getSpeed();
+    void setSpeed(float speed);
 
   //Animation methods
   float animate(float current, float target, double delta, float speed);
@@ -85,6 +91,9 @@ protected:
     time_t m_Then;
 	int m_Health;
 	std::vector<Projectile*> m_Projectiles;
+    int m_Lives;
+    std::vector<Enemy*> m_EnemyArray;
+    
 };
 
 #endif

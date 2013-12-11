@@ -11,6 +11,9 @@ Hero::Hero(Level* level) : Player(level)
 {
 	m_Player = new OpenGLTexture("Player");
 	m_Health = 3;
+    m_Lives = 3;
+    m_Score = 0;
+    m_ScoreToLifeTracker = 0;
 }
 
 Hero::~Hero()
@@ -50,6 +53,24 @@ void Hero::mouseMovementEvent(float deltaX, float deltaY, float positionX, float
 		m_Level->setSelectedTileIndex(m_Level->getTileIndexForTile(tile));
 	}
 
+}
+
+void Hero::plusScore()
+{
+    m_Score++;
+    Log::debug("Score: %i", m_Score);
+    m_ScoreToLifeTracker++;
+    if(m_ScoreToLifeTracker >= 10)
+    {
+        m_Lives++;
+        Log::debug("Lives: %i", m_Lives);
+        m_ScoreToLifeTracker = 0;
+    }
+}
+
+int Hero::getScore()
+{
+    return m_Score;
 }
 
 void Hero::update(double delta)
@@ -102,10 +123,14 @@ void Hero::handlePlayerCollision(Projectile* projectile)
 			//Is the projectile on the same tile as the enemy?
 			if(tile == enemyTile)
 			{
-				Log::debug("Hero projecttile hit an enemy");
+				Log::debug("Hero projectile hit an enemy");
 
 				//Apply damage to the enemy and set the projectile to inactive
-				enemy->applyDamage(projectile->getDamage());
+				enemy->applyDamage(projectile->getDamage(), m_Level->getTileIndexForTile(enemyTile));
+                if(enemy->getIsActive() == false)
+                {
+                    plusScore();
+                }
 				projectile->setIsActive(false);
 			}
 		}

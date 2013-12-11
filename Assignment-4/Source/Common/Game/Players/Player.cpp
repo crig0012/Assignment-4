@@ -8,7 +8,7 @@
 
 #include "Player.h"
 #include "../Level.h"
-#include "../PathNode.h"
+#include "../Pathfinder/PathNode.h"
 #include "../Tiles/Tile.h"
 #include "../Pickups/AmmoPickup.h"
 #include "../../OpenGL/OpenGL.h"
@@ -59,6 +59,17 @@ Player::~Player()
 
 void Player::update(double aDelta)
 {
+    m_EnemyArray = m_Level->getEnemies();
+    
+    if(m_EnemyArray.size() <= 0)
+    {
+        if(getType() == HERO_TYPE)
+        {
+            m_Lives += 3;
+            Log::debug("Lives: i%", m_Lives);
+        }
+    }
+    
 	//Update the projectiles
 	for(int i = 0; i < m_Projectiles.size(); i++)
 	{
@@ -219,16 +230,33 @@ void Player::fireProjectile(float x, float y)
 	}
 }
 
-void Player::applyDamage(int damage)
+int Player::getLives()
+{
+    return m_Lives;
+}
+
+void Player::applyDamage(int damage, int index)
 {
 	m_Health -= damage;
-
+    
 	if(m_Health <= 0)
 	{
 		m_Health = 0;
-		setIsActive(false);
 
-		Log::debug("Player is dead");
+        m_Lives--;
+            
+        if(m_Lives <= 0)
+        {
+            setIsActive(false);
+            Log::debug("Player is dead");
+        }
+        
+        else
+        {
+            Log::debug("Player has lost a life, %i remaining", m_Lives);
+            m_Health = 3;
+        }
+		
 	}
 	else
 	{
@@ -247,6 +275,11 @@ void Player::setCurrentTile(Tile* tile)
 
 void Player::setDestinationTile(Tile* tile)
 {
+    if(tile == NULL)
+    {
+        return;
+    }
+    
 	//Set the destination tile pointer
 	m_DestinationTile = tile;
 
@@ -282,7 +315,7 @@ void Player::handleBoundsCollision(Projectile* projectile)
 		//If the tile object in NULL, it means the projectile is no longer in the level
 		projectile->setIsActive(false);
 
-		Log::debug("Prjectile went off screen");
+		Log::debug("Projectile went off screen");
 	}
 }
 
@@ -314,9 +347,19 @@ void Player::handleBoundsCollision(Projectile* projectile)
 		m_PathFinder->findPath(m_CurrentTile, m_DestinationTile);
 	}
 
+float Player::getSpeed()
+{
+    return m_Speed;
+}
+
+void Player::setSpeed(float speed)
+{
+    m_Speed = speed;
+}
+
 float Player::animate(float aCurrent, float aTarget, double aDelta, float speed)
 {
-    float increment = aDelta * m_Speed * (aTarget < aCurrent ? -1 : 1);
+    float increment = aDelta * m_Speed * speed * (aTarget < aCurrent ? -1 : 1);
     if(fabs(increment) > fabs(aTarget - aCurrent))
     {
         return aTarget;

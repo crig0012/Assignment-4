@@ -30,6 +30,9 @@
 #include "../Math/GDRandomSearch.h"
 #include "../Game/Towers/Tower.h"
 #include "Towers/BasicTower.h"
+#include "UIFont.h"
+#include <algorithm>
+#include <sstream>
 
 //Make a getAmmo, getHealth, and getMoney function in hero  
 
@@ -50,6 +53,7 @@ m_HorizontalTiles(0),
 	//Create the player object
 	if(isEditingLevel == false)
 	{
+        m_Font = new UIFont("BitmapFont");
 		//Create the hero object 
 		m_Hero = new Hero(this);
 
@@ -146,6 +150,7 @@ Level::~Level()
 				m_Towers[i]->reset();
 				delete m_Towers[i];
 				m_Towers[i] = NULL;
+                m_Tiles[i]->reset(); //TODO: See if this worked
 			}
 		}
 
@@ -166,6 +171,11 @@ void Level::randomizeLevel()
 		int index = random.random(TileTypeCount);
 		setTileTypeAtIndex(types[index], i);
 	}
+}
+
+Tower** Level::getTowers()
+{
+    return m_Towers;
 }
 
 void Level::update(double aDelta)
@@ -203,6 +213,22 @@ void Level::update(double aDelta)
 		if(m_Enemies.at(i)->getIsActive() == true)
 		{
 			m_Enemies.at(i)->update(aDelta);
+            if(m_Enemies.at(i)->getPathFinder() == NULL)
+            {
+                GDRandom random;
+                random.randomizeSeed();
+                
+                int min = 0;
+                
+                int max = sizeof(m_Towers);
+                
+                int towerToDestroy = random.random(max-min);
+                
+                m_Towers[towerToDestroy]->reset();
+                delete m_Towers[i];
+				m_Towers[i] = NULL;
+                m_Tiles[i]->reset(); //TODO: See if this worked
+            }
 		}
 	}
 
@@ -224,7 +250,7 @@ void Level::update(double aDelta)
 }
 
 void Level::paint()
-{
+{   
 	//Cycle through and paint all the tiles
 	for(int i = 0; i < getNumberOfTiles(); i++)
 	{
@@ -303,6 +329,27 @@ void Level::paint()
 			m_Pickup->paint();
 		}
 	}
+    
+    //HUD
+        
+    m_Font->setText(toConst("Lives: ", m_Hero->getLives()));
+    m_Font->draw(50, 600);
+}
+
+const char* Level::toConst(std::string stringToChange, int intToChange)
+{
+    std::string stringThing = stringToChange;
+    int intThing = intToChange;
+    
+    std::stringstream streamThing;
+    streamThing << intThing;
+    std::string lastStringThing = streamThing.str();
+    
+    stringThing += lastStringThing;
+    
+    const char* final = stringThing.c_str();
+    
+    return final;
 }
 
 void Level::reset()
@@ -426,10 +473,7 @@ void Level::mouseLeftClickUpEvent(float aPositionX, float aPositionY)
 		//If the tile is walkable, set the player's destination tile
 		if(m_Tiles[index]->isWalkableTile() == true)    //Change this to false later, I only want towers on non walkable areas
 		{
-			//if(m_PathFinder->getPathNodeAtIndex(index) != NULL)
-			//{
 			setTowerTypeAtPosition(m_TowerType, aPositionX, aPositionY);
-			//}
 		}
 	}
 }
@@ -491,7 +535,7 @@ void Level::keyUpEvent(int keyCode)
 	}
 	else if(keyCode == KEYCODE_2)
 	{
-		setTowerType(TowerTypeBasic);
+		setTowerType(TowerTypeFaster);
 	}
 	else if(keyCode == KEYCODE_R)
 	{
@@ -522,10 +566,6 @@ void Level::keyUpEvent(int keyCode)
 			m_Towers[index]->upgradeTower();
 		}
 
-	}
-	else if(keyCode == KEYCODE_0)
-	{
-		setTowerType(TowerTypeBasic);
 	}
 	else
 	{
@@ -747,6 +787,14 @@ int Level::getTileIndexForTile(Tile* aTile)
 	return getTileIndexForPosition(aTile->getX(), aTile->getY());
 }
 
+int Level::getTileIndexForTower(Tower* tower)
+{
+    if(tower != NULL)
+        return getTileIndexForPosition(tower->getX(), tower->getY());
+    else
+        return 0;
+}
+
 int Level::getTileIndexForPlayer(Player* player)
 {
 	return getTileIndexForPosition(player->getX(), player->getY());
@@ -835,6 +883,14 @@ void Level::setTileTypeAtIndex(TileType tileType, int index)
 			m_Tiles[index] = new ChestTile();
 			break;
 
+        case TileTypeSpawnEnemy:
+             m_Tiles[index] = new ChestTile();
+             break;
+
+        case TileTypeSpawnHero:
+             m_Tiles[index] = new ChestTile();
+             break;
+                
 		case TileTypeUnknown:
 		default:
 			m_Tiles[index] = NULL;
@@ -869,8 +925,12 @@ void Level::setTowerTypeAtIndex(TowerType towerType, int index)
 		switch (towerType)
 		{
 		case TowerTypeBasic:
-			m_Towers[index] = new BasicTower(this, 3);
+			m_Towers[index] = new BasicTower(this, 5);
 			break;
+                
+        case TowerTypeFaster:
+            m_Towers[index] = new BasicTower(this, 2);
+            break;
 		}
 
 		//Calculate the coordinates and set the tile position and size
@@ -879,7 +939,9 @@ void Level::setTowerTypeAtIndex(TowerType towerType, int index)
 		m_Towers[index]->setPosition(coordinateX  * m_TileSize, coordinateY * m_TileSize);
 		m_Towers[index]->setSize(m_TileSize, m_TileSize);
 
-		setTileTypeAtIndex(TileTypeTower, index);}
+		//setTileTypeAtIndex(TileTypeTower, index);
+        //TODO: Uncomment this?
+    }
 }
 
 void Level::setPickupTypeAtPosition(PickupType pickupType, int positionX, int positionY)

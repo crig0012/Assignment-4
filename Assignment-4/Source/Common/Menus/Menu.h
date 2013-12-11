@@ -19,7 +19,7 @@
 
 class OpenGLTexture;
 
-class Menu : public Screen, public UIButtonListener, public UIToggleListener 
+class Menu : public Screen, public UIToggleListener
 {
 public:
     Menu(const char* background, const char* title, bool showBack = false);

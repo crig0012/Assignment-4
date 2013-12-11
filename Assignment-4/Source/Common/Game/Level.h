@@ -23,6 +23,7 @@ class Pickup;
 class Projectile;
 class Tower;
 class PathFinderListener;
+class UIFont;
 
 class Level
 {
@@ -38,6 +39,9 @@ public:
     //
     void load(const char* levelName);
     void save(const char* levelName);
+    
+    //
+    const char* toConst(std::string stringToChange, int intToChange);
     
     //Input methods
 	void mouseMovementEvent(float deltaX, float deltaY, float positionX, float positionY);
@@ -66,6 +70,7 @@ public:
 	int getTileIndexForCoordinates(int coordinatesX, int coordinatesY);
 	int getTileIndexForTile(Tile* tile);
 	int getTileIndexForPlayer(Player* player);
+    int getTileIndexForTower(Tower* tower);
     
 	//Tile methods
 	Tile* getTileForPosition(int positionX, int positionY);
@@ -94,6 +99,7 @@ public:
 	void randomizeLevel();
 
 	void getTileType();
+    Tower** getTowers();
 
 		//Disables the old tiles selection (if ground tile) and
 	//enables the newly selected tiles selection (if ground tile)
@@ -124,6 +130,7 @@ protected:
     bool m_PaintTileIndexes;
     float m_MouseX;
     float m_MouseY;
+    UIFont* m_Font;
 };
 
 #endif

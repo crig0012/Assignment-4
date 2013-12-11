@@ -36,6 +36,7 @@ extern const char* AMMO_PICKUP_TYPE;
 
 //Tower constants
 extern const char* BASIC_TOWER_TYPE;
+extern const char* FASTER_TOWER_TYPE;
 extern const int MAX_UPGRADE_LEVEL;
 
 #endif 

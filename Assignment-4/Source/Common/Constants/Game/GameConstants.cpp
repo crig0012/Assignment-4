@@ -27,7 +27,7 @@ const char* HERO_TYPE = "Hero";
 
 //Enemy Constants
 const char* ENEMY_TYPE = "Enemy";
-const int ENEMY_COUNT = 10;
+const int ENEMY_COUNT = 1;
 
 //Ammo Pickup constants
 
@@ -35,4 +35,5 @@ const char* AMMO_PICKUP_TYPE = "AmmoPickup";
 
 //Tower constants
 const char* BASIC_TOWER_TYPE = "BasicTower";
-const int MAX_UPGRADE_LEVEL = 4;
+const char* FASTER_TOWER_TYPE = "FasterTower";
+const int MAX_UPGRADE_LEVEL = 6;
