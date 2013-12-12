@@ -36,7 +36,7 @@ float MathUtils::degressToRadians(float aDegrees)
 
 bool MathUtils::withinRange(Level* level, float valueA, float valueB, float range)
 {
-    if(level == NULL || valueA == NULL || valueB == NULL || range == 0)
+    if(level == NULL || valueA == -1 || valueB == -1 || range == 0)
         return false;
     
     Tile* tileA = level->getTileForIndex(valueA);

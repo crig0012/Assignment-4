@@ -22,4 +22,6 @@ private:
 
 	UISideMenu* m_ButtonMenu;
 	UISideMenu* m_ToggleMenu;
+    
+    void saveSettings();
 };

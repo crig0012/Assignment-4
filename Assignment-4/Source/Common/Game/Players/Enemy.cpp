@@ -14,6 +14,7 @@ Enemy::Enemy(Level* level, float speed) : Player(level),
 {
 	m_Speed = speed;
     m_Lives = 1;
+    m_Health = 1;
 
 	m_Enemy = new OpenGLTexture("Enemy"); //TODO: Make one for the enemy and player
 }
@@ -39,7 +40,7 @@ void Enemy::update(double delta)
     GDRandom random;
     random.randomizeSeed();
     
-    m_Towers = m_Level->getTowers();
+    /*m_Towers = m_Level->getTowers();
     
     int min = 0;
     int max = sizeof(m_Towers);
@@ -51,46 +52,31 @@ void Enemy::update(double delta)
         return;
     }
   
-    if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForTower(m_Towers[towerToHunt]), 100))
+    if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForTower(m_Towers[towerToHunt]), 300))
     {
+        if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForTower(m_Towers[towerToHunt]), 100))
+        {
+            randomDirection();
+            return;
+        }
+        
         Player::setDestinationTile(m_Level->getTileForIndex(m_Level->getTileIndexForTower(m_Towers[towerToHunt])));
-    }
+    }*/
     
-    if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForPlayer(m_Hero), 100))
+    if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForPlayer(m_Hero), 300))
     {
+        if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForPlayer(m_Hero), 100))
+        {
+            randomDirection();
+            return;
+        }
+        
         Player::setDestinationTile(m_Level->getTileForPlayer(m_Hero));
     }
     
     else
     {
-        random.randomizeSeed();
-        
-        int wayToGo = random.random(4);
-        
-        int coordinateX = m_Level->getTileCoordinateForPosition(m_Level->getTileForPlayer(this)->getX());
-		int coordinateY = m_Level->getTileCoordinateForPosition(m_Level->getTileForPlayer(this)->getY());
-        
-        switch (wayToGo)
-        {
-            case 0:
-                Player::setDestinationTile(m_Level->getTileForCoordinates(coordinateX, coordinateY - 1));
-                break;
-                
-            case 1:
-                Player::setDestinationTile(m_Level->getTileForCoordinates(coordinateX, coordinateY + 1));
-                break;
-                
-            case 2:
-                Player::setDestinationTile(m_Level->getTileForCoordinates(coordinateX - 1, coordinateY));
-                break;
-                
-            case 3:
-                Player::setDestinationTile(m_Level->getTileForCoordinates(coordinateX + 1, coordinateY));
-                break;
-                
-            default:
-                break;
-        }
+        randomDirection();
     }
     
     time(&m_Now);
@@ -101,7 +87,7 @@ void Enemy::update(double delta)
         return;
     }
     
-    if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForPlayer(m_Hero), 100))
+    if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForPlayer(m_Hero), 105))
     {
         Tile* targetTile = m_Level->getTileForPlayer(m_Hero);
         float centerX = targetTile->getX() + (targetTile->getWidth() / 2.0f);
@@ -111,6 +97,39 @@ void Enemy::update(double delta)
         fireProjectile(centerX, centerY);
         
         time(&m_Then);
+    }
+}
+
+void Enemy::randomDirection()
+{
+    GDRandom random;
+    random.randomizeSeed();
+    
+    int wayToGo = random.random(4);
+    
+    int coordinateX = m_Level->getTileCoordinateForPosition(m_Level->getTileForPlayer(this)->getX());
+    int coordinateY = m_Level->getTileCoordinateForPosition(m_Level->getTileForPlayer(this)->getY());
+    
+    switch (wayToGo)
+    {
+        case 0:
+            Player::setDestinationTile(m_Level->getTileForCoordinates(coordinateX, coordinateY - 1));
+            break;
+            
+        case 1:
+            Player::setDestinationTile(m_Level->getTileForCoordinates(coordinateX, coordinateY + 1));
+            break;
+            
+        case 2:
+            Player::setDestinationTile(m_Level->getTileForCoordinates(coordinateX - 1, coordinateY));
+            break;
+            
+        case 3:
+            Player::setDestinationTile(m_Level->getTileForCoordinates(coordinateX + 1, coordinateY));
+            break;
+            
+        default:
+            break;
     }
 }
 

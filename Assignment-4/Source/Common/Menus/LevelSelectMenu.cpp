@@ -30,6 +30,7 @@ void LevelSelectMenu::buttonAction(UIButton* button)
 {
     int index = getIndexForButton(button);
     
+    
     if(index == 0)
     {
 		((Game*)ScreenManager::getInstance()->getScreenForName(GAME_SCREEN_NAME))->loadLevel("Slot1.bin");

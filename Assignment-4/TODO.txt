@@ -3,6 +3,7 @@ Add highscore menu
 Get the settings menu to work
 
 Get the load to work
+	input stream doesn't open
 
 Grab the save/load for xml from C# assignment
 	Maybe make it a class and include it
@@ -10,38 +11,16 @@ Grab the save/load for xml from C# assignment
 Make two animations
 	Explosion
 	Walk
-	
-Give the player lives
-	In applyDamage for hero
-		health--;
-		if(health <= 0)
-		{
-			lives--;
-			if(lives <= 0)
-			{
-				gameOverScreen;
-			}
-		}
-		
-	In Level upfate
-		if(m_Enemies.size() <= 0)
-		{
-			m_Hero->addALife();
-			//addALife is just lives++;
-		}
-		if(m_Pickups.size() <= 0)
-		{
-			load->nextLevel;
-			//Make m_CurrentLevel a string file that takes in the name, then a getNextLevel function to load the next level
-		}
-		
-HUD, use the text class we already have
+
+Fix the pickup textures
 
 Score
 	Make a score function, when an enemy dies call it, and send it the enemy
 		private void addScore(EnemyType enemyType)
 	Also make enemy types and more enemies
-	Also, save to a file and load from the file
+	Also, save to a file and load from the file.
+		Game over screen has a save
+		Hero* m_Hero = m_Level->getHero();
 	
 If the enemy can't get to the player, delete a tower at random until a path can be made
 	Ask Brad if there's a function that can tell if the path is complete or not
@@ -51,11 +30,10 @@ If the enemy can't get to the player, delete a tower at random until a path can 
 	
 Make tower upgrade levels
 	Make a change to the tower for each level
-	Five levels
 	
 Make burnt or broken versions of each tile
 	Give the towers health
 	
 Add game speeds
-	Set the speed of everything (fire rate, movement speed, etc) to be muliplied by a variable that changes
+	Set the speed of everything (fire rate, movement speed, etc) to be multiplied by a variable that changes
 	

@@ -97,6 +97,8 @@
 		6BCA90D818523C8500123A0F /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BCA90D218523C8500123A0F /* Enemy.cpp */; };
 		6BCA90D918523C8500123A0F /* Hero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BCA90D418523C8500123A0F /* Hero.cpp */; };
 		6BCA90DA18523C8500123A0F /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BCA90D618523C8500123A0F /* Player.cpp */; };
+		B0B044D71859FBCF0049361B /* HealthPickup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0B044D51859FBCF0049361B /* HealthPickup.cpp */; };
+		B0B044DD1859FBE80049361B /* CoinPickup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0B044DB1859FBE80049361B /* CoinPickup.cpp */; };
 		B0FC83C31858C52D0029D565 /* PathFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0FC83BF1858C52D0029D565 /* PathFinder.cpp */; };
 		B0FC83C41858C52D0029D565 /* PathNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0FC83C11858C52D0029D565 /* PathNode.cpp */; };
 		B0FC83C71858C6350029D565 /* FasterTower.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0FC83C51858C6350029D565 /* FasterTower.cpp */; };
@@ -296,6 +298,10 @@
 		6BCA90D518523C8500123A0F /* Hero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hero.h; sourceTree = "<group>"; };
 		6BCA90D618523C8500123A0F /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		6BCA90D718523C8500123A0F /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		B0B044D51859FBCF0049361B /* HealthPickup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HealthPickup.cpp; sourceTree = "<group>"; };
+		B0B044D61859FBCF0049361B /* HealthPickup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthPickup.h; sourceTree = "<group>"; };
+		B0B044DB1859FBE80049361B /* CoinPickup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoinPickup.cpp; sourceTree = "<group>"; };
+		B0B044DC1859FBE80049361B /* CoinPickup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinPickup.h; sourceTree = "<group>"; };
 		B0FC83BF1858C52D0029D565 /* PathFinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PathFinder.cpp; sourceTree = "<group>"; };
 		B0FC83C01858C52D0029D565 /* PathFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathFinder.h; sourceTree = "<group>"; };
 		B0FC83C11858C52D0029D565 /* PathNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PathNode.cpp; sourceTree = "<group>"; };
@@ -820,6 +826,10 @@
 				B59D8D1E184A65A10018FE28 /* AmmoPickup.h */,
 				B59D8D1F184A65A10018FE28 /* Pickups.cpp */,
 				B59D8D20184A65A10018FE28 /* Pickups.h */,
+				B0B044D51859FBCF0049361B /* HealthPickup.cpp */,
+				B0B044D61859FBCF0049361B /* HealthPickup.h */,
+				B0B044DB1859FBE80049361B /* CoinPickup.cpp */,
+				B0B044DC1859FBE80049361B /* CoinPickup.h */,
 			);
 			path = Pickups;
 			sourceTree = "<group>";
@@ -1001,6 +1011,8 @@
 				B0FC83C31858C52D0029D565 /* PathFinder.cpp in Sources */,
 				B0FC83C41858C52D0029D565 /* PathNode.cpp in Sources */,
 				B0FC83C71858C6350029D565 /* FasterTower.cpp in Sources */,
+				B0B044D71859FBCF0049361B /* HealthPickup.cpp in Sources */,
+				B0B044DD1859FBE80049361B /* CoinPickup.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

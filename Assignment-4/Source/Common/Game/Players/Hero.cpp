@@ -10,10 +10,11 @@
 Hero::Hero(Level* level) : Player(level)
 {
 	m_Player = new OpenGLTexture("Player");
-	m_Health = 3;
+	m_Health = 15;
     m_Lives = 3;
     m_Score = 0;
     m_ScoreToLifeTracker = 0;
+    m_Ammo = 10;
 }
 
 Hero::~Hero()

@@ -8,6 +8,7 @@
 
 #include "Tile.h"
 #include "../Pickups/Pickups.h"
+#include "../Towers/Tower.h"
 #include "../../OpenGL/OpenGL.h"
 #include "../../Utils/Utils.h"
 #include <stdlib.h>
@@ -24,6 +25,7 @@ Tile::Tile(TileType tileType, const char* tileTexture, bool aIsWalkableTile)
     m_IsSelected = false;
     m_IsPath = false;
     m_Pickup = NULL;
+    m_Tower = NULL;
     
     //Create the tile texture
     if(tileTexture != NULL)
@@ -62,6 +64,12 @@ Tile::~Tile()
         m_Pickup = NULL;
     }
     
+    if(m_Tower != NULL)
+    {
+        delete m_Tower;
+        m_Tower = NULL;
+    }
+    
     //Delete the tile index number OpenGLTextures
     if(m_TileIndexNumbers != NULL)
     {
@@ -91,7 +99,10 @@ Tile::~Tile()
 
 void Tile::update(double aDelta)
 {
-    
+    if(m_Tower != NULL)
+    {
+        m_Tower->update(aDelta);
+    }
 }
 
 void Tile::paint()
@@ -113,6 +124,11 @@ void Tile::paint()
     {
         m_Pickup->paint();
     }
+    
+    if(m_Tower != NULL)
+    {
+        m_Tower->paint();
+    }
 }
 
 void Tile::reset()
@@ -124,6 +140,11 @@ void Tile::reset()
     if(m_Pickup != NULL)
     {
         m_Pickup->reset();
+    }
+    
+    if(m_Tower != NULL)
+    {
+        m_Tower->reset();
     }
 }
 
@@ -294,6 +315,8 @@ TileType Tile::getTileType()
 
 float Tile::getTileSpeed()
 {
+    if(m_Pickup != NULL)
+        return 0.5f;
     return 1.0f;
 }
 
@@ -304,6 +327,8 @@ float Tile::getMovementCost()
 
 bool Tile::isWalkableTile()
 {
+    if(m_Tower != NULL)
+        return false;
     return m_IsWalkableTile;
 }
 
@@ -341,6 +366,23 @@ void Tile::setPickup(Pickup* pickup)
     
     //Set the new pickup object to the m_Pickup pointer
     m_Pickup = pickup;
+}
+
+void Tile::setTower(Tower* tower)
+{
+    if(m_Tower != NULL)
+    {
+        delete m_Tower;
+        m_Tower = NULL;
+    }
+    
+    //Set the new pickup object to the m_Pickup pointer
+    m_Tower = tower;
+}
+
+Tower* Tile::getTower()
+{
+    return m_Tower;
 }
 
 Pickup* Tile::getPickup()

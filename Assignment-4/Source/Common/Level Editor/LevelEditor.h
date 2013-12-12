@@ -47,12 +47,16 @@ private:
     UISideMenu* m_PickupsMenu;
 	UISideMenu* m_SaveMenu;
 	UISideMenu* m_LoadMenu;
+    UISideMenu* m_TowersMenu;
     Level* m_Level;
     
     bool m_IsMouseDown;
     int m_SelectedTileIndex;
     unsigned int m_TileSize;
     UIFont* m_Font;
+    bool m_DoingTiles;
+    bool m_DoingTowers;
+    bool m_DoingPickups;
     
     float m_MouseX;
     float m_MouseY;

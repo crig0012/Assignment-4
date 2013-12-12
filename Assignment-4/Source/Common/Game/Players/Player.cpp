@@ -10,6 +10,8 @@
 #include "../Level.h"
 #include "../Pathfinder/PathNode.h"
 #include "../Tiles/Tile.h"
+#include "../Pickups/CoinPickup.h"
+#include "../Pickups/HealthPickup.h"
 #include "../Pickups/AmmoPickup.h"
 #include "../../OpenGL/OpenGL.h"
 #include "../../Constants/Constants.h"
@@ -38,7 +40,7 @@ Player::Player(Level* aLevel)
 
 	//Initialize the ammo ammount and the health
 	m_Ammo = 20000;
-	m_Health = 1;
+    m_Money = 0;
 
     //Initialize the player's size
     setSize(PLAYER_SIZE, PLAYER_SIZE);
@@ -234,21 +236,29 @@ int Player::getLives()
 {
 	if(m_Lives != NULL)
 		return m_Lives;
+    else return 0;
 }
 
 int Player::getAmmo()
 {
 	if(m_Ammo != NULL)
 		return m_Ammo;
+    else return 0;
 }
 
-//TODO: Make this work
-/*
-time_t Player::getTime()
+int Player::getMoney()
 {
-	return (getTimeNow - timeBegin);
+    if(m_Money != NULL)
+        return m_Money;
+    else return 0;
 }
-*/
+
+int Player::getHealth()
+{
+    if(m_Health != NULL)
+        return m_Health;
+    else return 0;
+}
 
 void Player::applyDamage(int damage, int index)
 {
@@ -269,7 +279,7 @@ void Player::applyDamage(int damage, int index)
         else
         {
             Log::debug("Player has lost a life, %i remaining", m_Lives);
-            m_Health = 3;
+            m_Health = 5;
         }
 		
 	}
@@ -313,9 +323,17 @@ void Player::handlePickup(Pickup* pickup)
 {
 	switch (pickup->getPickupType())
 	{
-	case PickupTypeAmmo:
-		m_Ammo += ((AmmoPickup*)pickup)->getAmmoCount();
-		break;
+        case PickupTypeAmmo:
+            m_Ammo += ((AmmoPickup*)pickup)->getAmmoCount();
+            break;
+            
+        case PickupTypeCoin:
+            m_Money += ((CoinPickup*)pickup)->getCoinCount();
+            break;
+            
+        case PickupTypeHealth:
+            m_Health += ((HealthPickup*)pickup)->getHealthCount();
+            break;
 
 	default:
 		break;

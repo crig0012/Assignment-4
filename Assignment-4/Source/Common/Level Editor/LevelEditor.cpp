@@ -19,13 +19,17 @@ LevelEditor::LevelEditor() :
 m_TilesMenu(NULL),
 m_OptionsMenu(NULL),
 m_Level(NULL),
+m_TowersMenu(NULL),
 m_IsMouseDown(false),
 m_SelectedTileIndex(-1),
 m_SaveMenu(NULL),
 m_LoadMenu(NULL),
-m_TileSize(EMPTY_LEVEL_TILE_SIZE)
+m_TileSize(EMPTY_LEVEL_TILE_SIZE),
+m_DoingTowers(false),
+m_DoingTiles(false),
+m_DoingPickups(false)
 {
-    m_Font = new UIFont("BitmapFont");
+    //m_Font = new UIFont("BitmapFont");
     //m_Font->setText("TEXTY TEXT texts .,()!?:%");
     
     //Log::trace("%f, %f", m_Font->getWidth(), m_Font->getHeight());
@@ -36,7 +40,7 @@ m_TileSize(EMPTY_LEVEL_TILE_SIZE)
 	m_TilesMenu->addButton(new UIToggle("MenuTileWater"));
 	m_TilesMenu->addButton(new UIToggle("MenuTileTree"));
 	m_TilesMenu->addButton(new UIToggle("MenuTileWall"));
-	m_TilesMenu->addButton(new UIToggle("MenuTileTower"));
+	//m_TilesMenu->addButton(new UIToggle("MenuTileTower"));
 	m_TilesMenu->addButton(new UIToggle("MenuTileChest"));
     
     m_PickupsMenu = new UISideMenu(this, SideMenuRight);
@@ -67,6 +71,10 @@ m_TileSize(EMPTY_LEVEL_TILE_SIZE)
 	m_LoadMenu->addButton(new UIButton("Slot5"));
 	m_LoadMenu->addButton(new UIButton("Slot6"));
 	m_LoadMenu->addButton(new UIButton("Back"));
+    
+    m_TowersMenu = new UISideMenu(this, SideMenuLeft);
+    //TODO: Add tower buttons
+    m_TowersMenu->addButton(new UIToggle("MenuTileTower"));
     
 	//Create the level object
 	m_Level = new Level(true);
@@ -113,10 +121,10 @@ LevelEditor::~LevelEditor()
 		m_PickupsMenu = NULL;
 	}
     
-    if(m_Font != NULL)
+    if(m_TowersMenu != NULL)
     {
-        delete m_Font;
-        m_Font = NULL;
+        delete m_TowersMenu;
+        m_TowersMenu = NULL;
     }
 }
 
@@ -156,6 +164,11 @@ void LevelEditor::update(double delta)
 	{
 		m_PickupsMenu->update(delta);
 	}
+    
+    if(m_TowersMenu != NULL)
+    {
+        m_TowersMenu->update(delta);
+    }
 }
 
 void LevelEditor::paint()
@@ -185,9 +198,9 @@ void LevelEditor::paint()
 		m_LoadMenu->paint();
 	}
     
-    if(m_Font != NULL)
+    if(m_TowersMenu != NULL)
     {
-        m_Font->draw(100.0f, 100.0f);
+        m_TowersMenu->paint();
     }
     
     if(m_PickupsMenu != NULL)
@@ -233,6 +246,11 @@ void LevelEditor::mouseMovementEvent(float deltaX, float deltaY, float positionX
         m_PickupsMenu->mouseMovementEvent(deltaX, deltaY, positionX, positionY);
     }
     
+    if(m_TowersMenu != NULL)
+    {
+        m_TowersMenu->mouseMovementEvent(deltaX, deltaY, positionX, positionY);
+    }
+    
 	if(m_Level != NULL)
 	{
 		if(m_SelectedTileIndex != -1 &&
@@ -241,12 +259,16 @@ void LevelEditor::mouseMovementEvent(float deltaX, float deltaY, float positionX
            m_OptionsMenu->isShowing() == false &&
            m_SaveMenu->isShowing() == false &&
            m_LoadMenu->isShowing() == false &&
-           m_PickupsMenu->isShowing() == false)
+           m_PickupsMenu->isShowing() == false &&
+           m_TowersMenu->isShowing() == false)
 		{
-            TileType types[] = {TileTypeGround, TileTypeWater, TileTypeTree, TileTypeWall, TileTypeTower, TileTypeChest};
-            TileType type = types[m_SelectedTileIndex];
+            if(m_DoingTiles == true)
+            {
+                TileType types[] = {TileTypeGround, TileTypeWater, TileTypeTree, TileTypeWall, TileTypeTower, TileTypeChest};
+                TileType type = types[m_SelectedTileIndex];
             
-			m_Level->setTileTypeAtPosition(type, positionX, positionY);
+                m_Level->setTileTypeAtPosition(type, positionX, positionY);
+            }
 		}
 	}
 }
@@ -270,12 +292,32 @@ void LevelEditor::mouseLeftClickUpEvent(float positionX, float positionY)
            m_OptionsMenu->isShowing() == false &&
            m_SaveMenu->isShowing() == false &&
            m_LoadMenu->isShowing() == false &&
-           m_PickupsMenu->isShowing() == false)
+           m_PickupsMenu->isShowing() == false &&
+           m_TowersMenu->isShowing() == false)
 		{
-            TileType types[] = {TileTypeGround, TileTypeWater, TileTypeTree, TileTypeWall, TileTypeTower, TileTypeChest};
-            TileType type = types[m_SelectedTileIndex];
+            if(m_DoingTiles)
+            {
+                TileType types[] = {TileTypeGround, TileTypeWater, TileTypeTree, TileTypeWall, TileTypeTower, TileTypeChest};
+                TileType type = types[m_SelectedTileIndex];
             
-			m_Level->setTileTypeAtPosition(type, positionX, positionY);
+                m_Level->setTileTypeAtPosition(type, positionX, positionY);
+            }
+            
+            else if(m_DoingPickups)
+            {
+                PickupType typesPickup[] = {PickupTypeAmmo, PickupTypeCoin, PickupTypeHealth};
+                PickupType typePickup = typesPickup[m_SelectedTileIndex];
+                
+                m_Level->setPickupTypeAtPosition(typePickup, positionX, positionY);
+            }
+            
+            else if (m_DoingTowers)
+            {
+                TowerType types[] = {TowerTypeBasic, TowerTypeFaster};
+                TowerType type = types[m_SelectedTileIndex];
+                
+                m_Level->setTowerTypeAtPosition(type, positionX, positionY);
+            }
 		}
 	}
     
@@ -304,6 +346,11 @@ void LevelEditor::mouseLeftClickUpEvent(float positionX, float positionY)
     {
         m_PickupsMenu->mouseLeftClickUpEvent(positionX, positionY);
     }
+    
+    if(m_TowersMenu != NULL)
+    {
+        m_TowersMenu->mouseLeftClickUpEvent(positionX, positionY);
+    }
 }
 
 void LevelEditor::keyUpEvent(int keyCode)
@@ -325,6 +372,8 @@ void LevelEditor::keyUpEvent(int keyCode)
 	{
 		if(m_LoadMenu->isShowing() == true)
 			m_LoadMenu->hide();
+        if(m_TowersMenu->isShowing() == true)
+            m_TowersMenu->hide();
         
 		m_OptionsMenu->isShowing() == true ? m_OptionsMenu->hide() : m_OptionsMenu->show();
 	}
@@ -348,6 +397,8 @@ void LevelEditor::keyUpEvent(int keyCode)
 	{
 		if(m_OptionsMenu->isShowing() == true)
 			m_OptionsMenu->hide();
+        if(m_TowersMenu->isShowing() == true)
+            m_TowersMenu->hide();
         
 		m_LoadMenu->isShowing() == true ? m_LoadMenu->hide() : m_LoadMenu->show();
 	}
@@ -367,18 +418,13 @@ void LevelEditor::keyUpEvent(int keyCode)
     
     else if(keyCode == KEYCODE_T)
 	{
-		if(m_Level != NULL)
-		{
-			m_Level->setPickupTypeAtIndex(PickupTypeAmmo, 101);
-        }
-    }
-    
-    else if(keyCode == KEYCODE_Y)
-    {
-        if(m_Level != NULL)
-        {
-            m_Level->setPickupTypeAtIndex(PickupTypeUnknown, 101);
-        }
+        if(m_OptionsMenu->isShowing() == true)
+			m_OptionsMenu->hide();
+        if(m_LoadMenu->isShowing() == true)
+			m_LoadMenu->hide();
+        
+		m_TowersMenu->isShowing() == true ? m_TowersMenu->hide() : m_TowersMenu->show();
+
     }
     
     else
@@ -448,6 +494,9 @@ void LevelEditor::sideMenuButtonAction(UISideMenu* sideMenu, UIButton* button, i
 		m_LoadMenu->hide();
 		m_SaveMenu->hide();
 		m_OptionsMenu->hide();
+        m_TowersMenu->hide();
+        m_PickupsMenu->hide();
+        m_TilesMenu->hide();
 	}
     
 	if(sideMenu == m_LoadMenu)
@@ -489,7 +538,10 @@ void LevelEditor::sideMenuButtonAction(UISideMenu* sideMenu, UIButton* button, i
         
 		m_LoadMenu->hide();
 		m_SaveMenu->hide();
-		m_TilesMenu->hide();
+		m_OptionsMenu->hide();
+        m_TowersMenu->hide();
+        m_PickupsMenu->hide();
+        m_TilesMenu->hide();
 	}
     
 	if(sideMenu == m_OptionsMenu)
@@ -518,13 +570,6 @@ void LevelEditor::sideMenuButtonAction(UISideMenu* sideMenu, UIButton* button, i
 		{
 			ScreenManager::getInstance()->switchScreen(MAIN_MENU_SCREEN_NAME);
 		}
-        
-		if(buttonIndex != 1)
-		{
-			m_LoadMenu->hide();
-			m_OptionsMenu->hide();
-			m_TilesMenu->hide();
-		}
 	}
 }
 
@@ -546,6 +591,9 @@ void LevelEditor::sideMenuToggleAction(UISideMenu* sideMenu, UIToggle* toggle, i
 		m_LoadMenu->hide();
 		m_TilesMenu->hide();
 		m_OptionsMenu->hide();
+        m_DoingTiles = true;
+        m_DoingPickups = false;
+        m_DoingTowers = false;
 	}
     
     if(sideMenu == m_PickupsMenu)
@@ -561,9 +609,31 @@ void LevelEditor::sideMenuToggleAction(UISideMenu* sideMenu, UIToggle* toggle, i
         
 		//Hide the options and tiles menus
 		m_LoadMenu->hide();
-		m_TilesMenu->hide();
 		m_OptionsMenu->hide();
-        
+        m_PickupsMenu->hide();
+        m_DoingTiles = false;
+        m_DoingPickups = true;
+        m_DoingTowers = false;
     }
     
+    if(sideMenu == m_TowersMenu)
+    {
+        UIToggle* previousToggle = (UIToggle*)m_TowersMenu->getButtonForIndex(m_SelectedTileIndex);
+		if(previousToggle != NULL)
+		{
+			previousToggle->setIsToggled(false);
+		}
+        
+		//Set the selected tile index
+		m_SelectedTileIndex = toggle->isToggled() == true ? toggleIndex : -1;
+        
+		//Hide the options and tiles menus
+		m_LoadMenu->hide();
+		m_OptionsMenu->hide();
+        m_PickupsMenu->hide();
+        m_TowersMenu->hide();
+        m_DoingTiles = false;
+        m_DoingPickups = false;
+        m_DoingTowers = true;
+    }
 }

@@ -68,3 +68,8 @@ void SettingsMenu::buttonAction(UIButton* button)
         ScreenManager::getInstance()->switchScreen(MAIN_MENU_SCREEN_NAME);
     }
 }
+
+void SettingsMenu::saveSettings()
+{
+    
+}

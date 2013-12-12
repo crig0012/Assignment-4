@@ -12,7 +12,7 @@ public:
 	virtual ~Pickup();
 
 	virtual void update(double delta);
-	virtual void paint() = 0;
+	virtual void paint();
 	virtual void reset();
 
 	virtual const char* getType() = 0;

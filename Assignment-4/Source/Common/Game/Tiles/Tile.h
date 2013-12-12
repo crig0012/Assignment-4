@@ -16,6 +16,7 @@
 
 class OpenGLTexture;
 class Pickup;
+class Tower;
 
 class Tile : public GameObject
 {
@@ -57,6 +58,9 @@ public:
     virtual void setPickup(Pickup* pickup);
     virtual Pickup* getPickup();
     
+    virtual void setTower(Tower* tower);
+    virtual Tower* getTower();
+    
 protected:
     enum ScoreNumberPosition
     {
@@ -78,6 +82,7 @@ protected:
     OpenGLTexture** m_TileIndexNumbers;
     OpenGLTexture** m_TileScoreNumbers;
     Pickup* m_Pickup;
+    Tower* m_Tower;
 };
 
 #endif

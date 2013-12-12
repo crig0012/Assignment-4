@@ -34,17 +34,21 @@ enum TileType
 enum PickupType
 {
 	PickupTypeAmmo = 128, // (1000 0000)
+    PickupTypeCoin = 256,
+    PickupTypeHealth = 512,
 
 	//This count value must now be manually
     //updated when a new Pickup type is added
-	PickupTypeCount = 1,
+	PickupTypeCount = 3,
 	PickupTypeUnknown = -1
 };
 
 enum TowerType
 {
-	TowerTypeBasic = 256,
-    TowerTypeFaster = 512
+	TowerTypeBasic = 1024,
+    TowerTypeFaster = 2048,
+    
+    TowerTypeUnknown = -1
 };
 
 //Level editor screen name

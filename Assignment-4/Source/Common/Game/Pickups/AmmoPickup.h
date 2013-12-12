@@ -9,8 +9,6 @@ public:
 	AmmoPickup(int ammoCount);
 	~AmmoPickup();
 
-	void paint();
-
 	const char* getType();
 
 	int getAmmoCount();

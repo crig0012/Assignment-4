@@ -24,6 +24,7 @@ public:
 
 protected:
 	void handlePlayerCollision(Projectile* projectile);
+    void randomDirection();
 
 private:
 	OpenGLTexture* m_Enemy;

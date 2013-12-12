@@ -19,15 +19,18 @@
 
 class Enemy;
 class Player;
+class UIFont;
 
 class Tower : public Player
 {
 public:
 	Tower(Level* aLevel, TowerType towerType);
 	virtual ~Tower();
+    
+    void explode();
 
 	virtual void update(double delta);
-	virtual void paint() = 0;
+	virtual void paint();
 	virtual void reset();
 
 	virtual const char* getType() = 0;
@@ -36,21 +39,37 @@ public:
     
     virtual void upgradeTower();
     virtual int getUpgradeLevel();
+    
+    bool getIsExploding();
 
 protected:
     void handlePlayerCollision(Projectile* projectile);
     void handleBoundsCollision(Projectile* projectile);
     TowerType m_TowerType;
+    OpenGLTexture* m_TowerTexture;
     
 private:
     std::vector<Enemy*> m_EnemyArray;
     int m_UpgradeLevel;
     int m_FireRate;
     
+    UIFont* m_Explosion;
+    
     time_t m_Then;
     time_t m_Now;
     
-    //bool m_IsActive;
+    bool m_Explo1;
+    bool m_Explo2;
+    bool m_Explo3;
+    bool m_Explo4;
+    bool m_Explo5;
+    bool m_Explo6;
+    bool m_Explo7;
+    
+    bool m_IsExploding;
+    
+    time_t m_ThenExplode;
+    time_t m_NowExplode;
     
     void setTime();
 };

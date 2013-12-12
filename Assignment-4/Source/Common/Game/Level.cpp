@@ -14,6 +14,8 @@
 #include "Game.h"
 #include "Pickups/Pickups.h"
 #include "Pickups/AmmoPickup.h"
+#include "Pickups/CoinPickup.h"
+#include "Pickups/HealthPickup.h"
 #include "Tiles/Tile.h"
 #include "Tiles/TreeTile.h"
 #include "Tiles/GroundTile.h"
@@ -30,11 +32,12 @@
 #include "../Math/GDRandomSearch.h"
 #include "../Game/Towers/Tower.h"
 #include "Towers/BasicTower.h"
+#include "Towers/FasterTower.h"
 #include "../UI/UIFont.h"
 #include <algorithm>
 #include <sstream>
+#include <time.h>
 
-//Make a getAmmo, getHealth, and getMoney function in hero  
 
 Level::Level(bool isEditingLevel) :
 m_HorizontalTiles(0),
@@ -48,10 +51,12 @@ m_HorizontalTiles(0),
 	m_PaintTileIndexes(false),
 	m_Projectile(NULL),
 	m_Pickup(NULL),
-	m_TowerType(TowerTypeBasic)
+	m_TowerType(TowerTypeBasic),
+    m_IsEditing(isEditingLevel),
+    m_TimeToDraw(0)
 {
 	//Create the player object
-	if(isEditingLevel == false)
+	if(m_IsEditing == false)
 	{
         m_Font = new UIFont("BitmapFont");
 		//Create the hero object 
@@ -72,7 +77,7 @@ m_HorizontalTiles(0),
 			m_Enemies.push_back(enemy);
 		}
 	}
-
+    
 	//Calculate the number of horizontal and vertical tiles
 	m_HorizontalTiles = ScreenManager::getInstance()->getScreenWidth() / m_TileSize;
 	m_VerticalTiles = ScreenManager::getInstance()->getScreenHeight() / m_TileSize;
@@ -85,17 +90,6 @@ m_HorizontalTiles(0),
 	{
 		m_Tiles[i] = NULL;
 	}
-
-	//Allocate the tower array, the inheriting class will populate this array with Tile objects
-	m_Towers = new Tower*[m_HorizontalTiles * m_VerticalTiles];
-
-	//Initialize all the towers to NULL
-	for(int i = 0; i < m_HorizontalTiles * m_VerticalTiles; i++)
-	{
-		m_Towers[i] = NULL;
-	}
-
-	//m_PathFinder = new PathFinder(this, *m_Towers);
 
 	//Load an empty level
 	load(NULL);
@@ -136,27 +130,6 @@ Level::~Level()
 		delete[] m_Tiles;
 		m_Tiles = NULL;
 	}
-
-
-	//Delete the tower array, the inheriting class
-	//must delete the object in this array itself
-	if(m_Towers != NULL)
-	{
-		//Cycle through and delete all the tower objects in the array
-		for(int i = 0; i < getNumberOfTiles(); i++)  // MAKE A getNumberOfTowers() function
-		{
-			if(m_Towers[i] != NULL)
-			{
-				m_Towers[i]->reset();
-				delete m_Towers[i];
-				m_Towers[i] = NULL;
-                m_Tiles[i]->reset(); //TODO: See if this worked
-			}
-		}
-
-		delete[] m_Towers;
-		m_Towers = NULL;
-	}
 }
 
 void Level::randomizeLevel()
@@ -165,17 +138,22 @@ void Level::randomizeLevel()
 	random.randomizeSeed();
 
 	TileType types[] = {TileTypeGround, TileTypeWater, TileTypeTree, TileTypeWall, TileTypeTower, TileTypeChest};
-
+    //TODO: Add other tower types
 	for( int i = 0; i < getNumberOfTiles(); i++)
 	{
-		int index = random.random(TileTypeCount);
+		int index = random.random(6);
 		setTileTypeAtIndex(types[index], i);
 	}
 }
 
 Tower** Level::getTowers()
-{
+{ 
     return m_Towers;
+}
+
+bool Level::getIsEditing()
+{
+    return m_IsEditing;
 }
 
 void Level::update(double aDelta)
@@ -186,18 +164,6 @@ void Level::update(double aDelta)
 		if(m_Tiles[i] != NULL)
 		{
 			m_Tiles[i]->update(aDelta);
-		}
-	}
-
-	//Update all the game towers
-	for(int i = 0; i < getNumberOfTiles(); i++) // MAKE A getNumberOfTowers() function
-	{
-		if(m_Towers[i] != NULL)
-		{
-			if(m_Towers[i]->getIsActive() == true)
-			{
-				m_Towers[i]->update(aDelta);
-			}
 		}
 	}
 
@@ -215,6 +181,8 @@ void Level::update(double aDelta)
 			m_Enemies.at(i)->update(aDelta);
             if(m_Enemies.at(i)->getPathFinder() == NULL)
             {
+                Tower** m_Towers = getTowers();
+                
                 GDRandom random;
                 random.randomizeSeed();
                 
@@ -269,28 +237,6 @@ void Level::paint()
 		}
 	}
 
-	//Cycle through and paint all the towers
-	for(int i = 0; i < getNumberOfTiles(); i++)
-	{
-		//Safety check the tower
-		if(m_Towers[i] != NULL)
-		{
-			if(m_Towers[i]->getIsActive() == true)
-			{
-				//Paint the tile
-				m_Towers[i]->paint();
-
-				//If the paint tile indexes flag is set to true,
-				//draw the index number on the towers
-				if(m_PaintTileIndexes == true)
-				{
-					m_Towers[i]->paint();
-				}
-			}
-		}
-	}
-
-
 	//Paint the Player
 	if(m_Hero != NULL)
 	{
@@ -330,19 +276,45 @@ void Level::paint()
 		}
 	}
     
-    //HUD
-    //TODO: Make a member variable for isEditing    
+    if(m_IsEditing == true)
+        return;
+    
+    //HUD  
     m_Font->setText(toConst("Lives: ", m_Hero->getLives()));
     m_Font->draw(50, 600);
 
+    m_Font->setText(toConst("Health: ", m_Hero->getHealth()));
+    m_Font->draw(350, 600);
+    
 	m_Font->setText(toConst("Ammo: ", m_Hero->getAmmo()));
-    m_Font->draw(150, 600);
+    m_Font->draw(50, 650);
+
+    m_Font->setText(toConst("Money: ", m_Hero->getMoney()));
+    m_Font->draw(350, 650);
 
 	m_Font->setText(toConst("Score: ", m_Hero->getScore()));
-    m_Font->draw(200, 600);
+    m_Font->draw(50, 700);
 	//TODO: Make this work
-	//m_Font->setText(toConst("Time: ", m_Hero->getTime()));
-    //m_Font->draw(50, 600);
+    
+     time(&m_Now);
+     float elapsedTime = m_Now - m_Then;
+    
+     m_Font->setText(toConst("Time: ", m_TimeToDraw));
+     m_Font->draw(350, 700);
+    
+     if(elapsedTime < 1)
+     {
+        return;
+     }
+    
+     m_TimeToDraw++;
+    
+     time(&m_Then);
+}
+
+void Level::setTime()
+{
+    time(&m_Start);
 }
 
 const char* Level::toConst(std::string stringToChange, int intToChange)
@@ -363,7 +335,6 @@ const char* Level::toConst(std::string stringToChange, int intToChange)
 
 void Level::reset()
 {
-
 	//Random number generator for the spawn indexes
 	GDRandom random;
 	random.randomizeSeed();
@@ -404,15 +375,6 @@ void Level::reset()
 		if(m_Tiles[i] != NULL)
 		{
 			m_Tiles[i]->reset();
-		}
-	}
-
-	//Cycle through and reset all the towers
-	for(int i = 0; i < getNumberOfTiles(); i++)
-	{
-		if(m_Towers[i] != NULL)
-		{
-			m_Towers[i]->reset();
 		}
 	}
 
@@ -570,9 +532,12 @@ void Level::keyUpEvent(int keyCode)
 	{
 		int index = getTileIndexForCoordinates(m_MouseX, m_MouseY);
 
-		if(getTileForPlayer(m_Towers[index]) != NULL)
+		if(m_Tiles[index] != NULL)
 		{
-			m_Towers[index]->upgradeTower();
+            if (m_Tiles[index]->getTower() != NULL)
+            {
+                m_Tiles[index]->getTower()->upgradeTower();
+            }
 		}
 
 	}
@@ -589,62 +554,62 @@ void Level::load(const char* levelName)
 {
 	//TODO: Fix the load
 	//TODO: Also, when you quit the game theres an exception, and doesnt stop debuggin
-	//if(levelName != NULL)
-	//{
-	//	std::ifstream inputStream;
+	if(levelName != NULL)
+	{
+		std::ifstream inputStream;
 
-	//	// open the file
-	//	inputStream.open(levelName, std::ifstream::in | std::ifstream::binary);
+        // open the file
+		inputStream.open(levelName, std::ifstream::in | std::ifstream::binary);
 
-	//	//Unlike the output stream, if the input stream doesnt find the file, the input stream
-	//	//wont create it, and is_open will return false
-	//	if(inputStream.is_open() == true)
-	//	{
-	//		//determine how many bytes are in the file
-	//		inputStream.seekg(0, inputStream.end);
-	//		long long bufferSize = inputStream.tellg();
+		//Unlike the output stream, if the input stream doesnt find the file, the input stream
+		//wont create it, and is_open will return false
+		if(inputStream.is_open() == true)
+		{
+			//determine how many bytes are in the file
+			inputStream.seekg(0, inputStream.end);
+			long long levelSize = inputStream.tellg();
 
-	//		//seek back to the start of the file for reading
-	//		inputStream.seekg(0, inputStream.beg);
+			//seek back to the start of the file for reading
+			inputStream.seekg(0, inputStream.beg);
 
-	//		//create a buffer for our data
-	//		char* buffer = new char[bufferSize];
+			//create a buffer for our data
+			char* buffer = new char[levelSize];
 
-	//		//Read the data from input stream into our buffer
-	//		inputStream.read(buffer, (int)bufferSize);
+			//Read the data from input stream into our buffer
+			inputStream.read(buffer, (int)levelSize);
 
-	//		//close the input stream 
-	//		inputStream.close();
+			//close the input stream
+			inputStream.close();
 
-	//		// let's validate our buffer data
-	//		for(int i = 0; i < bufferSize; i++)
-	//		{
-	//			PickupType pickupType = PickupTypeUnknown;
+			// let's validate our buffer data
+			for(int i = 0; i < levelSize; i++)
+			{
+				PickupType pickupType = PickupTypeUnknown;
 
-	//			//Check to see if the Buuffer[i] contains the AmmoPickup bit
-	//			if((buffer[i] & PickupTypeAmmo) > 0)
-	//			{
-	//				//It does
-	//				pickupType = PickupTypeAmmo;
+				//Check to see if the Buuffer[i] contains the AmmoPickup bit
+				if((buffer[i] & PickupTypeAmmo) > 0)
+				{
+					//It does
+					pickupType = PickupTypeAmmo;
 
-	//				//Clear the AmmoPickup bit
-	//				buffer[i] &= ~PickupTypeAmmo;
-	//			}
+					//Clear the AmmoPickup bit
+					buffer[i] &= ~PickupTypeAmmo;
+				}
 
-	//			//Set the tile type
-	//			setTileTypeAtIndex((TileType)buffer[i], i);
+                //Set the tile type
+				setTileTypeAtIndex((TileType)buffer[i], i);
 
-	//			//Set the Pickup type
-	//			setPickupTypeAtIndex(pickupType, i);
-	//		}
+				//Set the Pickup type
+				setPickupTypeAtIndex(pickupType, i);
+			}
 
-	//		//Delete the buffer, it was allocated on the heap after all
-	//		delete[] buffer;
-	//		buffer = NULL;
-	//	}
-	//}
-	//else
-	//{
+			//Delete the buffer, it was allocated on the heap after all
+			delete[] buffer;
+			buffer = NULL;
+		}
+	}
+	else
+	{
 		//Tile variables
 		int tileIndex = 0;
 		float tileX = 0.0f;
@@ -670,7 +635,7 @@ void Level::load(const char* levelName)
 			//Increment the tile y position and reset the tile x position, since we started a new row
 			tileY += m_TileSize;
 			tileX = 0.0f;
-		//}
+		}
 	}
 
 	//The level is loaded, reset everything
@@ -835,6 +800,7 @@ Tile* Level::getTileForPlayer(Player* player)
 {
 	if(player != NULL)
 		return getTileForPosition(player->getX(), player->getY());
+    else return NULL;
 }
 
 void Level::setTileTypeAtPosition(TileType tileType, int positionX, int positionY)
@@ -921,35 +887,40 @@ void Level::setTowerTypeAtPosition(TowerType towerType, int positionX, int posit
 
 void Level::setTowerTypeAtIndex(TowerType towerType, int index)
 {
+    //TODO: Right now towers are four squares big and in the top left corner
 	//Safety check the index
 	if(index >= 0 && index < getNumberOfTiles())
 	{
 		//Don't replace the tile if its the same type of tile that already exists
-		if(m_Towers[index] != NULL && m_Towers[index]->getTowerType() == towerType)
-		{
-			return;
-		}
-
+		if(m_Tiles[index] != NULL && m_Tiles[index]->getTower() != NULL)
+        {
+            if(m_Tiles[index]->getTower()->getTowerType() == towerType)
+            {
+                return;
+            }
+        }
 		//Create the new tile based on the TileType
 		switch (towerType)
 		{
 		case TowerTypeBasic:
-			m_Towers[index] = new BasicTower(this, 5);
+			m_Tiles[index]->setTower(new BasicTower(this, 5));
+            //m_Towers[index] = new BasicTower(this, 5);
 			break;
                 
         case TowerTypeFaster:
-            m_Towers[index] = new BasicTower(this, 2);
+            m_Tiles[index]->setTower(new FasterTower(this, 2));
+            //m_Towers[index] = new FasterTower(this, 2);
+            break;
+                
+        case TowerTypeUnknown:
             break;
 		}
 
 		//Calculate the coordinates and set the tile position and size
 		int coordinateX = (index % getNumberOfHorizontalTiles());
 		int coordinateY = ((index - coordinateX) / getNumberOfHorizontalTiles());
-		m_Towers[index]->setPosition(coordinateX  * m_TileSize, coordinateY * m_TileSize);
-		m_Towers[index]->setSize(m_TileSize, m_TileSize);
-
-		//setTileTypeAtIndex(TileTypeTower, index);
-        //TODO: Uncomment this?
+		m_Tiles[index]->setPosition(coordinateX  * m_TileSize, coordinateY * m_TileSize);
+		m_Tiles[index]->setSize(m_TileSize, m_TileSize);
     }
 }
 
@@ -988,19 +959,45 @@ void Level::setPickupTypeAtIndex(PickupType pickupType, int index)
 			//Create a new pickup object based on the PickupType
 			switch(pickupType)
 			{
-			case PickupTypeAmmo:
+                case PickupTypeAmmo:
 				{
 					GDRandom random;
 					random.randomizeSeed();
 
-					int min = 5;
-					int max = 50;
+					int min = 1;
+					int max = 5;
 					int ammo = min + random.random(max-min);
 
 					m_Tiles[index]->setPickup(new AmmoPickup(ammo));
 				}
 				break;
 
+                case PickupTypeCoin:
+				{
+					GDRandom random;
+					random.randomizeSeed();
+                    
+					int min = 1;
+					int max = 3;
+					int coin = min + random.random(max-min);
+                    
+					m_Tiles[index]->setPickup(new CoinPickup(coin));
+				}
+                break;
+                    
+                case PickupTypeHealth:
+				{
+					GDRandom random;
+					random.randomizeSeed();
+                    
+					int min = 1;
+					int max = 3;
+					int health = min + random.random(max-min);
+                    
+					m_Tiles[index]->setPickup(new HealthPickup(health));
+				}
+                break;
+                    
 				//TODO: Make sure to add future pickups here for object creation
 
 			case PickupTypeUnknown:

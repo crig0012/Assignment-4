@@ -19,15 +19,12 @@ public:
 	BasicTower(Level* aLevel, int health);
 	~BasicTower();
 
-	void paint();
-
 	const char* getType();
 
 	int getHealth();
 
 private:
 	int m_Health;
-	OpenGLTexture* m_BasicTower;
 };
 
 #endif /* defined(__GAM_1514_OSX_Game__BulletTower__) */

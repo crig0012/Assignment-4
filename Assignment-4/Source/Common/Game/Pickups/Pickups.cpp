@@ -16,6 +16,11 @@ void Pickup::update(double delta)
 
 }
 
+void Pickup::paint()
+{
+    OpenGLRenderer::getInstance()->drawTexture(m_PickupTexture, getX(), getY());
+}
+
 void Pickup::reset()
 {
 

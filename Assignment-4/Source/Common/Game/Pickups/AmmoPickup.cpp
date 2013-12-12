@@ -15,12 +15,6 @@ AmmoPickup::~AmmoPickup()
 
 }
 
-void AmmoPickup::paint()
-{
-	OpenGLRenderer::getInstance()->setForegroundColor(OpenGLColorRed());
-	OpenGLRenderer::getInstance()->drawRectangle(getX(), getY(), getWidth(), getHeight());
-}
-
 const char* AmmoPickup::getType()
 {
 	return AMMO_PICKUP_TYPE;

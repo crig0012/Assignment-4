@@ -33,6 +33,8 @@ extern const int ENEMY_COUNT;
 
 //Pickup constants
 extern const char* AMMO_PICKUP_TYPE;
+extern const char* HEALTH_PICKUP_TYPE;
+extern const char* COIN_PICKUP_TYPE;
 
 //Tower constants
 extern const char* BASIC_TOWER_TYPE;

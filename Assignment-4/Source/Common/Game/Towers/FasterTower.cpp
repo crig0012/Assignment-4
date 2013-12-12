@@ -15,26 +15,13 @@ FasterTower::FasterTower(Level* aLevel, int health) : Tower(aLevel, TowerTypeBas
 {
 	//TODO: The size should be that of the texture
 	//you use for the ammo pick (or any pick)
-	m_FasterTower = new OpenGLTexture("TileTower");
+	m_TowerTexture = new OpenGLTexture("TowerFaster");
     m_Ammo = 1000;
 }
 
 FasterTower::~FasterTower()
 {
     
-}
-
-void FasterTower::paint()
-{
-	OpenGLRenderer::getInstance()->drawTexture(m_FasterTower, getX(), getY(), getWidth(), getHeight());
-    
-    for(int i = 0; i < m_Projectiles.size(); i++)
-	{
-		if(m_Projectiles.at(i)->getIsActive() == true)
-		{
-			m_Projectiles.at(i)->paint();
-		}
-	}
 }
 
 const char* FasterTower::getType()

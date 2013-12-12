@@ -16,18 +16,34 @@
 #include "../Projectiles.h"
 #include "../../Constants/Constants.h"
 #include "../../Math/GDRandomSearch.h"
+#include "../../UI/UIFont.h"
 
 Tower::Tower(Level* aLevel, TowerType towerType) : Player(aLevel),
     m_TowerType(towerType),
     m_Then(time(0)),
     m_UpgradeLevel(1)
 {
-
+    m_Explo1 = false;
+    m_Explo2 = false;
+    m_Explo3 = false;
+    m_Explo4 = false;
+    m_Explo5 = false;
+    m_Explo6 = false;
+    m_Explo7 = false;
+    
+    
+    m_Explosion = new UIFont("Explosion");
+    m_IsExploding = false;
 }
 
 Tower::~Tower()
 {
     m_UpgradeLevel = 1;
+}
+
+bool Tower::getIsExploding()
+{
+    return m_IsExploding;
 }
 
 void Tower::upgradeTower()
@@ -45,6 +61,9 @@ int Tower::getUpgradeLevel()
 
 void Tower::update(double delta)
 {
+    if(m_Level->getIsEditing() == true)
+        return;
+    
     time(&m_Now);
     float elapsedTime = m_Now - m_Then;
     
@@ -105,13 +124,13 @@ void Tower::update(double delta)
         {
             return;
         }
-        
+    
         if(m_EnemyArray.at(temp)->getIsActive() == false)
         {
             return;
         }
         
-        if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForPlayer(m_EnemyArray.at(temp)), 600))
+        if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForPlayer(m_EnemyArray.at(temp)), 50 * getUpgradeLevel()))
         {
             Tile* targetTile = m_Level->getTileForPlayer(m_EnemyArray.at(temp));
             float centerX = targetTile->getX() + (targetTile->getWidth() / 2.0f);
@@ -127,10 +146,15 @@ void Tower::update(double delta)
 
 void Tower::paint()
 {
-    OpenGLRenderer::getInstance()->setForegroundColor(OpenGLColorGreen());
-	OpenGLRenderer::getInstance()->drawCircle(getX() + (getWidth() / 2), getY() + (getHeight() / 2), getWidth() / 2, 90);
-	OpenGLRenderer::getInstance()->setForegroundColor(PLAYER_OUTLINE_COLOR);
-	OpenGLRenderer::getInstance()->drawCircle(getX() + (getWidth() / 2), getY() + (getHeight() / 2), getWidth() / 2, 90, false);
+    OpenGLRenderer::getInstance()->drawTexture(m_TowerTexture, getX(), getY());
+    
+    for(int i = 0; i < m_Projectiles.size(); i++)
+	{
+		if(m_Projectiles.at(i)->getIsActive() == true)
+		{
+			m_Projectiles.at(i)->paint();
+		}
+	}
 }
 
 void Tower::reset()
@@ -180,5 +204,100 @@ void Tower::handleBoundsCollision(Projectile* projectile)
     if(tile == NULL)
     {
         projectile->setIsActive(false);
+    }
+}
+
+void Tower::explode()
+{
+    m_IsExploding = true;
+    
+    time(&m_NowExplode);
+
+    int explosionTime = (m_NowExplode - m_ThenExplode);
+
+    switch (explosionTime)
+    {
+    case 1:
+        m_Explo7 = false;
+        m_Explo1 = true;
+        break;
+        
+    case 2:
+        m_Explo1 = false;
+        m_Explo2 = true;
+        break;
+        
+    case 3:
+        m_Explo2 = false;
+        m_Explo3 = true;
+        break;
+        
+    case 4:
+        m_Explo3 = false;
+        m_Explo4 = true;
+        break;
+        
+    case 5:
+        m_Explo4 = false;
+        m_Explo5 = true;
+        break;
+        
+    case 6:
+        m_Explo5 = false;
+        m_Explo6 = true;
+        break;
+        
+    case 7:
+        m_Explo6 = false;
+        m_Explo7 = true;
+        break;
+        
+    default:
+        break;
+    }
+
+    if(m_Explo1 == true)
+    {
+        m_Explosion->setText("1");
+        m_Explosion->draw(600, 300);
+    }
+
+    if(m_Explo2 == true)
+    {
+        m_Explosion->setText("2");
+        m_Explosion->draw(600, 300);
+    }
+
+    if(m_Explo3 == true)
+    {
+        m_Explosion->setText("3");
+        m_Explosion->draw(600, 300);
+    }
+
+    if(m_Explo4 == true)
+    {
+        m_Explosion->setText("4");
+        m_Explosion->draw(600, 300);
+    }
+    
+    if(m_Explo5 == true)
+    {
+        m_Explosion->setText("5");
+        m_Explosion->draw(600, 300);
+    }
+
+    if(m_Explo6 == true)
+    {
+        m_Explosion->setText("6");
+        m_Explosion->draw(600, 300);
+    }
+
+    if(m_Explo7 == true)
+    {
+        m_Explosion->setText("7");
+        m_Explosion->draw(600, 300);
+    
+        time(&m_ThenExplode);
+        m_IsExploding = false;
     }
 }

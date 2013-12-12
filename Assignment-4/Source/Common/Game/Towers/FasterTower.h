@@ -19,15 +19,12 @@ public:
 	FasterTower(Level* aLevel, int health);
 	~FasterTower();
     
-	void paint();
-    
 	const char* getType();
     
 	int getHealth();
     
 private:
 	int m_Health;
-	OpenGLTexture* m_FasterTower;
 };
 
 #endif /* defined(__GAM_1514_OSX_Game__FasterTower__) */

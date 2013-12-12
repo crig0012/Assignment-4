@@ -38,13 +38,8 @@ void MainMenu::buttonAction(UIButton* button)
     {
 		ScreenManager::getInstance()->switchScreen(LEVEL_SELECT_MENU_SCREEN_NAME);
     }
-    //else if (index == 2)
-    //{
-        //ScreenManager::getInstance()->switchScreen(LEVEL_SELECT_MENU_SCREEN_NAME);
-    //}
 	else if (index == 1)
     {
-        //setMode(false);
         ScreenManager::getInstance()->switchScreen(LEVEL_EDITOR_SCREEN_NAME);
     }
 	else if (index == 2)

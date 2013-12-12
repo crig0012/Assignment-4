@@ -97,6 +97,7 @@ public:
     void togglePaintTileScoring();
     void togglePaintTileIndexes();
 	void randomizeLevel();
+    bool getIsEditing();
 
 	void getTileType();
     Tower** getTowers();
@@ -128,9 +129,18 @@ protected:
 	int m_SelectedTileIndex;
     bool m_PaintTileScoring;
     bool m_PaintTileIndexes;
+    bool m_IsEditing;
     float m_MouseX;
     float m_MouseY;
     UIFont* m_Font;
+    
+    time_t m_Then;
+    time_t m_Now;
+    time_t m_Start;
+    
+    float m_TimeToDraw;
+    
+    void setTime();
 };
 
 #endif

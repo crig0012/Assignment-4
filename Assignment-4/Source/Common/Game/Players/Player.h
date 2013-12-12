@@ -29,7 +29,7 @@ public:
 
   //Update, paint and reset methods
 	void update(double delta);
-	void paint();
+	virtual void paint();
 	void reset();
   
   //keep GameObject's pure virtual method, we dont need to reclare it pure, but
@@ -46,6 +46,8 @@ public:
     
     int getLives();
 	int getAmmo();
+    int getMoney();
+    int getHealth();
 
 protected:
 	//Projectile listener methods
@@ -94,6 +96,7 @@ protected:
 	std::vector<Projectile*> m_Projectiles;
     int m_Lives;
     std::vector<Enemy*> m_EnemyArray;
+    int m_Money;
     
 };
 

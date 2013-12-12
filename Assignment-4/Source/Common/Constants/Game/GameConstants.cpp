@@ -32,6 +32,9 @@ const int ENEMY_COUNT = 4;
 //Ammo Pickup constants
 
 const char* AMMO_PICKUP_TYPE = "AmmoPickup";
+const char* HEALTH_PICKUP_TYPE = "HealthPickup";
+const char* COIN_PICKUP_TYPE = "CoinPickup";
+
 
 //Tower constants
 const char* BASIC_TOWER_TYPE = "BasicTower";
