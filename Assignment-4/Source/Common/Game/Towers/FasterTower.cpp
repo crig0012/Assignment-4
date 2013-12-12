@@ -10,13 +10,13 @@
 #include "../../OpenGL/OpenGL.h"
 #include "../Tiles/Tile.h"
 
-FasterTower::FasterTower(Level* aLevel, int health) : Tower(aLevel, TowerTypeBasic),
-    m_Health(health)
+FasterTower::FasterTower(Level* aLevel, int health) : Tower(aLevel, TowerTypeBasic)
 {
 	//TODO: The size should be that of the texture
 	//you use for the ammo pick (or any pick)
 	m_TowerTexture = new OpenGLTexture("TowerFaster");
     m_Ammo = 1000;
+    m_Health = health;
 }
 
 FasterTower::~FasterTower()

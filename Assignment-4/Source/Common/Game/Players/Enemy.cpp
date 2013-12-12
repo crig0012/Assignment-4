@@ -14,7 +14,7 @@ Enemy::Enemy(Level* level, float speed) : Player(level),
 {
 	m_Speed = speed;
     m_Lives = 1;
-    m_Health = 1;
+    m_Health = 2 * m_Level->getDifficulty();
 
 	m_Enemy = new OpenGLTexture("Enemy"); //TODO: Make one for the enemy and player
 }
@@ -40,10 +40,10 @@ void Enemy::update(double delta)
     GDRandom random;
     random.randomizeSeed();
     
-    /*m_Towers = m_Level->getTowers();
+    m_Tiles = m_Level->getTiles();
     
     int min = 0;
-    int max = sizeof(m_Towers);
+    int max = sizeof(m_Tiles);
     int towerToHunt = random.random(max-min);
     
     if(m_Hero == NULL || m_Hero->getIsActive() == false)
@@ -52,16 +52,19 @@ void Enemy::update(double delta)
         return;
     }
   
-    if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForTower(m_Towers[towerToHunt]), 300))
+    for(int i = 0; i < sizeof(m_Tiles); i++)
     {
-        if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForTower(m_Towers[towerToHunt]), 100))
+        if(m_Tiles[i] != NULL)
         {
-            randomDirection();
-            return;
+            if(m_Tiles[i]->getTower() != NULL)
+            {
+                if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForTower(m_Tiles[towerToHunt]->getTower()), 600))
+                {                    
+                    Player::setDestinationTile(m_Level->getTileForIndex(m_Level->getTileIndexForTower(m_Tiles[towerToHunt]->getTower())));
+                }
+            }
         }
-        
-        Player::setDestinationTile(m_Level->getTileForIndex(m_Level->getTileIndexForTower(m_Towers[towerToHunt])));
-    }*/
+    }
     
     if(mathUtils.withinRange(m_Level, m_Level->getTileIndexForPlayer(this), m_Level->getTileIndexForPlayer(m_Hero), 300))
     {

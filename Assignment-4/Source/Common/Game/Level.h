@@ -53,6 +53,7 @@ public:
 	//
     TileType getTileTypeForIndex(int index);
 	PickupType getPickupTypeForIndex(int index);
+    int getDifficulty();
     
 	//Tile count methods
     unsigned int getNumberOfTiles();
@@ -100,7 +101,7 @@ public:
     bool getIsEditing();
 
 	void getTileType();
-    Tower** getTowers();
+    Tile** getTiles();
 
 		//Disables the old tiles selection (if ground tile) and
 	//enables the newly selected tiles selection (if ground tile)
@@ -110,6 +111,8 @@ public:
 	//Getter method for the hero*
 	Hero* getHero();
 	std::vector<Enemy*> getEnemies();
+    void setDifficulty(int difficulty);
+    //OpenGLTexture* getTexture();
     
 protected:
    
@@ -139,6 +142,8 @@ protected:
     time_t m_Start;
     
     float m_TimeToDraw;
+    
+    int m_Difficulty;
     
     void setTime();
 };

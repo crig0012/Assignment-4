@@ -36,6 +36,11 @@ extern const char* AMMO_PICKUP_TYPE;
 extern const char* HEALTH_PICKUP_TYPE;
 extern const char* COIN_PICKUP_TYPE;
 
+//Difficulty Constants
+extern const int DIFFICULTY_EASY;
+extern const int DIFFICULTY_MEDIUM;
+extern const int DIFFICULTY_HARD;
+
 //Tower constants
 extern const char* BASIC_TOWER_TYPE;
 extern const char* FASTER_TOWER_TYPE;

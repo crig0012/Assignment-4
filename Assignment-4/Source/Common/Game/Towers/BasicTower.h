@@ -22,9 +22,6 @@ public:
 	const char* getType();
 
 	int getHealth();
-
-private:
-	int m_Health;
 };
 
 #endif /* defined(__GAM_1514_OSX_Game__BulletTower__) */

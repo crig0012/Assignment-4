@@ -13,7 +13,7 @@
 
 WallTile::WallTile(const char* textureName) : Tile(TileTypeWall, textureName, true)
 {
-
+    m_IsWalkableTile = false;
 }
 
 WallTile::~WallTile()

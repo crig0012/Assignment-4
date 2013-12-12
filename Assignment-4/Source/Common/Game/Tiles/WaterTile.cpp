@@ -13,7 +13,7 @@
 
 WaterTile::WaterTile(const char* textureName) : Tile(TileTypeWater, textureName, true)
 {
-
+    
 }
 
 WaterTile::~WaterTile()
@@ -24,4 +24,9 @@ WaterTile::~WaterTile()
 const char* WaterTile::getType()
 {
     return TILE_WATER_TYPE;
+}
+
+float WaterTile::getTileSpeed()
+{
+    return 0.2f;
 }

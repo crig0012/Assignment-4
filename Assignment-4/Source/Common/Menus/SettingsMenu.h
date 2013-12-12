@@ -24,4 +24,6 @@ private:
 	UISideMenu* m_ToggleMenu;
     
     void saveSettings();
+    
+    int m_Difficulty;
 };

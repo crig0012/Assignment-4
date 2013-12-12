@@ -44,9 +44,9 @@ m_DoingPickups(false)
 	m_TilesMenu->addButton(new UIToggle("MenuTileChest"));
     
     m_PickupsMenu = new UISideMenu(this, SideMenuRight);
-    m_PickupsMenu->addButton(new UIToggle("Health"));
 	m_PickupsMenu->addButton(new UIToggle("AmmoV2"));
 	m_PickupsMenu->addButton(new UIToggle("Coin"));
+    m_PickupsMenu->addButton(new UIToggle("Health"));    
     
 	m_OptionsMenu = new UISideMenu(this, SideMenuLeft);
 	m_OptionsMenu->addButton(new UIButton("MenuOptionSave"));

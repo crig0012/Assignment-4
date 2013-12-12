@@ -17,12 +17,21 @@
 #include "../../Constants/Constants.h"
 #include "../../Math/GDRandomSearch.h"
 #include "../../UI/UIFont.h"
+#include <sstream>
 
 Tower::Tower(Level* aLevel, TowerType towerType) : Player(aLevel),
     m_TowerType(towerType),
     m_Then(time(0)),
     m_UpgradeLevel(1)
-{
+{    
+    m_Smoke1 = false;
+    m_Smoke2 = false;
+    m_Smoke3 = false;
+    m_Smoke4 = false;
+    
+    m_Smoke = new UIFont("Smoke");
+    m_IsSmoking = false;
+    
     m_Explo1 = false;
     m_Explo2 = false;
     m_Explo3 = false;
@@ -52,6 +61,15 @@ void Tower::upgradeTower()
     {
         m_UpgradeLevel++;
     }
+}
+
+std::string Tower::getUpgradeLevelStr()
+{
+    std::stringstream streamThing;
+    streamThing << getUpgradeLevel();
+    std::string lastStringThing = streamThing.str();
+    
+    return lastStringThing;
 }
 
 int Tower::getUpgradeLevel()
@@ -144,8 +162,15 @@ void Tower::update(double delta)
         }
 }
 
+//OpenGLTexture* Tower::getTexture()
+//{
+    
+//}
+
 void Tower::paint()
 {
+    if(getTowerType() == TowerTypeBasic)
+    
     OpenGLRenderer::getInstance()->drawTexture(m_TowerTexture, getX(), getY());
     
     for(int i = 0; i < m_Projectiles.size(); i++)
@@ -185,13 +210,19 @@ void Tower::handlePlayerCollision(Projectile *projectile)
             {
                 Log::debug("Tower projectile hit an enemy at index %i", i);
                 
-                if(m_Level != NULL)
+                if(enemy->getHealth() <= 0)
                 {
-                    m_Level->setPickupTypeAtIndex(PickupTypeAmmo, m_Level->getTileIndexForPlayer(enemy));
+                    GDRandom random;
+                    random.randomizeSeed();
+                    
+                    PickupType types[] = {PickupTypeAmmo, PickupTypeCoin, PickupTypeHealth};
+                    int index = random.random(3);
+                    
+                    m_Level->setPickupTypeAtIndex(types[index], m_Level->getTileIndexForPlayer(enemy));
                 }
                 
                 //Apply damage to the enemy AND set the projectile to inactive
-                enemy->applyDamage(projectile->getDamage() * getUpgradeLevel() * .2, m_Level->getTileIndexForTile(enemyTile));
+                enemy->applyDamage(projectile->getDamage() * getUpgradeLevel(), m_Level->getTileIndexForTile(enemyTile));
                 projectile->setIsActive(false);
             }
         }
@@ -259,45 +290,111 @@ void Tower::explode()
     if(m_Explo1 == true)
     {
         m_Explosion->setText("1");
-        m_Explosion->draw(600, 300);
+        m_Explosion->draw(getX(), getY());
     }
 
     if(m_Explo2 == true)
     {
         m_Explosion->setText("2");
-        m_Explosion->draw(600, 300);
+        m_Explosion->draw(getX(), getY());
     }
 
     if(m_Explo3 == true)
     {
         m_Explosion->setText("3");
-        m_Explosion->draw(600, 300);
+        m_Explosion->draw(getX(), getY());
     }
 
     if(m_Explo4 == true)
     {
         m_Explosion->setText("4");
-        m_Explosion->draw(600, 300);
+        m_Explosion->draw(getX(), getY());
     }
     
     if(m_Explo5 == true)
     {
         m_Explosion->setText("5");
-        m_Explosion->draw(600, 300);
+        m_Explosion->draw(getX(), getY());
     }
 
     if(m_Explo6 == true)
     {
         m_Explosion->setText("6");
-        m_Explosion->draw(600, 300);
+        m_Explosion->draw(getX(), getY());
     }
 
     if(m_Explo7 == true)
     {
         m_Explosion->setText("7");
-        m_Explosion->draw(600, 300);
+        m_Explosion->draw(getX(), getY());
     
         time(&m_ThenExplode);
         m_IsExploding = false;
+        m_IsSmoking = true;
+        smoke();
     }
+}
+
+void Tower::smoke()
+{
+    m_IsExploding = true;
+    
+    time(&m_NowExplode);
+    
+    int explosionTime = (m_NowExplode - m_ThenExplode);
+    
+    switch (explosionTime)
+    {
+        case 1:
+            m_Smoke4 = false;
+            m_Smoke1 = true;
+            break;
+            
+        case 2:
+            m_Smoke1= false;
+            m_Smoke2 = true;
+            break;
+            
+        case 3:
+            m_Smoke2 = false;
+            m_Smoke3 = true;
+            break;
+            
+        case 4:
+            m_Smoke3 = false;
+            m_Smoke4 = true;
+            break;
+            
+        default:
+            break;
+    }
+    
+    if(m_Smoke1 == true)
+    {
+        m_Smoke->setText("1");
+        m_Smoke->draw(getX(), getY());
+    }
+    
+    if(m_Smoke2 == true)
+    {
+        m_Smoke->setText("2");
+        m_Smoke->draw(getX(), getY());
+    }
+    
+    if(m_Smoke3 == true)
+    {
+        m_Smoke->setText("3");
+        m_Smoke->draw(getX(), getY());
+    }
+    
+    if(m_Smoke4 == true)
+    {
+        m_Smoke->setText("4");
+        m_Smoke->draw(getX(), getY());
+    }
+}
+
+bool Tower::getIsSmoking()
+{
+    return m_IsSmoking;
 }

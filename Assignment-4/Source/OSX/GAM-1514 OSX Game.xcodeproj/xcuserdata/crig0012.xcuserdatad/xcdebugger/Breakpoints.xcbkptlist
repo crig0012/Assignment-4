@@ -7,13 +7,52 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "../Common/Game/Tiles/TowerTile.cpp"
-         timestampString = "408561400.911544"
+         filePath = "../Common/Menus/SettingsMenu.cpp"
+         timestampString = "408571021.334102"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "16"
-         endingLineNumber = "16"
-         landmarkName = "TowerTile::TowerTile(const char* textureName)"
+         startingLineNumber = "76"
+         endingLineNumber = "76"
+         landmarkName = "SettingsMenu::buttonAction(UIButton* button)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../Common/Level Editor/LevelEditor.cpp"
+         timestampString = "408574506.116061"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "319"
+         endingLineNumber = "319"
+         landmarkName = "LevelEditor::mouseLeftClickUpEvent(float positionX, float positionY)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../Common/Game/Level.cpp"
+         timestampString = "408576722.726342"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "688"
+         endingLineNumber = "688"
+         landmarkName = "Level::load(const char* levelName)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../Common/Game/Towers/Tower.cpp"
+         timestampString = "408577005.924134"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "343"
+         endingLineNumber = "343"
+         landmarkName = "Tower::smoke()"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -20,6 +20,8 @@ public:
   
     //Return the type of the tile
     const char* getType();
+    
+    float getTileSpeed();
 };
 
 #endif

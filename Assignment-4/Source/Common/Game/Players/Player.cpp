@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <math.h>
+#include "../../Screen Manager/ScreenManager.h"
 
 Player::Player(Level* aLevel)
 {
@@ -274,6 +275,17 @@ void Player::applyDamage(int damage, int index)
         {
             setIsActive(false);
             Log::debug("Player is dead");
+            
+            if(getType() == HERO_TYPE)
+                ScreenManager::getInstance()->switchScreen(SPLASH_MENU_SCREEN_NAME);
+            
+            GDRandom random;
+            random.randomizeSeed();
+                
+            PickupType types[] = {PickupTypeAmmo, PickupTypeCoin, PickupTypeHealth};
+            int index = random.random(3);
+                
+            m_Level->setPickupTypeAtIndex(types[index], m_Level->getTileIndexForPlayer(this));
         }
         
         else
@@ -324,15 +336,18 @@ void Player::handlePickup(Pickup* pickup)
 	switch (pickup->getPickupType())
 	{
         case PickupTypeAmmo:
-            m_Ammo += ((AmmoPickup*)pickup)->getAmmoCount();
+            //m_Ammo += ((AmmoPickup*)pickup)->getAmmoCount();
+            m_Ammo += 3;
             break;
             
         case PickupTypeCoin:
-            m_Money += ((CoinPickup*)pickup)->getCoinCount();
+            //m_Money += ((CoinPickup*)pickup)->getCoinCount();
+            m_Money += 1;
             break;
             
         case PickupTypeHealth:
-            m_Health += ((HealthPickup*)pickup)->getHealthCount();
+            //m_Health += ((HealthPickup*)pickup)->getHealthCount();
+            m_Health += 5;
             break;
 
 	default:

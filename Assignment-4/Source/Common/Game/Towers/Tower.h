@@ -27,6 +27,7 @@ public:
 	Tower(Level* aLevel, TowerType towerType);
 	virtual ~Tower();
     
+    void smoke();
     void explode();
 
 	virtual void update(double delta);
@@ -38,9 +39,11 @@ public:
 	virtual TowerType getTowerType();
     
     virtual void upgradeTower();
+    virtual std::string getUpgradeLevelStr();
     virtual int getUpgradeLevel();
     
     bool getIsExploding();
+    bool getIsSmoking();
 
 protected:
     void handlePlayerCollision(Projectile* projectile);
@@ -48,12 +51,14 @@ protected:
     TowerType m_TowerType;
     OpenGLTexture* m_TowerTexture;
     
-private:
+	int m_Health;
+    
     std::vector<Enemy*> m_EnemyArray;
     int m_UpgradeLevel;
     int m_FireRate;
     
     UIFont* m_Explosion;
+    UIFont* m_Smoke;
     
     time_t m_Then;
     time_t m_Now;
@@ -66,10 +71,19 @@ private:
     bool m_Explo6;
     bool m_Explo7;
     
+    bool m_Smoke1;
+    bool m_Smoke2;
+    bool m_Smoke3;
+    bool m_Smoke4;
+    
     bool m_IsExploding;
+    bool m_IsSmoking;
     
     time_t m_ThenExplode;
     time_t m_NowExplode;
+    
+    time_t m_ThenSmoking;
+    time_t m_NowSmoking;
     
     void setTime();
 };

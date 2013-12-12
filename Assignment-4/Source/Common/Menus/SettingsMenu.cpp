@@ -9,10 +9,11 @@
 SettingsMenu::SettingsMenu() : Menu(NULL, NULL),
 	m_SelectedTileIndex(-1)
 {
-    addButton(new UIToggle("ButtonDifficulty"));	  //TODO: Make these
-	addButton(new UIToggle("Tile", 9));
-	addButton(new UIToggle("ButtonTimeLimit"));
+    addButton(new UIToggle("Difficulty", 3));	  //TODO: Make these
+	addButton(new UIToggle("Tile", 10));
+	addButton(new UIToggle("Tile", 10));
     
+    m_Difficulty = 2;
 
 	addButton(new UIButton("Back"));
 }
@@ -43,7 +44,22 @@ void SettingsMenu::toggleAction(UIToggle* toggle)
 
 	if(index == 0)
     {
-		toggle->isToggled();	
+		toggle->isToggled();
+        
+        if(m_Difficulty == 2)
+        {
+            m_Difficulty = 3;
+        }
+        else if(m_Difficulty == 1)
+        {
+            m_Difficulty = 2;
+        }
+        
+        else if(m_Difficulty == 3)
+        {
+            m_Difficulty = 1;
+        }
+        ((Game*)ScreenManager::getInstance()->getScreenForName(GAME_SCREEN_NAME))->getLevel()->setDifficulty(m_Difficulty);
     }
 	else if(index == 1)
 	{
@@ -53,17 +69,13 @@ void SettingsMenu::toggleAction(UIToggle* toggle)
     {
 		toggle->isToggled();
     }
-    else if (index == 3)
-    {
-		toggle->isToggled();
-    }
 }
 
 void SettingsMenu::buttonAction(UIButton* button)
 {
     int index = getIndexForButton(button);
 
-	if (index == 0)
+	if (index == 3)
     {
         ScreenManager::getInstance()->switchScreen(MAIN_MENU_SCREEN_NAME);
     }

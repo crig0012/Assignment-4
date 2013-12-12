@@ -28,5 +28,5 @@ const char* TreeTile::getType()
 
 float TreeTile::getTileSpeed()
 {
-    return 0.8f;
+    return 0.4f;
 }

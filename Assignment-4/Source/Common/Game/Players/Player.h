@@ -12,6 +12,7 @@
 #include "../GameObject.h"
 #include "../Pathfinder/PathFinder.h"
 #include "../Projectiles.h"
+#include "../../Math/GDRandomSearch.h"
 #include <vector>
 #include <time.h>
 

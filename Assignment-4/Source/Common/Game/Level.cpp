@@ -53,7 +53,8 @@ m_HorizontalTiles(0),
 	m_Pickup(NULL),
 	m_TowerType(TowerTypeBasic),
     m_IsEditing(isEditingLevel),
-    m_TimeToDraw(0)
+    m_TimeToDraw(0),
+    m_Difficulty(2)
 {
 	//Create the player object
 	if(m_IsEditing == false)
@@ -142,13 +143,19 @@ void Level::randomizeLevel()
 	for( int i = 0; i < getNumberOfTiles(); i++)
 	{
 		int index = random.random(6);
+        
+        if(index == 5)
+        {
+            setTowerTypeAtIndex(TowerTypeBasic, index);
+        }
+        
 		setTileTypeAtIndex(types[index], i);
 	}
 }
 
-Tower** Level::getTowers()
+Tile** Level::getTiles()
 { 
-    return m_Towers;
+    return m_Tiles;
 }
 
 bool Level::getIsEditing()
@@ -158,13 +165,31 @@ bool Level::getIsEditing()
 
 void Level::update(double aDelta)
 {
+    if(m_Enemies.size() == 0)
+    {
+        ScreenManager::getInstance()->switchScreen(LEVEL_SELECT_MENU_SCREEN_NAME);
+    }
+    
 	//Update all the game tiles
 	for(int i = 0; i < getNumberOfTiles(); i++)
 	{
 		if(m_Tiles[i] != NULL)
 		{
 			m_Tiles[i]->update(aDelta);
-		}
+            
+            if(m_Tiles[i]->getTower() != NULL)
+            {
+                if(m_Tiles[i]->getTower()->getIsExploding() == true)
+                {
+                    m_Tiles[i]->getTower()->explode();
+                }
+                
+                if(m_Tiles[i]->getTower()->getIsSmoking() == true)
+                {
+                    m_Tiles[i]->getTower()->explode();
+                }
+            }
+        }
 	}
 
 	//Update the Hero
@@ -181,7 +206,7 @@ void Level::update(double aDelta)
 			m_Enemies.at(i)->update(aDelta);
             if(m_Enemies.at(i)->getPathFinder() == NULL)
             {
-                Tower** m_Towers = getTowers();
+                Tile** m_Tiles = getTiles();
                 
                 GDRandom random;
                 random.randomizeSeed();
@@ -315,6 +340,16 @@ void Level::paint()
 void Level::setTime()
 {
     time(&m_Start);
+}
+
+void Level::setDifficulty(int difficulty)
+{
+    m_Difficulty = difficulty;
+}
+
+int Level::getDifficulty()
+{
+    return m_Difficulty;
 }
 
 const char* Level::toConst(std::string stringToChange, int intToChange)
@@ -500,7 +535,31 @@ void Level::keyDownEvent(int keyCode)
 
 void Level::keyUpEvent(int keyCode)
 {
-	if(keyCode == KEYCODE_1)
+    if(keyCode == KEYCODE_O)
+    {
+        m_Hero->setSpeed(PLAYER_SPEED * 5);
+        for(int i = 0; i < m_Enemies.size(); i++)
+        {
+            m_Enemies.at(i)->setSpeed(PLAYER_SPEED * 5);
+        }
+    }
+    else if(keyCode == KEYCODE_K)
+    {
+        m_Hero->setSpeed(PLAYER_SPEED);
+        for(int i = 0; i < m_Enemies.size(); i++)
+        {
+            m_Enemies.at(i)->setSpeed(PLAYER_SPEED);
+        }
+    }
+    else if(keyCode == KEYCODE_M)
+    {
+        m_Hero->setSpeed(PLAYER_SPEED / 5);
+        for(int i = 0; i < m_Enemies.size(); i++)
+        {
+            m_Enemies.at(i)->setSpeed(PLAYER_SPEED / 5);
+        }
+    }
+	else if(keyCode == KEYCODE_1)
 	{
 		setTowerType(TowerTypeBasic);
 	}
@@ -512,6 +571,19 @@ void Level::keyUpEvent(int keyCode)
 	{
 		reset();
 	}
+    else if(keyCode == KEYCODE_B)
+    {
+        for(int i = 0; i < getNumberOfTiles(); i++)
+        {
+            if(m_Tiles[i] != NULL)
+            {
+                if(m_Tiles[i]->getTower() != NULL)
+                {
+                    m_Tiles[i]->getTower()->explode();
+                }
+            }
+        }
+    }
 	else if(keyCode == KEYCODE_I)
 	{
 		togglePaintTileIndexes();
@@ -585,6 +657,7 @@ void Level::load(const char* levelName)
 			for(int i = 0; i < levelSize; i++)
 			{
 				PickupType pickupType = PickupTypeUnknown;
+                TowerType towerType = TowerTypeUnknown;
 
 				//Check to see if the Buuffer[i] contains the AmmoPickup bit
 				if((buffer[i] & PickupTypeAmmo) > 0)
@@ -596,11 +669,41 @@ void Level::load(const char* levelName)
 					buffer[i] &= ~PickupTypeAmmo;
 				}
 
+                if((buffer[i] & PickupTypeCoin) > 0)
+				{
+					//It does
+					pickupType = PickupTypeCoin;
+                    
+					//Clear the AmmoPickup bit
+					buffer[i] &= ~PickupTypeCoin;
+				}
+                
+                if((buffer[i] & PickupTypeHealth) > 0)
+				{
+					//It does
+					pickupType = PickupTypeHealth;
+                    
+					//Clear the AmmoPickup bit
+					buffer[i] &= ~PickupTypeHealth;
+				}
+                
+                if((buffer[i] & TowerTypeBasic) > 0)
+				{
+					//It does
+					towerType = TowerTypeBasic;
+                    
+					//Clear the AmmoPickup bit
+					buffer[i] &= ~TowerTypeBasic;
+				}
+                
                 //Set the tile type
 				setTileTypeAtIndex((TileType)buffer[i], i);
 
 				//Set the Pickup type
 				setPickupTypeAtIndex(pickupType, i);
+                
+                //Set the Tower type
+                setTowerTypeAtIndex(towerType, i);
 			}
 
 			//Delete the buffer, it was allocated on the heap after all
@@ -658,6 +761,11 @@ void Level::save(const char* levelName)
 		if(m_Tiles[i]->getPickup() != NULL && m_Tiles[i]->getPickup()->getPickupType() != PickupTypeUnknown)
 		{
 			Buffer[i] |= m_Tiles[i]->getPickup()->getPickupType();
+		}
+        
+        if(m_Tiles[i]->getTower() != NULL && m_Tiles[i]->getTower()->getTowerType() != TowerTypeUnknown)
+		{
+			Buffer[i] |= m_Tiles[i]->getTower()->getTowerType();
 		}
 	}
 
@@ -916,11 +1024,17 @@ void Level::setTowerTypeAtIndex(TowerType towerType, int index)
             break;
 		}
 
-		//Calculate the coordinates and set the tile position and size
-		int coordinateX = (index % getNumberOfHorizontalTiles());
-		int coordinateY = ((index - coordinateX) / getNumberOfHorizontalTiles());
-		m_Tiles[index]->setPosition(coordinateX  * m_TileSize, coordinateY * m_TileSize);
-		m_Tiles[index]->setSize(m_TileSize, m_TileSize);
+		//Set the pickups position and size
+        if(m_Tiles[index]->getTower() != NULL)
+        {
+            int coordinateX = (index % getNumberOfHorizontalTiles());
+            int coordinateY = ((index - coordinateX) / getNumberOfHorizontalTiles());
+            
+            Tower* tower = m_Tiles[index]->getTower();
+            float x = (coordinateX * m_TileSize) + (m_TileSize - tower->getWidth()) / 2.0f;
+            float y = (coordinateY * m_TileSize) + (m_TileSize - tower->getHeight()) / 2.0f;
+            tower->setPosition(x, y);
+        }
     }
 }
 

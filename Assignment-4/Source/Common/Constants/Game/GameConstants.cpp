@@ -35,6 +35,10 @@ const char* AMMO_PICKUP_TYPE = "AmmoPickup";
 const char* HEALTH_PICKUP_TYPE = "HealthPickup";
 const char* COIN_PICKUP_TYPE = "CoinPickup";
 
+//Difficulty Constants
+const int DIFFICULTY_EASY = 1;
+const int DIFFICULTY_MEDIUM = 2;
+const int DIFFICULTY_HARD = 3;
 
 //Tower constants
 const char* BASIC_TOWER_TYPE = "BasicTower";

@@ -29,7 +29,7 @@ protected:
 private:
 	OpenGLTexture* m_Enemy;
 	Hero* m_Hero;
-    Tower** m_Towers;
+    Tile** m_Tiles;
 };
 
 #endif
