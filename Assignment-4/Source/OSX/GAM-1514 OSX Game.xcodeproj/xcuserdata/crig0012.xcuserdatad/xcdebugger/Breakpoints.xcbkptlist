@@ -7,19 +7,6 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "../Common/Menus/SettingsMenu.cpp"
-         timestampString = "408571021.334102"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "76"
-         endingLineNumber = "76"
-         landmarkName = "SettingsMenu::buttonAction(UIButton* button)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "../Common/Level Editor/LevelEditor.cpp"
          timestampString = "408574506.116061"
          startingColumnNumber = "9223372036854775807"
